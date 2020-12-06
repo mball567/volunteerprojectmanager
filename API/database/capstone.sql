@@ -21,7 +21,85 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
 	user_role varchar(50) NOT NULL
-	CONSTRAINT PK_user PRIMARY KEY (user_id)
+	CONSTRAINT PK_users PRIMARY KEY (user_id)
+);
+
+CREATE TABLE profiles (
+	profile_id int IDENTITY(1,1) NOT NULL,
+	user_id int NOT NULL,
+	first_name varchar(100) NOT NULL,
+	last_name varchar(100) NOT NULL,
+	bio varchar(1000) NOT NULL,
+	prof_location_zipcode int NOT NULL,
+	prof_location_city varchar (100) NOT NULL,
+	prof_location_state varchar (50) NOT NULL,
+	interest varchar (100) NOT NULL,
+	contact_email varchar (200) NOT NULL,
+	total_hours int,
+	CONSTRAINT PK_profiles PRIMARY KEY (profile_id),
+	CONSTRAINT FK_profiles FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE projects (
+	proj_id int IDENTITY(1,1) NOT NULL,
+	proj_name varchar(100) NOT NULL,
+	proj_desc varchar(1000) NOT NULL,
+	proj_location_zipcode int NOT NULL,
+	proj_location_city varchar (100) NOT NULL,
+	proj_location_state varchar (50) NOT NULL,
+	proj_working_hours int NOT NULL,
+	point_of_contact int NOT NULL,
+	CONSTRAINT PK_projects PRIMARY KEY (proj_id),
+);
+
+CREATE TABLE organizations(
+	org_id int IDENTITY(1,1) NOT NULL,
+	user_id int NOT NULL,
+	org_name varchar (100) NOT NULL,
+	org_bio varchar (1000) NOT NULL,
+	org_location_zipcode int NOT NULL,
+	org_location_city varchar (100) NOT NULL,
+	org_location_state varchar (50) NOT NULL,
+	org_interest varchar (100) NOT NULL,
+	contact_email varchar (200) NOT NULL,
+	CONSTRAINT PK_organizations PRIMARY KEY (org_id),
+	CONSTRAINT FK_organizations_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE teams(
+	team_id int IDENTITY(1,1) NOT NULL,
+	team_name varchar (100) NOT NULL,
+	team_bio varchar (1000) NOT NULL,
+	team_location_zipcode int NOT NULL,
+	team_location_city varchar (100) NOT NULL,
+	team_location_state varchar (50) NOT NULL,
+	team_interest varchar (100) NOT NULL,
+	team_contact int NOT NULL,
+	CONSTRAINT PK_teams PRIMARY KEY (team_id),
+);
+
+CREATE TABLE profiles_projects (
+	profile_id int NOT NULL,
+	project_id int NOT NULL,
+	CONSTRAINT pk_profiles_projects_project_id_user_id PRIMARY KEY (profile_id, project_id),
+	CONSTRAINT fk_profiles_projects_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id),
+	CONSTRAINT fk_profiles_projects_project_id FOREIGN KEY (project_id) REFERENCES projects (proj_id)
+);
+
+CREATE TABLE profiles_teams (
+	team_id int NOT NULL,
+	profile_id int NOT NULL,
+	CONSTRAINT pk_profiles_teams_profiles_teams PRIMARY KEY (team_id, profile_id),
+	CONSTRAINT fk_profiles_teams_team_id FOREIGN KEY (team_id) REFERENCES teams (team_id),
+	CONSTRAINT fk_profiles_teams_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id)
+);
+
+CREATE TABLE orgs_projects (
+	project_id int NOT NULL,
+	org_id int NOT NULL,
+	CONSTRAINT pk_orgs_projects_project_id_org_id PRIMARY KEY (project_id, org_id),
+	CONSTRAINT fk_orgs_projects_project_id FOREIGN KEY (project_id) REFERENCES projects (proj_id),
+	CONSTRAINT fk_orgs_projects_org_id FOREIGN KEY (org_id) REFERENCES organizations (org_id)
 )
 
 --populate default data
