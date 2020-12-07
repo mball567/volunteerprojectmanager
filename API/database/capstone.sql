@@ -33,23 +33,9 @@ CREATE TABLE profiles (
 	prof_location_zipcode int NOT NULL,
 	prof_location_city varchar (100) NOT NULL,
 	prof_location_state varchar (50) NOT NULL,
-	interest varchar (100) NOT NULL,
 	contact_email varchar (200) NOT NULL,
-	total_hours int,
 	CONSTRAINT PK_profiles PRIMARY KEY (profile_id),
 	CONSTRAINT FK_profiles FOREIGN KEY (user_id) REFERENCES users (user_id)
-);
-
-CREATE TABLE projects (
-	proj_id int IDENTITY(1,1) NOT NULL,
-	proj_name varchar(100) NOT NULL,
-	proj_desc varchar(1000) NOT NULL,
-	proj_location_zipcode int NOT NULL,
-	proj_location_city varchar (100) NOT NULL,
-	proj_location_state varchar (50) NOT NULL,
-	proj_working_hours int NOT NULL,
-	point_of_contact int NOT NULL,
-	CONSTRAINT PK_projects PRIMARY KEY (proj_id),
 );
 
 CREATE TABLE organizations(
@@ -60,10 +46,23 @@ CREATE TABLE organizations(
 	org_location_zipcode int NOT NULL,
 	org_location_city varchar (100) NOT NULL,
 	org_location_state varchar (50) NOT NULL,
-	org_interest varchar (100) NOT NULL,
 	contact_email varchar (200) NOT NULL,
 	CONSTRAINT PK_organizations PRIMARY KEY (org_id),
 	CONSTRAINT FK_organizations_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE projects (
+	proj_id int IDENTITY(1,1) NOT NULL,
+	org_id int NULL,
+	proj_name varchar(100) NOT NULL,
+	proj_desc varchar(1000) NOT NULL,
+	proj_location_zipcode int NOT NULL,
+	proj_location_city varchar (100) NOT NULL,
+	proj_location_state varchar (50) NOT NULL,
+	proj_working_hours int NOT NULL,
+	point_of_contact int NOT NULL,
+	CONSTRAINT PK_projects PRIMARY KEY (proj_id),
+	CONSTRAINT FK_projects_org_id FOREIGN KEY (org_id) REFERENCES organizations (org_id)
 );
 
 CREATE TABLE teams(
@@ -73,14 +72,20 @@ CREATE TABLE teams(
 	team_location_zipcode int NOT NULL,
 	team_location_city varchar (100) NOT NULL,
 	team_location_state varchar (50) NOT NULL,
-	team_interest varchar (100) NOT NULL,
 	team_contact int NOT NULL,
 	CONSTRAINT PK_teams PRIMARY KEY (team_id),
+);
+
+CREATE TABLE causes (
+	cause_id int IDENTITY(1,1) NOT NULL,
+	cause_name varchar (30) NOT NULL,
+	CONSTRAINT PK_causes PRIMARY KEY (cause_id),
 );
 
 CREATE TABLE profiles_projects (
 	profile_id int NOT NULL,
 	project_id int NOT NULL,
+	hours_worked int DEFAULT 0 NOT NULL,
 	CONSTRAINT pk_profiles_projects_project_id_user_id PRIMARY KEY (profile_id, project_id),
 	CONSTRAINT fk_profiles_projects_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id),
 	CONSTRAINT fk_profiles_projects_project_id FOREIGN KEY (project_id) REFERENCES projects (proj_id)
@@ -94,13 +99,28 @@ CREATE TABLE profiles_teams (
 	CONSTRAINT fk_profiles_teams_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id)
 );
 
-CREATE TABLE orgs_projects (
-	project_id int NOT NULL,
+CREATE TABLE organizations_causes(
 	org_id int NOT NULL,
-	CONSTRAINT pk_orgs_projects_project_id_org_id PRIMARY KEY (project_id, org_id),
-	CONSTRAINT fk_orgs_projects_project_id FOREIGN KEY (project_id) REFERENCES projects (proj_id),
-	CONSTRAINT fk_orgs_projects_org_id FOREIGN KEY (org_id) REFERENCES organizations (org_id)
+	cause_id int NOT NULL,
+	CONSTRAINT pk_organizations_causes_oranizations_causes PRIMARY KEY (org_id, cause_id),
+	CONSTRAINT fk_organizations_causes_org_id FOREIGN KEY (org_id) REFERENCES organizations (org_id),
+	CONSTRAINT fk_organizations_causes_cause_id FOREIGN KEY (cause_id) REFERENCES causes (cause_id)
+);
+CREATE TABLE profiles_causes (
+	profile_id int NOT NULL,
+	cause_id int NOT NULL,
+	CONSTRAINT pk_profiles_causes_profiles_causes PRIMARY KEY (profile_id, cause_id),
+	CONSTRAINT fk_profiles_causes_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id),
+	CONSTRAINT fk_profiles_causes_cause_id FOREIGN KEY (cause_id) REFERENCES causes (cause_id)
+);
+CREATE TABLE teams_causes (
+	team_id int NOT NULL,
+	cause_id int NOT NULL,
+	CONSTRAINT pk_teams_causes_teams_causes PRIMARY KEY (team_id, cause_id),
+	CONSTRAINT fk_teams_causes_team_id FOREIGN KEY (team_id) REFERENCES teams (team_id),
+	CONSTRAINT fk_teams_causes_cause_id FOREIGN KEY (cause_id) REFERENCES causes (cause_id)
 )
+
 
 --populate default data
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
