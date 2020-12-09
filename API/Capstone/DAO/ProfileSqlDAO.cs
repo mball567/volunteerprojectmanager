@@ -7,7 +7,7 @@ using Capstone.Security.Models;
 
 namespace Capstone.DAO
 {
-    public class ProfileSqlDAO
+    public class ProfileSqlDAO : IProfileSqlDAO
     {
         private readonly string connectionString;
 

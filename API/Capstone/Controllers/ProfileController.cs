@@ -3,26 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Capstone.DAO;
+using Capstone.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Capstone.Controllers
 {
-    [Route("[controller]")]
+    [Route("/profiles")]
     [ApiController]
-    public class SampleController : ControllerBase
+    public class ProfileController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult GetSamples()
+        private IProfileSqlDAO profileSqlDAO;
+
+        public ProfileController(IProfileSqlDAO profileSqlDAO)
         {
-            return Ok(new Object[]
+            this.profileSqlDAO = profileSqlDAO;
+        }
+
+        [HttpGet("{userId}")]
+        public ActionResult<Profile> GetProfileInfo(int userId)
+        {
+            Profile profile = profileSqlDAO.getProfileOnLogin(userId);
+
+            if (profile == null)
             {
-                new { Code = "AZ", Name="Arizona"},
-                new { Code = "AK", Name="Alaska"},
-                new { Code = "NH", Name="New Hampshire"},
-                new { Code = "OH", Name="Ohio"},
-            });
+                return NotFound();
+            }
+
+            return Ok(profile);
         }
 
         [Authorize]
@@ -34,6 +44,7 @@ namespace Capstone.Controllers
         }
 
         #region Methods for getting the Logged-in user information
+
         /**************************************************************************************************
          *  Methods for getting the Logged-in user information
          *  1. For these methods to work, they MUST be called from a controller action that had the [Authorize] attribute.
@@ -41,6 +52,7 @@ namespace Capstone.Controllers
          *      base class that contains these methods (protected, not private), and derive each of your controllers
          *      from that base class.
          *************************************************************************************************/
+
         private string UserName
         {
             get
@@ -56,6 +68,7 @@ namespace Capstone.Controllers
                 return Convert.ToInt32(User.Claims.FirstOrDefault(cl => cl.Type == "sub").Value);
             }
         }
+
         private string UserRole
         {
             get
@@ -63,11 +76,11 @@ namespace Capstone.Controllers
                 return User.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Role).Value;
             }
         }
+
         /**************************************************************************************************
          *  END OF Methods for getting the Logged-in user information
          *************************************************************************************************/
-        #endregion
 
-
+        #endregion Methods for getting the Logged-in user information
     }
 }

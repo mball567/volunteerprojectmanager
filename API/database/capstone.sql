@@ -30,7 +30,7 @@ CREATE TABLE profiles (
 	user_id int NOT NULL,
 	first_name varchar(100) NOT NULL,
 	last_name varchar(100) NOT NULL,
-	prof_image varchar(200) NOT NULL,
+	prof_image varchar(200) NULL,
 	bio varchar(1000) NOT NULL,
 	prof_zipcode int NOT NULL,
 	prof_city varchar (100) NOT NULL,
@@ -172,5 +172,7 @@ INSERT INTO causes (cause_name) VALUES ('Special Needs');
 INSERT INTO causes (cause_name) VALUES ('Sports and Recreation');
 INSERT INTO causes (cause_name) VALUES ('Veterans');
 INSERT INTO causes (cause_name) VALUES ('Women');
+
+INSERT INTO profiles (user_id, first_name, last_name, bio, prof_zipcode, prof_city, prof_state, prof_contact_email) VALUES (1, 'Mike', 'Morel', 'Lorem ipsum ipsofacto wingardium leviosa', 44113, 'Cleveland', 'OH', 'mmorel@gmail.com')
 
 GO
