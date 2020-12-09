@@ -13,5 +13,11 @@ export default {
         let url = `/profiles/${userId}`
         
         return http.get(url);
-    }
+    },
+
+    createProfile(profile){
+        let url = `/profiles/${profile.userId}`
+
+        return http.post(url, profile);
+    },
 }

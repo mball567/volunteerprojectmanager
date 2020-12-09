@@ -35,6 +35,19 @@ namespace Capstone.Controllers
             return Ok(profile);
         }
 
+        [HttpPost]
+        public ActionResult<Profile> CreateProfile(Profile profile)
+        {
+            profileSqlDAO.CreateProfile(profile);
+
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            return Created($"/profiles/{profile.userId}", profile);
+        }
+
         [Authorize]
         [HttpGet("auth")]
         public ActionResult GetUserInfo()

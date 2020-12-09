@@ -26,7 +26,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, password_hash, salt, user_role FROM users WHERE username = @username", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT user_id, username, password_hash, salt, user_role, is_organization FROM users WHERE username = @username", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -43,7 +43,6 @@ namespace Capstone.DAO
 
             return returnUser;
         }
-
 
         public User AddUser(string username, string password, string role)
         {

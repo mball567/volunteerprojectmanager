@@ -1,13 +1,13 @@
 <template>
   <div>
     <h1>{{profile.firstName}} {{profile.lastName}}</h1>
-    <h1>{{profile.profId}}</h1>
-    <h1>{{profile.userId}}</h1>
-    <h1>{{profile.bio}}</h1>
-    <h1>{{profile.profileZip}}</h1>
-    <h1>{{profile.profileCity}}</h1>    
-    <h1>{{profile.profileState}}</h1>
-    <h1>{{profile.profileContactEmail}}</h1>
+    <p>Profile ID: {{profile.profileId}}</p>
+    <p>User ID: {{profile.userId}}</p>
+    <p>Bio: {{profile.bio}}</p>
+     <p>Zip: {{profile.profZip}}</p>
+     <p>City: {{profile.profCity}}</p>  
+     <p>State: {{profile.profState}}</p>
+    <p>Email: {{profile.profContactEmail}}</p>
   </div>
 </template>
 
@@ -18,16 +18,16 @@ name: "profile",
 data() {
     return {
         profile: {
-            profId: 0,
+            profileId: 0,
             userId: 0,
             firstName: "",
             lastName: "",
-            profileImg: "",
+            profImg: "",
             bio: "",
-            profileZip: 0,
-            profileCity: "",
-            profileState: "",
-            profileContactEmail: "",
+            profZip: 0,
+            profCity: "",
+            profState: "",
+            profContactEmail: "",
         }
     };
 },

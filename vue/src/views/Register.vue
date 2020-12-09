@@ -5,6 +5,17 @@
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
+      <label for="isOrganization">Are You an Organization?</label>
+      <input
+        type="checkbox"
+        id="isOrganization"
+        class="form-control"
+        placeholder="isOrganization"
+        v-model="checked"
+        v-on:change="setIsOrganization"
+        required
+        autofocus
+      />
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -52,9 +63,11 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+        isOrganization: false,
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
+      checked: false,
     };
   },
   methods: {
@@ -85,6 +98,11 @@ export default {
     clearErrors() {
       this.registrationErrors = false;
       this.registrationErrorMsg = 'There were problems registering this user.';
+    },
+    setIsOrganization() {
+      if (this.checked === true){
+        this.user.isOrganization = true;
+      }
     },
   },
 };

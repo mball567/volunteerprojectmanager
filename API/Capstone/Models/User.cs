@@ -7,6 +7,7 @@
         public string PasswordHash { get; set; }
         public string Salt { get; set; }
         public string Role { get; set; }
+        public bool isOrganization { get; set; }
     }
 
     /// <summary>
