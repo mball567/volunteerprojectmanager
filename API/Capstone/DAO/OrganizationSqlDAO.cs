@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.DAO
 {
-    public class OrganizationSqlDAO
+    public class OrganizationSqlDAO : IOrganizationSqlDAO
     {
         private readonly string connectionString;
 

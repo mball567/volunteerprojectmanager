@@ -18,6 +18,9 @@
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Role { get; set; }
+        public Profile Profile { get; set; }
+        public Organization Organization { get; set; }
+
     }
 
     /// <summary>

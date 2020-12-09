@@ -12,12 +12,16 @@ namespace Capstone.Controllers
         private readonly ITokenGenerator tokenGenerator;
         private readonly IPasswordHasher passwordHasher;
         private readonly IUserDAO userDAO;
+        private readonly IProfileSqlDAO profileSqlDAO;
+        private readonly IOrganizationSqlDAO organizationSqlDAO;
 
-        public LoginController(ITokenGenerator _tokenGenerator, IPasswordHasher _passwordHasher, IUserDAO _userDAO)
+        public LoginController(ITokenGenerator _tokenGenerator, IPasswordHasher _passwordHasher, IUserDAO _userDAO, IProfileSqlDAO _profileSqlDAO, IOrganizationSqlDAO _organizationSqlDAO)
         {
             tokenGenerator = _tokenGenerator;
             passwordHasher = _passwordHasher;
             userDAO = _userDAO;
+            profileSqlDAO = _profileSqlDAO;
+            organizationSqlDAO = _organizationSqlDAO; 
         }
 
         [HttpPost]
@@ -37,6 +41,14 @@ namespace Capstone.Controllers
 
                 // Create a ReturnUser object to return to the client
                 LoginResponse retUser = new LoginResponse() { User = new ReturnUser() { UserId = user.UserId, Username = user.Username, Role = user.Role }, Token = token };
+                if (user.isOrganization)
+                {
+                    retUser.User.Organization = organizationSqlDAO.getOrganizationOnLogin(user.UserId);
+                }
+                else
+                {
+                    retUser.User.Profile = profileSqlDAO.getProfileOnLogin(user.UserId);
+                }
 
                 // Switch to 200 OK
                 result = Ok(retUser);
