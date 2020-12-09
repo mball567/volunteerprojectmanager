@@ -20,7 +20,8 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
-	user_role varchar(50) NOT NULL
+	user_role varchar(50) NOT NULL,
+	is_organization bit NULL,
 	CONSTRAINT PK_users PRIMARY KEY (user_id)
 );
 
@@ -67,6 +68,18 @@ CREATE TABLE projects (
 	CONSTRAINT PK_projects PRIMARY KEY (proj_id),
 	CONSTRAINT FK_projects_org_id FOREIGN KEY (org_id) REFERENCES organizations (org_id)
 );
+
+CREATE TABLE events (
+	event_id int IDENTITY(1,1) NOT NULL,
+	proj_id int NOT NULL,
+	event_name varchar(100) NOT NULL,
+	event_desc varchar(1000) NOT NULL,
+	event_date datetime NOT NULL,
+	event_working_hours int NOT NULL,
+	CONSTRAINT PK_events PRIMARY KEY (event_id),
+	CONSTRAINT FK_events_proj_id FOREIGN KEY (proj_id) REFERENCES projects (proj_id)
+);
+
 
 CREATE TABLE teams(
 	team_id int IDENTITY(1,1) NOT NULL,
