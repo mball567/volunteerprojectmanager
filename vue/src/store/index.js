@@ -37,6 +37,10 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    ADD_PROFILE(state, profile){
+      // set the user ID to the user.userId
+      state.user.profile = profile;
     }
   }
 })

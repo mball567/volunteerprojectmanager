@@ -13,7 +13,6 @@
         placeholder="isOrganization"
         v-model="checked"
         v-on:change="setIsOrganization"
-        required
         autofocus
       />
       <label for="username" class="sr-only">Username</label>
@@ -43,19 +42,23 @@
         v-model="user.confirmPassword"
         required
       />
+      <user-profile/>
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Account
-      </button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
     </form>
   </div>
 </template>
 
 <script>
 import authService from '../services/AuthService';
+import WebService from '../services/WebService.js';
+import UserProfile from '../components/UserProfile.vue';
 
 export default {
   name: 'register',
+  components:{
+    UserProfile,
+  },
   data() {
     return {
       user: {
@@ -76,10 +79,11 @@ export default {
         this.registrationErrors = true;
         this.registrationErrorMsg = 'Password & Confirm Password do not match.';
       } else {
-        authService
-          .register(this.user)
+        authService.register(this.user)
+        
           .then((response) => {
             if (response.status == 201) {
+              WebService.createProfile(this.$store.state.user.profile);
               this.$router.push({
                 path: '/login',
                 query: { registration: 'success' },
