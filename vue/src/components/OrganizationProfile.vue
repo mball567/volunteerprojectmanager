@@ -33,12 +33,12 @@
         required
       />
       <br />
-      <label for="orgName">Organization Name: </label>
-      <input id="orgName" type="text" v-model="organization.orgName" required />
+      <label for="OrgName">Organization Name: </label>
+      <input id="OrgName" type="text" v-model="organization.OrgName" required />
       <br />
 
-      <label for="orgBio">Organization Bio: </label>
-      <input id="orgBio" type="text" v-model="organization.orgBio" required /> <br />
+      <label for="OrgBio">Organization Bio: </label>
+      <input id="OrgBio" type="text" v-model="organization.OrgBio" required /> <br />
 
       <label for="orgZipCode">ZIP Code (5 digits):</label>
       <input
@@ -46,20 +46,20 @@
         id="orgZipCode"
         pattern="[0-9]{5}"
         title="Five digit zip code"
-        v-model="organization.orgZip"
+        v-model="organization.OrgZip"
         required
       />
       <br />
 
-      <label for="orgCity">City: </label>
-      <input id="orgCity" type="text" v-model="organization.orgCity" required /> <br />
+      <label for="OrgCity">City: </label>
+      <input id="OrgCity" type="text" v-model="organization.OrgCity" required /> <br />
 
-      <label for="orgState">State: </label>
-      <input id="orgState" type="text" v-model="organization.orgState" required />
+      <label for="OrgState">State: </label>
+      <input id="OrgState" type="text" v-model="organization.OrgState" required />
       <br />
 
-      <label for="orgContactEmail">E-Mail Address: </label>
-      <input type="email" v-model="organization.orgContactEmail" required /> <br />
+      <label for="OrgContactEmail">E-Mail Address: </label>
+      <input type="email" v-model="organization.OrgContactEmail" required /> <br />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -77,13 +77,13 @@ export default {
   data() {
     return {
       organization: {
-        orgName: "",
-        orgImage: "",
-        orgBio: "",
-        orgZip: 0,
-        orgCity: "",
-        orgState: "",
-        orgContactEmail: "",
+        OrgName: "",
+        OrgImage: "",
+        OrgBio: "",
+        OrgZip: 0,
+        OrgCity: "",
+        OrgState: "",
+        OrgContactEmail: "",
       },
       user: {
         username: "",

@@ -33,16 +33,16 @@
         required
       />
       <br />
-      <label for="firstName">First Name: </label>
-      <input id="firstName" type="text" v-model="profile.firstName" required />
+      <label for="FirstName">First Name: </label>
+      <input id="FirstName" type="text" v-model="profile.FirstName" required />
       <br />
 
-      <label for="lastName">Last Name: </label>
-      <input id="lastName" type="text" v-model="profile.lastName" required />
+      <label for="LastName">Last Name: </label>
+      <input id="LastName" type="text" v-model="profile.LastName" required />
       <br />
 
-      <label for="bio">User Bio: </label>
-      <input id="bio" type="text" v-model="profile.bio" required /> <br />
+      <label for="Bio">User Bio: </label>
+      <input id="Bio" type="text" v-model="profile.Bio" required /> <br />
 
       <label for="zipCode">ZIP Code (5 digits):</label>
       <input
@@ -50,18 +50,18 @@
         id="zipCode"
         pattern="[0-9]{5}"
         title="Five digit zip code"
-        v-model="profile.profZip"
+        v-model="profile.ProfZip"
         required
       />
       <br />
       <label for="city">City: </label>
-      <input id="city" type="text" v-model="profile.profCity" required /> <br />
+      <input id="city" type="text" v-model="profile.ProfCity" required /> <br />
 
       <label for="state">State: </label>
-      <input id="state" type="text" v-model="profile.profState" required />
+      <input id="state" type="text" v-model="profile.ProfState" required />
       <br />
       <label for="e-mail">E-Mail Address: </label>
-      <input type="email" v-model="profile.profContactEmail" required /> <br />
+      <input type="email" v-model="profile.ProfContactEmail" required /> <br />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -79,14 +79,14 @@ export default {
   data() {
     return {
       profile: {
-        firstName: "",
-        lastName: "",
-        bio: "",
-        profileImage: "",
-        profZip: 0,
-        profCity: "",
-        profState: "",
-        profContactEmail: "",
+        FirstName: "",
+        LastName: "",
+        Bio: "",
+        ProfileImage: "",
+        ProfZip: 0,
+        ProfCity: "",
+        ProfState: "",
+        ProfContactEmail: "",
       },
       user: {
         username: "",
@@ -105,14 +105,14 @@ export default {
         this.$store.commit("ADD_PROFILE", this.profile);
       } else {
         this.profile = {
-          firstName: "",
-          lastName: "",
-          bio: "",
-          profileImage: "",
-          profZip: 0,
-          profCity: "",
-          profState: "",
-          profContactEmail: "",
+          FirstName: "",
+          LastName: "",
+          Bio: "",
+          ProfileImage: "",
+          ProfZip: 0,
+          ProfCity: "",
+          ProfState: "",
+          ProfContactEmail: "",
         };
       }
     },
