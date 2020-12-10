@@ -41,6 +41,9 @@ export default new Vuex.Store({
     ADD_PROFILE(state, profile){
       // set the user ID to the user.userId
       state.user.profile = profile;
+    },
+    ADD_ORG(state, organization){
+      state.user.organization = organization;
     }
   }
 })
