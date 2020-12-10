@@ -40,8 +40,15 @@ methods: {
     }
 },
 created() {
+    // let userId = this.$route.params.userId;
+    // this.getProfileInfo(userId);
     let userId = this.$route.params.userId;
-    this.getProfileInfo(userId);
+    if(userId === "my"){
+        this.profile = this.$store.state.user.profile;
+        //this.organization = this.$store.state.user.organization;
+    }else{
+        this.getProfileInfo(userId);
+    }
 }
 }
 </script>
