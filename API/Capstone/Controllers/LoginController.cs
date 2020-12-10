@@ -12,16 +12,16 @@ namespace Capstone.Controllers
         private readonly ITokenGenerator tokenGenerator;
         private readonly IPasswordHasher passwordHasher;
         private readonly IUserDAO userDAO;
-        private readonly IProfileDAO profileSqlDAO;
-        private readonly IOrganizationDAO organizationSqlDAO;
+        private readonly IProfileDAO profileDAO;
+        private readonly IOrganizationDAO organizationDAO;
 
         public LoginController(ITokenGenerator _tokenGenerator, IPasswordHasher _passwordHasher, IUserDAO _userDAO, IProfileDAO _profileDAO, IOrganizationDAO _organizationDAO)
         {
             tokenGenerator = _tokenGenerator;
             passwordHasher = _passwordHasher;
             userDAO = _userDAO;
-            profileSqlDAO = _profileDAO;
-            organizationSqlDAO = _organizationDAO; 
+            profileDAO = _profileDAO;
+            organizationDAO = _organizationDAO;
         }
 
         [HttpPost]
@@ -43,11 +43,11 @@ namespace Capstone.Controllers
                 LoginResponse retUser = new LoginResponse() { User = new ReturnUser() { UserId = user.UserId, Username = user.Username, Role = user.Role }, Token = token };
                 if (user.isOrganization)
                 {
-                    retUser.User.Organization = organizationSqlDAO.getOrganizationOnLogin(user.UserId);
+                    retUser.User.Organization = organizationDAO.getOrganizationOnLogin(user.UserId);
                 }
                 else
                 {
-                    retUser.User.Profile = profileSqlDAO.getProfileOnLogin(user.UserId);
+                    retUser.User.Profile = profileDAO.getProfileOnLogin(user.UserId);
                 }
 
                 // Switch to 200 OK
@@ -63,14 +63,27 @@ namespace Capstone.Controllers
             IActionResult result;
 
             User existingUser = userDAO.GetUser(userParam.Username);
+
             if (existingUser != null)
             {
                 return Conflict(new { message = "Username already taken. Please choose a different username." });
             }
 
-            User user = userDAO.AddUser(userParam.Username, userParam.Password, userParam.Role);
+            User user = userDAO.AddUser(userParam.Username, userParam.Password, userParam.Role, userParam.IsOrganization);
+
             if (user != null)
             {
+                if (userParam.IsOrganization)
+                {
+                    userParam.Organization.UserId = user.UserId;
+                    organizationDAO.CreateOrganization(userParam.Organization);
+                }
+                else
+                {
+                    userParam.Profile.UserId = user.UserId;
+                    profileDAO.CreateProfile(userParam.Profile);
+                }
+
                 result = Created(user.Username, null); //values aren't read on client
             }
             else

@@ -30,7 +30,7 @@ namespace Capstone.DAO
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@userID", org.UserId);
                     cmd.Parameters.AddWithValue("@orgName", org.OrgName);
-                    cmd.Parameters.AddWithValue("@profImg", org.OrgImage);
+                    cmd.Parameters.AddWithValue("@orgImg", org.OrgImage);
                     cmd.Parameters.AddWithValue("@orgBio", org.OrgBio);
                     cmd.Parameters.AddWithValue("@orgZipCode", org.OrgZip);
                     cmd.Parameters.AddWithValue("@orgCity", org.OrgCity);

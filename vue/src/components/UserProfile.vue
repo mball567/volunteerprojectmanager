@@ -34,15 +34,15 @@
       />
       <br />
       <label for="FirstName">First Name: </label>
-      <input id="FirstName" type="text" v-model="profile.FirstName" required />
+      <input id="FirstName" type="text" v-model="user.profile.FirstName" required />
       <br />
 
       <label for="LastName">Last Name: </label>
-      <input id="LastName" type="text" v-model="profile.LastName" required />
+      <input id="LastName" type="text" v-model="user.profile.LastName" required />
       <br />
 
       <label for="Bio">User Bio: </label>
-      <input id="Bio" type="text" v-model="profile.Bio" required /> <br />
+      <input id="Bio" type="text" v-model="user.profile.Bio" required /> <br />
 
       <label for="zipCode">ZIP Code (5 digits):</label>
       <input
@@ -50,18 +50,18 @@
         id="zipCode"
         pattern="[0-9]{5}"
         title="Five digit zip code"
-        v-model="profile.ProfZip"
+        v-model="user.profile.ProfZip"
         required
       />
       <br />
       <label for="city">City: </label>
-      <input id="city" type="text" v-model="profile.ProfCity" required /> <br />
+      <input id="city" type="text" v-model="user.profile.ProfCity" required /> <br />
 
       <label for="state">State: </label>
-      <input id="state" type="text" v-model="profile.ProfState" required />
+      <input id="state" type="text" v-model="user.profile.ProfState" required />
       <br />
       <label for="e-mail">E-Mail Address: </label>
-      <input type="email" v-model="profile.ProfContactEmail" required /> <br />
+      <input type="email" v-model="user.profile.ProfContactEmail" required /> <br />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -78,22 +78,22 @@ export default {
   props: {},
   data() {
     return {
-      profile: {
-        FirstName: "",
-        LastName: "",
-        Bio: "",
-        ProfileImage: "",
-        ProfZip: 0,
-        ProfCity: "",
-        ProfState: "",
-        ProfContactEmail: "",
-      },
       user: {
         username: "",
         password: "",
         confirmPassword: "",
         role: "user",
         isOrganization: false,
+        profile: {
+          FirstName: "",
+          LastName: "",
+          Bio: "",
+          ProfileImage: "",
+          ProfZip: 0,
+          ProfCity: "",
+          ProfState: "",
+          ProfContactEmail: "",
+       },
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",

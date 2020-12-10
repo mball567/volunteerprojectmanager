@@ -20,7 +20,6 @@
         public string Role { get; set; }
         public Profile Profile { get; set; }
         public Organization Organization { get; set; }
-
     }
 
     /// <summary>
@@ -50,5 +49,8 @@
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string Role { get; set; }
+        public Profile Profile { get; set; }
+        public Organization Organization { get; set; }
+        public bool IsOrganization { get; set; }
     }
 }

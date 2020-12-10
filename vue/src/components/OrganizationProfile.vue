@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="form-register" @submit.prevent="register, addOrg">
+    <form class="form-register" @submit.prevent="register">
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -34,11 +34,11 @@
       />
       <br />
       <label for="OrgName">Organization Name: </label>
-      <input id="OrgName" type="text" v-model="organization.OrgName" required />
+      <input id="OrgName" type="text" v-model="user.organization.OrgName" required />
       <br />
 
       <label for="OrgBio">Organization Bio: </label>
-      <input id="OrgBio" type="text" v-model="organization.OrgBio" required /> <br />
+      <input id="OrgBio" type="text" v-model="user.organization.OrgBio" required /> <br />
 
       <label for="orgZipCode">ZIP Code (5 digits):</label>
       <input
@@ -46,20 +46,20 @@
         id="orgZipCode"
         pattern="[0-9]{5}"
         title="Five digit zip code"
-        v-model="organization.OrgZip"
+        v-model="user.organization.OrgZip"
         required
       />
       <br />
 
       <label for="OrgCity">City: </label>
-      <input id="OrgCity" type="text" v-model="organization.OrgCity" required /> <br />
+      <input id="OrgCity" type="text" v-model="user.organization.OrgCity" required /> <br />
 
       <label for="OrgState">State: </label>
-      <input id="OrgState" type="text" v-model="organization.OrgState" required />
+      <input id="OrgState" type="text" v-model="user.organization.OrgState" required />
       <br />
 
       <label for="OrgContactEmail">E-Mail Address: </label>
-      <input type="email" v-model="organization.OrgContactEmail" required /> <br />
+      <input type="email" v-model="user.organization.OrgContactEmail" required /> <br />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -76,21 +76,30 @@ export default {
   props: {},
   data() {
     return {
-      organization: {
-        OrgName: "",
-        OrgImage: "",
-        OrgBio: "",
-        OrgZip: 0,
-        OrgCity: "",
-        OrgState: "",
-        OrgContactEmail: "",
-      },
+      // organization: {
+      //   OrgName: "",
+      //   OrgImage: "",
+      //   OrgBio: "",
+      //   OrgZip: 0,
+      //   OrgCity: "",
+      //   OrgState: "",
+      //   OrgContactEmail: "",
+      // },
       user: {
         username: "",
         password: "",
         confirmPassword: "",
         role: "user",
         isOrganization: true,
+        organization: {
+          OrgName: "",
+          OrgImage: "",
+          OrgBio: "",
+          OrgZip: 0,
+          OrgCity: "",
+          OrgState: "",
+          OrgContactEmail: "",
+       },
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",

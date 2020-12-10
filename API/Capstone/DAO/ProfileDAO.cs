@@ -18,9 +18,8 @@ namespace Capstone.DAO
 
         public bool CreateProfile(Profile profile)
         {
-            string sql = @"Insert into profiles (first_name, last_name, prof_image, bio, prof_zipcode, prof_city, prof_state, prof_contact_email)
-                           VALUES (@firstName, @lastName, @profImg, @bio, @profZipCode, @profCity, @profState, @profContactEmail)";
-            //user_id, @userID, 
+            string sql = @"Insert into profiles (user_id, first_name, last_name, prof_image, bio, prof_zipcode, prof_city, prof_state, prof_contact_email)
+                           VALUES (@userID, @firstName, @lastName, @profImg, @bio, @profZipCode, @profCity, @profState, @profContactEmail)";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -28,7 +27,7 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    //cmd.Parameters.AddWithValue("@userID", profile.userId);
+                    cmd.Parameters.AddWithValue("@userID", profile.UserId);
                     cmd.Parameters.AddWithValue("@firstName", profile.FirstName);
                     cmd.Parameters.AddWithValue("@lastName", profile.LastName);
                     cmd.Parameters.AddWithValue("@profImg", profile.ProfileImage);
