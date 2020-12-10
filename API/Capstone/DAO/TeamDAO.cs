@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Capstone.DAO
 {
-    public class TeamsSqlDAO
+    public class TeamDAO
     {
         private readonly string connectionString;
 
-        public TeamsSqlDAO(string dbConnectionString)
+        public TeamDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }
@@ -28,13 +28,13 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@teamName", team.teamName);
-                    cmd.Parameters.AddWithValue("@teamImg", team.teamImage);
-                    cmd.Parameters.AddWithValue("@teamBio", team.teamBio);
-                    cmd.Parameters.AddWithValue("@teamZipCode", team.teamZip);
-                    cmd.Parameters.AddWithValue("@teamCity", team.teamCity);
-                    cmd.Parameters.AddWithValue("@teamState", team.teamState);
-                    cmd.Parameters.AddWithValue("@teamContactEmail", team.teamContactEmail);
+                    cmd.Parameters.AddWithValue("@teamName", team.TeamName);
+                    cmd.Parameters.AddWithValue("@teamImg", team.TeamImage);
+                    cmd.Parameters.AddWithValue("@teamBio", team.TeamBio);
+                    cmd.Parameters.AddWithValue("@teamZipCode", team.TeamZip);
+                    cmd.Parameters.AddWithValue("@teamCity", team.TeamCity);
+                    cmd.Parameters.AddWithValue("@teamState", team.TeamState);
+                    cmd.Parameters.AddWithValue("@teamContactEmail", team.TeamContactEmail);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -73,14 +73,14 @@ namespace Capstone.DAO
 
                     while (rdr.Read())
                     {
-                        team.teamId = Convert.ToInt32(rdr["team_id"]);
-                        team.teamName = Convert.ToString(rdr["team_name"]);
-                        team.teamImage = Convert.ToString(rdr["team_image"]);
-                        team.teamBio = Convert.ToString(rdr["team_bio"]);
-                        team.teamZip = Convert.ToInt32(rdr["team_zipcode"]);
-                        team.teamCity = Convert.ToString(rdr["team_city"]);
-                        team.teamState = Convert.ToString(rdr["team_state"]);
-                        team.teamContactEmail = Convert.ToString(rdr["team_contact_email"]);
+                        team.TeamId = Convert.ToInt32(rdr["team_id"]);
+                        team.TeamName = Convert.ToString(rdr["team_name"]);
+                        team.TeamImage = Convert.ToString(rdr["team_image"]);
+                        team.TeamBio = Convert.ToString(rdr["team_bio"]);
+                        team.TeamZip = Convert.ToInt32(rdr["team_zipcode"]);
+                        team.TeamCity = Convert.ToString(rdr["team_city"]);
+                        team.TeamState = Convert.ToString(rdr["team_state"]);
+                        team.TeamContactEmail = Convert.ToString(rdr["team_contact_email"]);
                     }
                     return team;
                 }

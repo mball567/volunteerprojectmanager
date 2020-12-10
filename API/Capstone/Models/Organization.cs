@@ -7,14 +7,14 @@ namespace Capstone.Models
 {
     public class Organization
     {
-        public int orgId { get; set; }
-        public int userId { get; set; }
-        public string orgName { get; set; }
-        public string orgImage { get; set; }
-        public string orgBio { get; set; }
-        public int orgZip { get; set; }
-        public string orgCity { get; set; }
-        public string orgState { get; set; }
-        public string orgContactEmail { get; set; }
+        public int OrgId { get; set; }
+        public int UserId { get; set; }
+        public string OrgName { get; set; }
+        public string OrgImage { get; set; }
+        public string OrgBio { get; set; }
+        public int OrgZip { get; set; }
+        public string OrgCity { get; set; }
+        public string OrgState { get; set; }
+        public string OrgContactEmail { get; set; }
     }
 }

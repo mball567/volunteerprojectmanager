@@ -7,15 +7,15 @@ namespace Capstone.Models
 {
     public class Team
     {
-        public int teamId { get; set; }
-        public string teamName { get; set; }
-        public string teamImage { get; set; }
-        public string teamBio { get; set; }
-        public int teamZip { get; set; }
-        public string teamCity { get; set; }
-        public string teamState { get; set; }
-        public string teamContactEmail { get; set; }
-        public List<Profile> teamMembers { get; set; }
+        public int TeamId { get; set; }
+        public string TeamName { get; set; }
+        public string TeamImage { get; set; }
+        public string TeamBio { get; set; }
+        public int TeamZip { get; set; }
+        public string TeamCity { get; set; }
+        public string TeamState { get; set; }
+        public string TeamContactEmail { get; set; }
+        public List<Profile> TeamMembers { get; set; }
 
     }
 }

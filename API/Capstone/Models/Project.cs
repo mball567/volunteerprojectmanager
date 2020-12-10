@@ -7,15 +7,15 @@ namespace Capstone.Models
 {
     public class Project
     {
-        public int projId { get; set; }
-        public int orgId { get; set; }
-        public string projName { get; set; }
-        public string projDesc { get; set; }
-        public string projImage { get; set; }
-        public int projZip { get; set; }
-        public string projCity { get; set; }
-        public string projState { get; set; }
-        public int projWorkingHours { get; set; }
-        public string projContactEmail { get; set; }
+        public int ProjId { get; set; }
+        public int OrgId { get; set; }
+        public string ProjName { get; set; }
+        public string ProjDesc { get; set; }
+        public string ProjImage { get; set; }
+        public int ProjZip { get; set; }
+        public string ProjCity { get; set; }
+        public string ProjState { get; set; }
+        public int ProjWorkingHours { get; set; }
+        public string ProjContactEmail { get; set; }
     }
 }

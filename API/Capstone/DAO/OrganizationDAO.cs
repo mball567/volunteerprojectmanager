@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Capstone.DAO
 {
-    public class OrganizationSqlDAO : IOrganizationSqlDAO
+    public class OrganizationDAO : IOrganizationDAO
     {
         private readonly string connectionString;
 
-        public OrganizationSqlDAO(string dbConnectionString)
+        public OrganizationDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }
@@ -28,14 +28,14 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@userID", org.userId);
-                    cmd.Parameters.AddWithValue("@orgName", org.orgName);
-                    cmd.Parameters.AddWithValue("@profImg", org.orgImage);
-                    cmd.Parameters.AddWithValue("@orgBio", org.orgBio);
-                    cmd.Parameters.AddWithValue("@orgZipCode", org.orgZip);
-                    cmd.Parameters.AddWithValue("@orgCity", org.orgCity);
-                    cmd.Parameters.AddWithValue("@orgState", org.orgState);
-                    cmd.Parameters.AddWithValue("@orgContactEmail", org.orgContactEmail);
+                    cmd.Parameters.AddWithValue("@userID", org.UserId);
+                    cmd.Parameters.AddWithValue("@orgName", org.OrgName);
+                    cmd.Parameters.AddWithValue("@profImg", org.OrgImage);
+                    cmd.Parameters.AddWithValue("@orgBio", org.OrgBio);
+                    cmd.Parameters.AddWithValue("@orgZipCode", org.OrgZip);
+                    cmd.Parameters.AddWithValue("@orgCity", org.OrgCity);
+                    cmd.Parameters.AddWithValue("@orgState", org.OrgState);
+                    cmd.Parameters.AddWithValue("@orgContactEmail", org.OrgContactEmail);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -73,15 +73,15 @@ namespace Capstone.DAO
 
                     while (rdr.Read())
                     {
-                        org.userId = Convert.ToInt32(rdr["user_id"]);
-                        org.orgName = Convert.ToString(rdr["org_name"]);
-                        org.orgImage = Convert.ToString(rdr["org_image"]);
-                        org.orgBio = Convert.ToString(rdr["org_bio"]);
-                        org.orgZip = Convert.ToInt32(rdr["org_zipcode"]);
-                        org.orgCity = Convert.ToString(rdr["org_city"]);
-                        org.orgState = Convert.ToString(rdr["org_state"]);
-                        org.orgContactEmail = Convert.ToString(rdr["org_contact_email"]);
-                        org.orgId = Convert.ToInt32(rdr["org_id"]);
+                        org.UserId = Convert.ToInt32(rdr["user_id"]);
+                        org.OrgName = Convert.ToString(rdr["org_name"]);
+                        org.OrgImage = Convert.ToString(rdr["org_image"]);
+                        org.OrgBio = Convert.ToString(rdr["org_bio"]);
+                        org.OrgZip = Convert.ToInt32(rdr["org_zipcode"]);
+                        org.OrgCity = Convert.ToString(rdr["org_city"]);
+                        org.OrgState = Convert.ToString(rdr["org_state"]);
+                        org.OrgContactEmail = Convert.ToString(rdr["org_contact_email"]);
+                        org.OrgId = Convert.ToInt32(rdr["org_id"]);
                     }
                     return org;
                 }

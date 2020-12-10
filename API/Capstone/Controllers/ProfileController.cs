@@ -15,9 +15,9 @@ namespace Capstone.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        private IProfileSqlDAO profileSqlDAO;
+        private IProfileDAO profileSqlDAO;
 
-        public ProfileController(IProfileSqlDAO profileSqlDAO)
+        public ProfileController(IProfileDAO profileSqlDAO)
         {
             this.profileSqlDAO = profileSqlDAO;
         }
@@ -45,7 +45,7 @@ namespace Capstone.Controllers
                 return NotFound();
             }
 
-            return Created($"/profiles/{profile.userId}", profile);
+            return Created($"/profiles/{profile.UserId}", profile);
         }
 
         [Authorize]

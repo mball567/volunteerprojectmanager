@@ -7,11 +7,11 @@ using Capstone.Security.Models;
 
 namespace Capstone.DAO
 {
-    public class UserSqlDAO : IUserDAO
+    public class UserDAO : IUserDAO
     {
         private readonly string connectionString;
 
-        public UserSqlDAO(string dbConnectionString)
+        public UserDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }

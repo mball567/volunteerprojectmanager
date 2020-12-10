@@ -2,7 +2,7 @@
 
 namespace Capstone.DAO
 {
-    public interface IOrganizationSqlDAO
+    public interface IOrganizationDAO
     {
         bool CreateOrganization(Organization org);
         Organization getOrganizationOnLogin(int userID);

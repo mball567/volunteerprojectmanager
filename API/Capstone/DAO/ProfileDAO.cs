@@ -7,11 +7,11 @@ using Capstone.Security.Models;
 
 namespace Capstone.DAO
 {
-    public class ProfileSqlDAO : IProfileSqlDAO
+    public class ProfileDAO : IProfileDAO
     {
         private readonly string connectionString;
 
-        public ProfileSqlDAO(string dbConnectionString)
+        public ProfileDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }
@@ -29,14 +29,14 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     //cmd.Parameters.AddWithValue("@userID", profile.userId);
-                    cmd.Parameters.AddWithValue("@firstName", profile.firstName);
-                    cmd.Parameters.AddWithValue("@lastName", profile.lastName);
-                    cmd.Parameters.AddWithValue("@profImg", profile.profileImage);
-                    cmd.Parameters.AddWithValue("@bio", profile.bio);
-                    cmd.Parameters.AddWithValue("@profZipCode", profile.profZip);
-                    cmd.Parameters.AddWithValue("@profCity", profile.profCity);
-                    cmd.Parameters.AddWithValue("@profState", profile.profState);
-                    cmd.Parameters.AddWithValue("@profContactEmail", profile.profContactEmail);
+                    cmd.Parameters.AddWithValue("@firstName", profile.FirstName);
+                    cmd.Parameters.AddWithValue("@lastName", profile.LastName);
+                    cmd.Parameters.AddWithValue("@profImg", profile.ProfileImage);
+                    cmd.Parameters.AddWithValue("@bio", profile.Bio);
+                    cmd.Parameters.AddWithValue("@profZipCode", profile.ProfZip);
+                    cmd.Parameters.AddWithValue("@profCity", profile.ProfCity);
+                    cmd.Parameters.AddWithValue("@profState", profile.ProfState);
+                    cmd.Parameters.AddWithValue("@profContactEmail", profile.ProfContactEmail);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -74,16 +74,16 @@ namespace Capstone.DAO
 
                     while (rdr.Read())
                     {
-                        profile.userId = Convert.ToInt32(rdr["user_id"]);
-                        profile.firstName = Convert.ToString(rdr["first_name"]);
-                        profile.lastName = Convert.ToString(rdr["last_name"]);
-                        profile.profileImage = Convert.ToString(rdr["prof_image"]);
-                        profile.bio = Convert.ToString(rdr["bio"]);
-                        profile.profZip = Convert.ToInt32(rdr["prof_zipcode"]);
-                        profile.profCity = Convert.ToString(rdr["prof_city"]);
-                        profile.profState = Convert.ToString(rdr["prof_state"]);
-                        profile.profContactEmail = Convert.ToString(rdr["prof_contact_email"]);
-                        profile.profileId = Convert.ToInt32(rdr["profile_id"]);
+                        profile.UserId = Convert.ToInt32(rdr["user_id"]);
+                        profile.FirstName = Convert.ToString(rdr["first_name"]);
+                        profile.LastName = Convert.ToString(rdr["last_name"]);
+                        profile.ProfileImage = Convert.ToString(rdr["prof_image"]);
+                        profile.Bio = Convert.ToString(rdr["bio"]);
+                        profile.ProfZip = Convert.ToInt32(rdr["prof_zipcode"]);
+                        profile.ProfCity = Convert.ToString(rdr["prof_city"]);
+                        profile.ProfState = Convert.ToString(rdr["prof_state"]);
+                        profile.ProfContactEmail = Convert.ToString(rdr["prof_contact_email"]);
+                        profile.ProfileId = Convert.ToInt32(rdr["profile_id"]);
                     }
                     return profile;
                 }

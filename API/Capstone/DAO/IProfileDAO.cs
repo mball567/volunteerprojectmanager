@@ -2,7 +2,7 @@
 
 namespace Capstone.DAO
 {
-    public interface IProfileSqlDAO
+    public interface IProfileDAO
     {
         bool CreateProfile(Profile profile);
         Profile getProfileOnLogin(int userID);

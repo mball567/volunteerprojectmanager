@@ -12,16 +12,16 @@ namespace Capstone.Controllers
         private readonly ITokenGenerator tokenGenerator;
         private readonly IPasswordHasher passwordHasher;
         private readonly IUserDAO userDAO;
-        private readonly IProfileSqlDAO profileSqlDAO;
-        private readonly IOrganizationSqlDAO organizationSqlDAO;
+        private readonly IProfileDAO profileSqlDAO;
+        private readonly IOrganizationDAO organizationSqlDAO;
 
-        public LoginController(ITokenGenerator _tokenGenerator, IPasswordHasher _passwordHasher, IUserDAO _userDAO, IProfileSqlDAO _profileSqlDAO, IOrganizationSqlDAO _organizationSqlDAO)
+        public LoginController(ITokenGenerator _tokenGenerator, IPasswordHasher _passwordHasher, IUserDAO _userDAO, IProfileDAO _profileDAO, IOrganizationDAO _organizationDAO)
         {
             tokenGenerator = _tokenGenerator;
             passwordHasher = _passwordHasher;
             userDAO = _userDAO;
-            profileSqlDAO = _profileSqlDAO;
-            organizationSqlDAO = _organizationSqlDAO; 
+            profileSqlDAO = _profileDAO;
+            organizationSqlDAO = _organizationDAO; 
         }
 
         [HttpPost]

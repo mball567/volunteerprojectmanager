@@ -7,7 +7,7 @@ namespace Capstone.Models
 {
     public class Cause
     {
-        public int causeId { get; set; }
-        public string causeName { get; set; }
+        public int CauseId { get; set; }
+        public string CauseName { get; set; }
     }
 }
