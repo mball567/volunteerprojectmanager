@@ -9,6 +9,7 @@ namespace Capstone.Models
     {
         public int ProjId { get; set; }
         public int OrgId { get; set; }
+        public int ProfId { get; set; }
         public string ProjName { get; set; }
         public string ProjDesc { get; set; }
         public string ProjImage { get; set; }
