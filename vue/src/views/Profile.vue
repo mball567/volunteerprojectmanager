@@ -1,14 +1,33 @@
 <template>
-  <div>
+  <div class="container">
+    <body>
+      
+
     <div v-show="isOrg === false">
-      <h1>{{ profile.firstName }} {{ profile.lastName }}</h1>
-      <p>Profile ID: {{ profile.profileId }}</p>
-      <p>User ID: {{ profile.userId }}</p>
-      <p>Bio: {{ profile.bio }}</p>
-      <p>Zip: {{ profile.profZip }}</p>
-      <p>City: {{ profile.profCity }}</p>
-      <p>State: {{ profile.profState }}</p>
-      <p>Email: {{ profile.profContactEmail }}</p>
+      <header>
+        <h1>akt</h1>
+      </header>
+
+      <main id="main-grid">
+        <nav id="site-nav">
+          <ul>
+            <li><a href="#">My projects</a></li>
+            <li><a href="#">My teams</a></li>
+            <li><a href="#">Akt with others</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </nav>
+     
+
+    <aside>
+      <h2>{{ profile.firstName }} {{ profile.lastName }}</h2>
+          <p>Email: {{ profile.profContactEmail }}</p>
+          <p>Currently akting in: {{ profile.profCity }}, {{ profile.profState }}</p>
+    </aside>
+
+
+    <p id="bio">{{ profile.bio }}</p>
+    </main>
     </div>
     <div v-show="isOrg === true">
       <h1>{{ organization.orgName }}</h1>
@@ -19,6 +38,7 @@
       <p>State: {{ organization.orgState }}</p>
       <p>Email: {{ organization.orgContactEmail }}</p>
     </div>
+    </body>
   </div>
 </template>
 
@@ -80,5 +100,79 @@ export default {
 };
 </script>
 
-<style>
+<style> 
+
+/* color
+--light-cornflower-blue: #8ecae6ff;
+--blue-green: #219ebcff;
+--prussian-blue: #023047ff;
+--honey-yellow: #ffb703ff;
+--orange: #fb8500ff;
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+
+#main-grid {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-areas:
+  "nav nav nav"
+  "aside bio bio"
+  "aside causes causes"
+}
+
+body {
+  background-color: #023047ff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+
+h1 {
+  color:#ffb703ff;
+  font-size: 5em;
+  font-weight: 700;
+}
+
+main p#bio {
+grid-area: bio;
+color: white;
+}
+
+main nav#site-nav {
+  grid-area: nav;
+  width: 100%;
+  text-align: right;
+}
+
+main nav#site-nav ul {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  }
+
+aside {
+  color:white;
+  grid-area: aside;
+  height: 100vh;
+
+}
+
+nav#site-nav li {
+  list-style-type: none;
+  display: inline;
+}
+
+nav#site-nav li a {
+  list-style-type: none;
+  color:#ffb703ff;
+  padding: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  
+}
+
+nav#site-nav li a:hover {
+  color: #219ebcff;
+}
+
 </style>

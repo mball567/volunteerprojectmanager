@@ -25,5 +25,11 @@ export default {
         let url = '/teams'
 
         return http.post(url, team);
+    },
+
+    createProject(project){
+        let url = '/projects'
+
+        return http.post(url, project);
     }
 }
