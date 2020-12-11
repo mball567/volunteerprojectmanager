@@ -8,6 +8,7 @@ namespace Capstone.Models
     public class Team
     {
         public int TeamId { get; set; }
+        public int CreatedBy { get; set; }
         public string TeamName { get; set; }
         public string TeamImage { get; set; }
         public string TeamBio { get; set; }
@@ -16,6 +17,5 @@ namespace Capstone.Models
         public string TeamState { get; set; }
         public string TeamContactEmail { get; set; }
         public List<Profile> TeamMembers { get; set; }
-
     }
 }

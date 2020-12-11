@@ -66,6 +66,7 @@ namespace Capstone
 
             services.AddTransient<IProfileDAO>(sp => new ProfileDAO(connectionString));
             services.AddTransient<IOrganizationDAO>(sp => new OrganizationDAO(connectionString));
+            services.AddTransient<ITeamDAO>(sp => new TeamDAO(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

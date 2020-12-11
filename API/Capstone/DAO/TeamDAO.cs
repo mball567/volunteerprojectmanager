@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.DAO
 {
-    public class TeamDAO
+    public class TeamDAO : ITeamDAO
     {
         private readonly string connectionString;
 
@@ -18,8 +18,10 @@ namespace Capstone.DAO
 
         public bool CreateTeam(Team team)
         {
-            string sql = @"Insert into teams (team_id, team_name, team_image, team_bio, team_zipcode, team_city, team_state, team_contact_email)
-                           VALUES (@teamID, @teamName, @teamImg, @teamBio, @teamZipCode, @teamCity, @teamState, @teamContactEmail)";
+            string sql = @"INSERT into teams (team_name, team_image, team_bio, team_zipcode, team_city, team_state, team_contact_email)
+                           VALUES (@teamName, @teamImg, @teamBio, @teamZipCode, @teamCity, @teamState, @teamContactEmail);
+                           INSERT into profiles_teams (team_id, profile_id)
+                           VALUES (@@IDENTITY, @profileID)";
 
             try
             {
@@ -35,6 +37,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@teamCity", team.TeamCity);
                     cmd.Parameters.AddWithValue("@teamState", team.TeamState);
                     cmd.Parameters.AddWithValue("@teamContactEmail", team.TeamContactEmail);
+                    cmd.Parameters.AddWithValue("@profileID", team.CreatedBy);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -54,7 +57,7 @@ namespace Capstone.DAO
             }
         }
 
-        //TODO: unsure of parameter. might need to pass in something else. 
+        //TODO: unsure of parameter. might need to pass in something else.
         public Team getTeam(int teamID)
         {
             string sql = @"Select * from teams where team_id = @teamID";
@@ -90,7 +93,5 @@ namespace Capstone.DAO
                 throw;
             }
         }
-
-
     }
 }

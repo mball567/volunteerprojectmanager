@@ -20,4 +20,10 @@ export default {
 
         return http.post(url, profile);
     },
+
+    createTeam(team){
+        let url = '/teams'
+
+        return http.post(url, team);
+    }
 }
