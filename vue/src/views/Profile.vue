@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div v-show="isOrg === false">
       <h1>{{ profile.firstName }} {{ profile.lastName }}</h1>
       <p>Profile ID: {{ profile.profileId }}</p>
       <p>User ID: {{ profile.userId }}</p>
@@ -10,10 +10,10 @@
       <p>State: {{ profile.profState }}</p>
       <p>Email: {{ profile.profContactEmail }}</p>
     </div>
-    <div>
+    <div v-show="isOrg === true">
       <h1>{{ organization.orgName }}</h1>
-      <p>Profile ID: {{ organization.orgId }}</p>
-      <p>User ID: {{ organization.orgBio }}</p>
+      <p>Organization ID: {{ organization.orgId }}</p>
+      <p>Bio: {{ organization.orgBio }}</p>
       <p>Zip: {{ organization.orgZip }}</p>
       <p>City: {{ organization.orgCity }}</p>
       <p>State: {{ organization.orgState }}</p>
@@ -51,6 +51,7 @@ export default {
         orgState: "",
         orgContactEmail: "",
       },
+      isOrg: false,
     };
   },
   methods: {
@@ -69,7 +70,8 @@ export default {
             this.profile = this.$store.state.user.profile;
         }
         else{
-            this.organization = this.$store.state.user.organization;    
+            this.organization = this.$store.state.user.organization;
+            this.isOrg = true;  
         }
     } else {
       this.getProfileInfo(userId);
