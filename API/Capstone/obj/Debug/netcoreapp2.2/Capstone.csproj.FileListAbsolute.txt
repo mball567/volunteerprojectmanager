@@ -15,3 +15,4 @@ C:\Users\Student\Git\c-final-capstone-volunteer-project-manager\API\Capstone\obj
 C:\Users\Student\Git\c-final-capstone-volunteer-project-manager\API\Capstone\obj\Debug\netcoreapp2.2\Capstone.dll
 C:\Users\Student\Git\c-final-capstone-volunteer-project-manager\API\Capstone\obj\Debug\netcoreapp2.2\Capstone.pdb
 C:\Users\Student\Git\c-final-capstone-volunteer-project-manager\API\Capstone\obj\Debug\netcoreapp2.2\Capstone.csprojAssemblyReference.cache
+C:\Users\Student\Git\c-final-capstone-volunteer-project-manager\API\Capstone\obj\Debug\netcoreapp2.2\Capstone.genruntimeconfig.cache

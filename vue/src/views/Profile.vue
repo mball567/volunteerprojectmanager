@@ -4,16 +4,13 @@
       
 
     <div v-show="isOrg === false">
-      <header>
-        <h1>akt</h1>
-      </header>
-
+     
       <main id="main-grid">
         <nav id="site-nav">
           <ul>
-            <li><a href="#">My projects</a></li>
-            <li><a href="#">My teams</a></li>
-            <li><a href="#">Akt with others</a></li>
+            <li><a href="#">My projects</a></li>&nbsp;|&nbsp;
+            <li><a href="#">My teams</a></li>&nbsp;|&nbsp;
+            <li><a href="#">Akt with others</a></li>&nbsp;|&nbsp;
             <li><a href="#">Logout</a></li>
           </ul>
         </nav>
@@ -127,11 +124,6 @@ body {
   font-weight: 400;
 }
 
-h1 {
-  color:#ffb703ff;
-  font-size: 5em;
-  font-weight: 700;
-}
 
 main p#bio {
 grid-area: bio;
