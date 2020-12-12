@@ -31,5 +31,10 @@ export default {
         let url = '/projects'
 
         return http.post(url, project);
-    }
+    },
+    getCauses(){
+        let url = '/causes'
+
+        return http.get(url);
+    },
 }

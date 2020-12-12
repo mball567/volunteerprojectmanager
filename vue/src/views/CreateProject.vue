@@ -67,6 +67,7 @@ export default {
                 ProjWorkingHours: 0,
                 ProjContactEmail: "",
             },
+            causes: [],
         };
     },
     methods: {
@@ -88,7 +89,10 @@ export default {
             }
           })
         }
-    }
+    },
+    created() {
+      this.causes = this.$store.state.causes;
+    },
 }
 </script>
 

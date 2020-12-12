@@ -6,7 +6,15 @@
 </template>
 
 <script>
+import WebService from '../services/WebService.js'
+
 export default {
-  name: "home"
+  name: "home",
+  created(){
+    WebService.getCauses()
+      .then( (response) => {
+      this.$store.commit("SET_CAUSES", response.data);
+      });  
+  }
 };
 </script>
