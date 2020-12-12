@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div id="create-team">
+    <h1>Create A Team</h1>
       <form class="form-createteam" @submit.prevent="createTeam">
-      <label for="teamName" class="sr-only">Team Name: </label>
+      <label id="teamName" for="teamName" class="sr-only">Team Name: </label>
       <input
         type="text"
         id="teamName"
@@ -12,17 +13,29 @@
         autofocus
       />
       <br />
-      <label for="bio" class="sr-only">Bio: </label>
-      <input
+      <div class="teamDescription">
+      <label for="bio" class="sr-only">Team Bio: </label><br />
+      <textarea
         type="text"
-        id="bio"
+        id="team-bio"
         class="form-control"
-        placeholder="Bio"
+        rows="8" 
+        cols="40"
+        placeholder="How will your team Akt?"
         v-model="team.TeamBio"
         required
       />
+      </div>
       <br />
-      <label for="teamZip" class="sr-only">Zip: </label>
+      
+      <label for="teamCity">City: </label>
+      <input id="teamCity" type="text" placeholder="City" v-model="team.TeamCity" required />
+      <br />
+
+      <label for="teamState">State: </label>
+      <input id="teamState" type="text" placeholder="State" v-model="team.TeamState" required />
+      <br />
+      <label for="teamZip" class="sr-only">Zip Code: </label>
       <input
         type="text"
         id="teamZip"
@@ -32,16 +45,8 @@
         required
       />
       <br />
-      <label for="teamCity">Team City: </label>
-      <input id="teamCity" type="text" v-model="team.TeamCity" required />
-      <br />
-
-      <label for="teamState">Team State: </label>
-      <input id="teamState" type="text" v-model="team.TeamState" required />
-      <br />
-
-      <label for="e-mail">E-Mail Address: </label>
-      <input type="email" v-model="team.TeamContactEmail" required /> <br />
+      <label for="e-mail">Lead Contact: </label>
+      <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="team.TeamContactEmail" required /> <br />
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Team
@@ -84,6 +89,66 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+div#create-team h1{
+  color: white;
+  margin-block: 0.5em;
+  padding-left: 0.75em;
+}
+
+div#create-team{
+  display: block;
+  text-align: left;
+}
+
+form{
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+form label {
+  color: white;
+  padding-left: 1.4em;
+  padding-right: 0.5em;
+}
+
+form input#teamName {
+  margin-top: 2.25em;
+}
+
+form input#e-mail {
+  margin-bottom: 1.25em;
+}
+
+form input {
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  margin: 0.25em;
+}
+
+form textarea{
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  margin-top: 0.5em;
+  margin-left: 1.75em;
+}
+
+.teamDescription * {
+  vertical-align: top;
+}
+
+div#user-profile form #router-link{
+  color: white;
+  padding-left: 1.4em;
+  padding-top: 5em;
+}
+
+div#create-team form button {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  margin-left: 1.5em;
+}
 </style>

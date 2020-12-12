@@ -43,6 +43,15 @@
       <textarea id="OrgBio" type="text" placeholder="Tell us why you're akting" rows="8" cols="40" v-model="user.organization.OrgBio" required /> <br />
       </div>
 
+      
+
+      <label for="OrgCity">City: </label>
+      <input id="OrgCity" type="text" placeholder="City" v-model="user.organization.OrgCity" required /> <br />
+
+      <label for="OrgState">State: </label>
+      <input id="OrgState" type="text" placeholder="State" v-model="user.organization.OrgState" required />
+      <br />
+
       <label for="orgZipCode">ZIP Code: </label>
       <input
         type="text"
@@ -53,13 +62,6 @@
         v-model="user.organization.OrgZip"
         required
       />
-      <br />
-
-      <label for="OrgCity">City: </label>
-      <input id="OrgCity" type="text" placeholder="City" v-model="user.organization.OrgCity" required /> <br />
-
-      <label for="OrgState">State: </label>
-      <input id="OrgState" type="text" placeholder="State" v-model="user.organization.OrgState" required />
       <br />
 
       <label for="OrgContactEmail">E-Mail Address: </label>

@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div id="create-project">
+    <h1>Create Project</h1>
       <form class="form-createproject" @submit.prevent="createProject">
-      <label for="projName" class="sr-only">Project Name: </label>
+      <label id="projName" for="projName" class="sr-only">Project Name: </label>
       <input
         type="text"
         id="projName"
@@ -12,17 +13,30 @@
         autofocus
       />
       <br />
-      <label for="projDesc" class="sr-only">Project Description: </label>
-      <input
+      <div class="projectDescription">
+      <label for="projDesc" class="sr-only">Project Description: </label> <br/>
+      <textarea
         type="text"
         id="projDesc"
         class="form-control"
-        placeholder="Project Description"
+        rows="8" 
+        cols="40"
+        placeholder="How will this project akt?"
         v-model="project.ProjDesc"
         required
       />
+      </div>
       <br />
-      <label for="projZip" class="sr-only">Project Zip Code: </label>
+      
+      <label for="projCity">City: </label>
+      <input id="projCity" type="text" placeholder="City" v-model="project.ProjCity" required />
+      <br />
+
+      <label for="projState">State: </label>
+      <input id="projState" type="text" placeholder="State" v-model="project.ProjState" required />
+      <br />
+
+      <label for="projZip" class="sr-only">Zip Code: </label>
       <input
         type="text"
         id="projZip"
@@ -32,16 +46,9 @@
         required
       />
       <br />
-      <label for="projCity">Project City: </label>
-      <input id="projCity" type="text" v-model="project.ProjCity" required />
-      <br />
 
-      <label for="projState">Project State: </label>
-      <input id="projState" type="text" v-model="project.ProjState" required />
-      <br />
-
-      <label for="e-mail">Project Contact E-Mail Address: </label>
-      <input type="email" v-model="project.ProjContactEmail" required /> <br />
+      <label for="e-mail">Lead Contact: </label>
+      <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="project.ProjContactEmail" required /> <br />
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Project
@@ -96,6 +103,66 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+div#create-project h1{
+  color: white;
+  margin-block: 0.5em;
+  padding-left: 0.75em;
+}
+
+div#create-project{
+  display: block;
+  text-align: left;
+}
+
+form{
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+form label {
+  color: white;
+  padding-left: 1.4em;
+  padding-right: 0.5em;
+}
+
+form input#projName {
+  margin-top: 2.25em;
+}
+
+form input#e-mail {
+  margin-bottom: 1.25em;
+}
+
+form input {
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  margin: 0.25em;
+}
+
+form textarea{
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  margin-top: 0.5em;
+  margin-left: 1.75em;
+}
+
+.projectDescription * {
+  vertical-align: top;
+}
+
+div#user-profile form #router-link{
+  color: white;
+  padding-left: 1.4em;
+  padding-top: 5em;
+}
+
+div#create-project form button {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  margin-left: 1.5em;
+}
 </style>
