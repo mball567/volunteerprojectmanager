@@ -39,6 +39,7 @@
 
 <script>
 import authService from "../services/AuthService";
+import WebService from "../services/WebService.js"
 
 export default {
   name: "login",
@@ -71,6 +72,12 @@ export default {
           }
         });
     }
-  }
+  },
+  created(){
+    WebService.getCauses()
+      .then( (response) => {
+      this.$store.commit("SET_CAUSES", response.data);
+      });  
+  },
 };
 </script>

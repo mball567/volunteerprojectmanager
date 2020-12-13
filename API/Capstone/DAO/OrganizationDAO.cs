@@ -10,16 +10,22 @@ namespace Capstone.DAO
     public class OrganizationDAO : IOrganizationDAO
     {
         private readonly string connectionString;
+        private ICauseDAO causeDAO;
 
-        public OrganizationDAO(string dbConnectionString)
+        public OrganizationDAO(string dbConnectionString, ICauseDAO causeDAO)
         {
             connectionString = dbConnectionString;
+            this.causeDAO = causeDAO;
         }
 
         public bool CreateOrganization(Organization org)
         {
             string sql = @"Insert into organizations (user_id, org_name, org_image, org_bio, org_zipcode, org_city, org_state, org_contact_email)
-                           VALUES (@userID, @orgName, @orgImg, @orgBio, @orgZipCode, @orgCity, @orgState, @orgContactEmail)";
+                           VALUES (@userID, @orgName, @orgImg, @orgBio, @orgZipCode, @orgCity, @orgState, @orgContactEmail);
+                           Select @@IDENTITY";
+
+            //string sqlRelational = @"Insert into organizations_causes (cause_id, org_id)
+            //                         Values (@causeId, @@IDENTITY)";
 
             try
             {
@@ -37,16 +43,9 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@orgState", org.OrgState);
                     cmd.Parameters.AddWithValue("@orgContactEmail", org.OrgContactEmail);
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    int orgId = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    if (rowsAffected == 1)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return causeDAO.AddCausestoOrganization(org.OrgCauses, orgId);
                 }
             }
             catch (SqlException ex)

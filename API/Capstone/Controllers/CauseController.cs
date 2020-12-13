@@ -22,7 +22,7 @@ namespace Capstone.Controllers
         [HttpGet]
         public ActionResult<Cause[]> GetOrganizationInfo()
         {
-            Cause[] causes = causeDAO.getCauses();
+            Cause[] causes = causeDAO.GetCauses();
 
             if (causes == null)
             {

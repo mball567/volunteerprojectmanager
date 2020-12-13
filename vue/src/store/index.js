@@ -38,6 +38,7 @@ export default new Vuex.Store({
       localStorage.removeItem('user');
       state.token = '';
       state.user = {};
+      state.causes = [];
       axios.defaults.headers.common = {};
     },
     ADD_PROFILE(state, profile){

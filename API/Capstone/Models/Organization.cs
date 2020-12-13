@@ -16,5 +16,6 @@ namespace Capstone.Models
         public string OrgCity { get; set; }
         public string OrgState { get; set; }
         public string OrgContactEmail { get; set; }
+        public int[] OrgCauses { get; set; }
     }
 }

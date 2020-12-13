@@ -66,6 +66,16 @@
       <label for="e-mail">E-Mail Address: </label>
       <input type="email" id="e-mail" placeholder="E-Mail Address" v-model="user.profile.ProfContactEmail" required /> <br />
 
+      <p>Select all causes in which you are interested:</p>
+      <tr v-for="cause in causes" v-bind:key="cause.causeId">
+        <td>
+          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="myCauses">
+        </td>
+        <td>
+          {{cause.causeName}}
+        </td>
+      </tr>
+
       <router-link id="router-link" :to="{ name: 'login' }">Have an account?</router-link><br />
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
@@ -101,6 +111,9 @@ export default {
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
+      causes: [],
+      myCauses: [],
+      checked: false,
     };
   },
   methods: {
@@ -148,6 +161,9 @@ export default {
       this.registrationErrors = false;
       this.registrationErrorMsg = "There were problems registering this user.";
     },
+  },
+  created(){
+    this.causes = this.$store.state.causes;
   },
 };
 </script>
