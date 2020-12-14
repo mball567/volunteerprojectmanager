@@ -50,6 +50,16 @@
       <label for="e-mail">Lead Contact: </label>
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="project.ProjContactEmail" required /> <br />
 
+      <p>Select which causes apply to this project:</p>
+      <tr v-for="cause in causes" v-bind:key="cause.causeId">
+        <td>
+          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="project.ProjCauses">
+        </td>
+        <td>
+          {{cause.causeName}}
+        </td>
+      </tr>
+
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Project
       </button>
@@ -73,6 +83,7 @@ export default {
                 ProjState: "",
                 ProjWorkingHours: 0,
                 ProjContactEmail: "",
+                ProjCauses: [],
             },
             causes: [],
         };

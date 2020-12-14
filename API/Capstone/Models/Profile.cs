@@ -16,8 +16,7 @@ namespace Capstone.Models
         public int ProfZip { get; set; }
         public string ProfCity { get; set; }
         public string ProfState { get; set; }
-        //public List<string> causes { get; set; }
+        public int[] ProfCauses { get; set; }
         public string ProfContactEmail { get; set; }
-
     }
 }

@@ -10,16 +10,19 @@ namespace Capstone.DAO
     public class ProfileDAO : IProfileDAO
     {
         private readonly string connectionString;
+        private ICauseDAO causeDAO;
 
-        public ProfileDAO(string dbConnectionString)
+        public ProfileDAO(string dbConnectionString, ICauseDAO causeDAO)
         {
             connectionString = dbConnectionString;
+            this.causeDAO = causeDAO;
         }
 
         public bool CreateProfile(Profile profile)
         {
             string sql = @"Insert into profiles (user_id, first_name, last_name, prof_image, bio, prof_zipcode, prof_city, prof_state, prof_contact_email)
-                           VALUES (@userID, @firstName, @lastName, @profImg, @bio, @profZipCode, @profCity, @profState, @profContactEmail)";
+                           VALUES (@userID, @firstName, @lastName, @profImg, @bio, @profZipCode, @profCity, @profState, @profContactEmail);
+                           Select @@IDENTITY";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -37,16 +40,9 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@profState", profile.ProfState);
                     cmd.Parameters.AddWithValue("@profContactEmail", profile.ProfContactEmail);
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    int profileId = Convert.ToInt32(cmd.ExecuteNonQuery());
 
-                    if (rowsAffected == 1)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return causeDAO.AddCausesToRelationalTable(profile.ProfCauses, profileId, "profiles", "profile");
                 }
             }
             catch (SqlException ex)

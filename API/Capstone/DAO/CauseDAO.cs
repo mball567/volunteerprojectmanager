@@ -51,13 +51,12 @@ namespace Capstone.DAO
             }
         }
 
-        public bool AddCausestoOrganization(int[] causeIds, int orgId)
+        public bool AddCausesToRelationalTable(int[] causeIds, int tableId, string tableName, string idName)
         {
-            string sql = @"Insert into organizations_causes (cause_id, org_id)
-                                     Values ";
+            string sql = $"Insert into {tableName}_causes (cause_id, {idName}_id) Values ";
 
             SqlCommand cmd = new SqlCommand();
-            cmd.Parameters.AddWithValue("@orgId", orgId);
+            cmd.Parameters.AddWithValue($"@{idName}Id", tableId);
 
             for (int i = 0; i < causeIds.Length; i++)
             {
@@ -66,7 +65,7 @@ namespace Capstone.DAO
                     sql += ", ";
                 }
 
-                sql += $"(@cause{i}, @orgId)";
+                sql += $"(@cause{i}, @{idName}Id)";
 
                 cmd.Parameters.AddWithValue($"@cause{i}", causeIds[i]);
             }

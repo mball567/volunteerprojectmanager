@@ -5,10 +5,8 @@ namespace Capstone.DAO
 {
     public interface ICauseDAO
     {
-        bool AddCausestoOrganization(int[] causeIds, int orgId);
+        bool AddCausesToRelationalTable(int[] causeIds, int orgId, string tableName, string idName);
 
         Cause[] GetCauses();
-
-        //bool PopulateRelationalCausesTable(string sqlStatement, int[] causeIds, SqlConnection connection);
     }
 }

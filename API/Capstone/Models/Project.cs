@@ -18,5 +18,6 @@ namespace Capstone.Models
         public string ProjState { get; set; }
         public int ProjWorkingHours { get; set; }
         public string ProjContactEmail { get; set; }
+        public int[] ProjCauses { get; set; }
     }
 }

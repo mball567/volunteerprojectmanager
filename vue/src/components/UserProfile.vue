@@ -69,7 +69,7 @@
       <p>Select all causes in which you are interested:</p>
       <tr v-for="cause in causes" v-bind:key="cause.causeId">
         <td>
-          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="myCauses">
+          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="user.profile.ProfCauses">
         </td>
         <td>
           {{cause.causeName}}
@@ -107,13 +107,12 @@ export default {
           ProfCity: "",
           ProfState: "",
           ProfContactEmail: "",
+          ProfCauses: [],
        },
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
       causes: [],
-      myCauses: [],
-      checked: false,
     };
   },
   methods: {
@@ -215,7 +214,7 @@ form textarea{
 div#user-profile form #router-link{
   color: white;
   padding-left: 1.4em;
-  padding-top: 5em;
+  padding-top: 0em;
 }
 
 div#user-profile form button {

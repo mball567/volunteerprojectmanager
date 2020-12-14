@@ -10,27 +10,29 @@ namespace Capstone.DAO
     public class ProjectDAO : IProjectDAO
     {
         private readonly string connectionString;
+        private ICauseDAO causeDAO;
 
-        public ProjectDAO(string dbConnectionString)
+        public ProjectDAO(string dbConnectionString, ICauseDAO causeDAO)
         {
             connectionString = dbConnectionString;
+            this.causeDAO = causeDAO;
         }
 
         public bool CreateProject(Project project)
         {
             string sql = @"INSERT into projects (org_id, proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
-                           VALUES (@orgId, @projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);";
+                           VALUES (@orgId, @projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);
+                           Select @@IDENTITY";
             string realtionalSql = @"INSERT into projects (proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
                                      VALUES (@projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);
                                      INSERT into profiles_projects (project_id, profile_id)
-                                     VALUES(@@IDENTITY, @profileId)";
+                                     VALUES(@@IDENTITY, @profileId);
+                                     Select @@IDENTITY";
 
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    int rowsAffected = 0;
-
                     conn.Open();
                     if (project.OrgId > 0)
                     {
@@ -44,7 +46,10 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@projState", project.ProjState);
                         cmd.Parameters.AddWithValue("@projWorkingHours", project.ProjWorkingHours);
                         cmd.Parameters.AddWithValue("@projContactEmail", project.ProjContactEmail);
-                        rowsAffected = cmd.ExecuteNonQuery();
+
+                        int projId = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                        return causeDAO.AddCausesToRelationalTable(project.ProjCauses, projId, "projects", "proj");
                     }
 
                     if (project.OrgId == 0)
@@ -59,17 +64,12 @@ namespace Capstone.DAO
                         cmdRelational.Parameters.AddWithValue("@projState", project.ProjState);
                         cmdRelational.Parameters.AddWithValue("@projWorkingHours", project.ProjWorkingHours);
                         cmdRelational.Parameters.AddWithValue("@projContactEmail", project.ProjContactEmail);
-                        rowsAffected = cmdRelational.ExecuteNonQuery();
-                    }
 
-                    if (rowsAffected == 1)
-                    {
-                        return true;
+                        int projId = Convert.ToInt32(cmdRelational.ExecuteNonQuery());
+
+                        return causeDAO.AddCausesToRelationalTable(project.ProjCauses, projId, "projects", "proj");
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             catch (SqlException ex)

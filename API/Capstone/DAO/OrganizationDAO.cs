@@ -24,9 +24,6 @@ namespace Capstone.DAO
                            VALUES (@userID, @orgName, @orgImg, @orgBio, @orgZipCode, @orgCity, @orgState, @orgContactEmail);
                            Select @@IDENTITY";
 
-            //string sqlRelational = @"Insert into organizations_causes (cause_id, org_id)
-            //                         Values (@causeId, @@IDENTITY)";
-
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -45,7 +42,7 @@ namespace Capstone.DAO
 
                     int orgId = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    return causeDAO.AddCausestoOrganization(org.OrgCauses, orgId);
+                    return causeDAO.AddCausesToRelationalTable(org.OrgCauses, orgId, "organizations", "org");
                 }
             }
             catch (SqlException ex)

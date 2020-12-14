@@ -48,6 +48,16 @@
       <label for="e-mail">Lead Contact: </label>
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="team.TeamContactEmail" required /> <br />
 
+      <p>Select which causes apply to this team:</p>
+      <tr v-for="cause in causes" v-bind:key="cause.causeId">
+        <td>
+          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="team.TeamCauses">
+        </td>
+        <td>
+          {{cause.causeName}}
+        </td>
+      </tr>
+
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Team
       </button>
@@ -69,7 +79,9 @@ export default {
                 TeamCity: "",
                 TeamState: "",
                 TeamContactEmail: "",
+                TeamCauses: [],
             },
+            causes: [],
         };
     },
     methods: {
@@ -85,7 +97,10 @@ export default {
             }
           })
         }
-    }
+    },
+        created() {
+      this.causes = this.$store.state.causes;
+    },
 }
 </script>
 

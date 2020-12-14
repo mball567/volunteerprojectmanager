@@ -10,10 +10,12 @@ namespace Capstone.DAO
     public class TeamDAO : ITeamDAO
     {
         private readonly string connectionString;
+        private ICauseDAO causeDAO;
 
-        public TeamDAO(string dbConnectionString)
+        public TeamDAO(string dbConnectionString, ICauseDAO causeDAO)
         {
             connectionString = dbConnectionString;
+            this.causeDAO = causeDAO;
         }
 
         public bool CreateTeam(Team team)
@@ -21,7 +23,8 @@ namespace Capstone.DAO
             string sql = @"INSERT into teams (team_name, team_image, team_bio, team_zipcode, team_city, team_state, team_contact_email)
                            VALUES (@teamName, @teamImg, @teamBio, @teamZipCode, @teamCity, @teamState, @teamContactEmail);
                            INSERT into profiles_teams (team_id, profile_id)
-                           VALUES (@@IDENTITY, @profileID)";
+                           VALUES (@@IDENTITY, @profileID);
+                           Select @@IDENTITY";
 
             try
             {
@@ -39,16 +42,9 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@teamContactEmail", team.TeamContactEmail);
                     cmd.Parameters.AddWithValue("@profileID", team.CreatedBy);
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    int teamId = Convert.ToInt32(cmd.ExecuteNonQuery());
 
-                    if (rowsAffected == 1)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return causeDAO.AddCausesToRelationalTable(team.TeamCauses, teamId, "teams", "team");
                 }
             }
             catch (SqlException ex)

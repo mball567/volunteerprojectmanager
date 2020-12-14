@@ -17,5 +17,6 @@ namespace Capstone.Models
         public string TeamState { get; set; }
         public string TeamContactEmail { get; set; }
         public List<Profile> TeamMembers { get; set; }
+        public int[] TeamCauses { get; set; }
     }
 }

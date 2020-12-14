@@ -103,9 +103,9 @@ CREATE TABLE profiles_projects (
 	profile_id int NOT NULL,
 	project_id int NOT NULL,
 	hours_worked int DEFAULT 0 NOT NULL,
-	CONSTRAINT pk_profiles_projects_project_id_user_id PRIMARY KEY (profile_id, project_id),
-	CONSTRAINT fk_profiles_projects_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id),
-	CONSTRAINT fk_profiles_projects_project_id FOREIGN KEY (project_id) REFERENCES projects (proj_id)
+	CONSTRAINT pk_profiles_projects_project_id_user_id PRIMARY KEY (project_id, profile_id),
+	CONSTRAINT fk_profiles_projects_project_id FOREIGN KEY (project_id) REFERENCES projects (proj_id),
+	CONSTRAINT fk_profiles_projects_profile_id FOREIGN KEY (profile_id) REFERENCES profiles (profile_id)
 );
 
 CREATE TABLE profiles_teams (
