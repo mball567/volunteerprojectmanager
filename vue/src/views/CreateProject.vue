@@ -11,7 +11,7 @@
         v-model="project.ProjName"
         required
         autofocus
-      />
+      /> <br/>
 
       <label>Drag and drop your Project image here:</label>
       <drop-zone />
@@ -54,6 +54,7 @@
       <label for="e-mail">Lead Contact: </label>
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="project.ProjContactEmail" required /> <br />
 
+      <div id="causeList"> 
       <p>Select which causes apply to this project:</p>
       <tr v-for="cause in causes" v-bind:key="cause.causeId">
         <td>
@@ -63,6 +64,7 @@
           {{cause.causeName}}
         </td>
       </tr>
+      </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Project
@@ -185,5 +187,9 @@ div#create-project form button {
   margin-top: 0.5em;
   padding: 0.5em;
   margin-left: 1.5em;
+}
+
+form div#causeList {
+  color: white;
 }
 </style>

@@ -68,6 +68,7 @@
       <label for="OrgContactEmail">E-Mail Address: </label>
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="user.organization.OrgContactEmail" required /> <br />
 
+      <div id="causeList"> 
       <p>Select all causes in which you are interested:</p>
       <tr v-for="cause in causes" v-bind:key="cause.causeId">
         <td>
@@ -77,6 +78,7 @@
           {{cause.causeName}}
         </td>
       </tr>
+      </div>
       
       <router-link id="router-link" :to="{ name: 'login' }">Have an account?</router-link><br />
       <button class="btn btn-lg btn-primary btn-block" type="submit">
@@ -213,5 +215,9 @@ div#org-profile form button {
   margin-top: 1.75em;
   padding: 0.5em;
   margin-left: 1.5em;
+}
+
+form div#causeList {
+  color: white;
 }
 </style>

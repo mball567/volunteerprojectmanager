@@ -17,6 +17,7 @@
      
 
     <aside>
+      <img id="userImage" :src="profile.profileImage" />
       <h2>{{ profile.firstName }} {{ profile.lastName }}</h2>
           <p>Email: {{ profile.profContactEmail }}</p>
           <p>Currently akting in: {{ profile.profCity }}, {{ profile.profState }}</p>
@@ -165,6 +166,12 @@ nav#site-nav li a {
 
 nav#site-nav li a:hover {
   color: #219ebcff;
+}
+
+img#userImage{
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
 }
 
 </style>
