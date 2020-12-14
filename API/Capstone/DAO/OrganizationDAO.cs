@@ -51,9 +51,45 @@ namespace Capstone.DAO
             }
         }
 
+        public List<string> getAllCauseNames(int orgID)
+        {
+            string sql = @"select causes.cause_name from causes
+                            join organizations_causes ON organizations_causes.cause_id = causes.cause_id
+                            where organizations_causes.org_id = @orgID";
+
+            List<string> causes = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@orgID", orgID);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        string cause = "";
+                        cause = Convert.ToString(rdr["cause_name"]);
+                        causes.Add(cause);
+                      
+                    }
+                    return causes;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
         public Organization getOrganizationOnLogin(int userID)
         {
             string sql = @"Select * from organizations where user_id = @userID";
+                    
             Organization org = new Organization();
 
             try
@@ -78,7 +114,9 @@ namespace Capstone.DAO
                         org.OrgState = Convert.ToString(rdr["org_state"]);
                         org.OrgContactEmail = Convert.ToString(rdr["org_contact_email"]);
                         org.OrgId = Convert.ToInt32(rdr["org_id"]);
+
                     }
+                    org.OrgCauseNames = getAllCauseNames(org.OrgId).ToArray();
                     return org;
                 }
             }
@@ -87,5 +125,7 @@ namespace Capstone.DAO
                 throw;
             }
         }
+
+
     }
 }

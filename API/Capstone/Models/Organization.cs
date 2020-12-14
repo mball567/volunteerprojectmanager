@@ -17,5 +17,6 @@ namespace Capstone.Models
         public string OrgState { get; set; }
         public string OrgContactEmail { get; set; }
         public int[] OrgCauses { get; set; }
+        public string[] OrgCauseNames { get; set; }
     }
 }

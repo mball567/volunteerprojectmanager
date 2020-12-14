@@ -18,5 +18,6 @@ namespace Capstone.Models
         public string ProfState { get; set; }
         public int[] ProfCauses { get; set; }
         public string ProfContactEmail { get; set; }
+        public string[] ProfCauseNames { get; set; }
     }
 }

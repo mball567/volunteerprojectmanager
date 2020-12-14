@@ -51,6 +51,42 @@ namespace Capstone.DAO
             }
         }
 
+        public List<string> getAllCauseNames(int profileID)
+        {
+            string sql = @"select causes.cause_name from causes
+                            join profiles_causes ON profiles_causes.cause_id = causes.cause_id
+                            where profiles_causes.profile_id = @profileID";
+
+            List<string> causes = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@profileID", profileID);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        string cause = "";
+                        cause = Convert.ToString(rdr["cause_name"]);
+                        causes.Add(cause);
+
+                    }
+                    return causes;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+
         public Profile getProfileOnLogin(int userID)
         {
             string sql = @"Select * from profiles where user_id = @userID";
@@ -80,6 +116,7 @@ namespace Capstone.DAO
                         profile.ProfContactEmail = Convert.ToString(rdr["prof_contact_email"]);
                         profile.ProfileId = Convert.ToInt32(rdr["profile_id"]);
                     }
+                    profile.ProfCauseNames = getAllCauseNames(profile.ProfileId).ToArray();
                     return profile;
                 }
             }
