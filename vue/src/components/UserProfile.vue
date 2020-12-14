@@ -42,10 +42,23 @@
       <label for="LastName">Last Name: </label>
       <input id="LastName" type="text" placeholder="Last Name" v-model="user.profile.LastName" required />
       <br />
+
+      <label>Drag or drop your Profile image here:</label>
+      <drop-zone />
+
+      <br />
       <div class="userBio">
       <label id="bioLabel" for="Bio">User Bio: </label>
       <textarea id="Bio" type="text" placeholder="Tell us why you're akting" rows="8" cols="40" v-model="user.profile.Bio" required /> <br />
       </div>
+
+      <label for="city">City: </label>
+      <input id="city" type="text" placeholder="City" v-model="user.profile.ProfCity" required /> <br />
+
+      <label for="state">State: </label>
+      <input id="state" type="text" placeholder="State" v-model="user.profile.ProfState" required />
+      <br />
+
       <label for="zipCode">ZIP Code:</label>
       <input
         type="text"
@@ -57,12 +70,7 @@
         required
       />
       <br />
-      <label for="city">City: </label>
-      <input id="city" type="text" placeholder="City" v-model="user.profile.ProfCity" required /> <br />
 
-      <label for="state">State: </label>
-      <input id="state" type="text" placeholder="State" v-model="user.profile.ProfState" required />
-      <br />
       <label for="e-mail">E-Mail Address: </label>
       <input type="email" id="e-mail" placeholder="E-Mail Address" v-model="user.profile.ProfContactEmail" required /> <br />
 
@@ -86,8 +94,10 @@
 
 <script>
 import authService from "../services/AuthService";
+import DropZone from './DropZone.vue';
 
 export default {
+  components: { DropZone },
   name: "user-profile",
   props: {},
   data() {
@@ -116,31 +126,34 @@ export default {
     };
   },
   methods: {
-    addUserProfile() {
-      if (this.checked === true) {
-        this.$store.commit("ADD_PROFILE", this.profile);
-      } else {
-        this.profile = {
-          FirstName: "",
-          LastName: "",
-          Bio: "",
-          ProfileImage: "",
-          ProfZip: 0,
-          ProfCity: "",
-          ProfState: "",
-          ProfContactEmail: "",
-        };
-      }
-    },
+    // addUserProfile() {
+    //   if (this.checked === true) {
+    //     this.$store.commit("ADD_PROFILE", this.profile);
+    //   } else {
+    //     this.profile = {
+    //       FirstName: "",
+    //       LastName: "",
+    //       Bio: "",
+    //       ProfileImage: "",
+    //       ProfZip: 0,
+    //       ProfCity: "",
+    //       ProfState: "",
+    //       ProfContactEmail: "",
+    //     };
+    //   }
+    // },
     register() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = "Password & Confirm Password do not match.";
       } else {
+        this.user.profile.ProfileImage = this.$store.state.userImage;
+
         authService
           .register(this.user)
           .then((response) => {
             if (response.status == 201) {
+              this.$store.state.userImage = "";
               this.$router.push({
                 path: "/login",
                 query: { registration: "success" },

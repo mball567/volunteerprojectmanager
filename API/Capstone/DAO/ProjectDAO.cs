@@ -23,11 +23,11 @@ namespace Capstone.DAO
             string sql = @"INSERT into projects (org_id, proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
                            VALUES (@orgId, @projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);
                            Select @@IDENTITY";
-            string realtionalSql = @"INSERT into projects (proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
+            string projectsSql = @"INSERT into projects (proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
                                      VALUES (@projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);
-                                     INSERT into profiles_projects (project_id, profile_id)
-                                     VALUES(@@IDENTITY, @profileId);
                                      Select @@IDENTITY";
+            string profProjSql = @"INSERT into profiles_projects(project_id, profile_id)
+                                     VALUES(@@IDENTITY, @profileId)";
 
             try
             {
@@ -47,25 +47,29 @@ namespace Capstone.DAO
                         cmd.Parameters.AddWithValue("@projWorkingHours", project.ProjWorkingHours);
                         cmd.Parameters.AddWithValue("@projContactEmail", project.ProjContactEmail);
 
-                        int projId = Convert.ToInt32(cmd.ExecuteNonQuery());
+                        int projId = Convert.ToInt32(cmd.ExecuteScalar());
 
                         return causeDAO.AddCausesToRelationalTable(project.ProjCauses, projId, "projects", "proj");
                     }
 
                     if (project.OrgId == 0)
                     {
-                        SqlCommand cmdRelational = new SqlCommand(realtionalSql, conn);
-                        cmdRelational.Parameters.AddWithValue("@profileId", project.ProfId);
-                        cmdRelational.Parameters.AddWithValue("@projName", project.ProjName);
-                        cmdRelational.Parameters.AddWithValue("@projDesc", project.ProjDesc);
-                        cmdRelational.Parameters.AddWithValue("@projImage", project.ProjImage);
-                        cmdRelational.Parameters.AddWithValue("@projZipcode", project.ProjZip);
-                        cmdRelational.Parameters.AddWithValue("@projCity", project.ProjCity);
-                        cmdRelational.Parameters.AddWithValue("@projState", project.ProjState);
-                        cmdRelational.Parameters.AddWithValue("@projWorkingHours", project.ProjWorkingHours);
-                        cmdRelational.Parameters.AddWithValue("@projContactEmail", project.ProjContactEmail);
+                        SqlCommand cmdProjects = new SqlCommand(projectsSql, conn);
+                        cmdProjects.Parameters.AddWithValue("@projName", project.ProjName);
+                        cmdProjects.Parameters.AddWithValue("@projDesc", project.ProjDesc);
+                        cmdProjects.Parameters.AddWithValue("@projImage", project.ProjImage);
+                        cmdProjects.Parameters.AddWithValue("@projZipcode", project.ProjZip);
+                        cmdProjects.Parameters.AddWithValue("@projCity", project.ProjCity);
+                        cmdProjects.Parameters.AddWithValue("@projState", project.ProjState);
+                        cmdProjects.Parameters.AddWithValue("@projWorkingHours", project.ProjWorkingHours);
+                        cmdProjects.Parameters.AddWithValue("@projContactEmail", project.ProjContactEmail);
 
-                        int projId = Convert.ToInt32(cmdRelational.ExecuteNonQuery());
+                        int projId = Convert.ToInt32(cmdProjects.ExecuteScalar());
+
+                        SqlCommand cmdProfProj = new SqlCommand(profProjSql, conn);
+                        cmdProfProj.Parameters.AddWithValue("@profileId", project.ProfId);
+
+                        cmdProfProj.ExecuteNonQuery();
 
                         return causeDAO.AddCausesToRelationalTable(project.ProjCauses, projId, "projects", "proj");
                     }

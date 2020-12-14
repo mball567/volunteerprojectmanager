@@ -12,6 +12,10 @@
         required
         autofocus
       />
+
+      <label>Drag and drop your Project image here:</label>
+      <drop-zone />
+
       <br />
       <div class="projectDescription">
       <label for="projDesc" class="sr-only">Project Description: </label> <br/>
@@ -69,7 +73,11 @@
 
 <script>
 import WebService from '../services/WebService.js'
+import DropZone from '../components/DropZone.vue'
 export default {
+    components: {
+      DropZone,
+    },  
     data() {
         return{
             project: {
@@ -96,11 +104,13 @@ export default {
           else{
               this.project.ProfId = this.$store.state.user.profile.profileId;
           }
+          this.project.ProjImage = this.$store.state.userImage;
 
           WebService  
           .createProject(this.project)
           .then((response) => {
             if (response.status == 201) {
+              this.$store.state.userImage = "";
               this.$router.push({
                 path: "/profiles/my",
               });

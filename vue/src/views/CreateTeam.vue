@@ -13,6 +13,10 @@
         autofocus
       />
       <br />
+
+      <label>Drag and drop your Team image here:</label>
+      <drop-zone/>
+
       <div class="teamDescription">
       <label for="bio" class="sr-only">Team Bio: </label><br />
       <textarea
@@ -67,7 +71,11 @@
 
 <script>
 import WebService from '../services/WebService.js'
+import DropZone from '../components/DropZone.vue'
 export default {
+    components: {
+      DropZone,
+    },
     data() {
         return{
             team: {
@@ -87,10 +95,13 @@ export default {
     methods: {
         createTeam(){
           this.team.CreatedBy = this.$store.state.user.profile.profileId;
+          this.team.TeamImage= this.$store.state.userImage;
+
           WebService  
           .createTeam(this.team)
           .then((response) => {
             if (response.status == 201) {
+              this.$store.state.userImage = "";
               this.$router.push({
                 path: "/profiles/my",
               });

@@ -21,7 +21,8 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    causes: currentCauses || []
+    causes: currentCauses || [],
+    userImage: '',
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -39,6 +40,7 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       state.causes = [];
+      state.userImage = '';
       axios.defaults.headers.common = {};
     },
     ADD_PROFILE(state, profile){
@@ -51,6 +53,9 @@ export default new Vuex.Store({
     SET_CAUSES(state, causes){
       state.causes = causes;
       localStorage.setItem('causes', JSON.stringify(causes));
+    },
+    SET_USERIMAGE(state, imageString){
+      state.userImage = imageString;
     },
   }
 })

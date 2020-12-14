@@ -22,9 +22,9 @@ namespace Capstone.DAO
         {
             string sql = @"INSERT into teams (team_name, team_image, team_bio, team_zipcode, team_city, team_state, team_contact_email)
                            VALUES (@teamName, @teamImg, @teamBio, @teamZipCode, @teamCity, @teamState, @teamContactEmail);
-                           INSERT into profiles_teams (team_id, profile_id)
-                           VALUES (@@IDENTITY, @profileID);
                            Select @@IDENTITY";
+            string profTeamSql = @"INSERT into profiles_teams (team_id, profile_id)
+                                   VALUES (@@IDENTITY, @profileID)";
 
             try
             {
@@ -40,9 +40,12 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@teamCity", team.TeamCity);
                     cmd.Parameters.AddWithValue("@teamState", team.TeamState);
                     cmd.Parameters.AddWithValue("@teamContactEmail", team.TeamContactEmail);
-                    cmd.Parameters.AddWithValue("@profileID", team.CreatedBy);
 
-                    int teamId = Convert.ToInt32(cmd.ExecuteNonQuery());
+                    int teamId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    SqlCommand cmdProfTeam = new SqlCommand(profTeamSql, conn);
+                    cmdProfTeam.Parameters.AddWithValue("@profileID", team.CreatedBy);
+                    cmdProfTeam.ExecuteNonQuery();
 
                     return causeDAO.AddCausesToRelationalTable(team.TeamCauses, teamId, "teams", "team");
                 }

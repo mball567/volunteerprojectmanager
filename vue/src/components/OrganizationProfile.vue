@@ -38,12 +38,13 @@
       <input id="OrgName" type="text" placeholder="Organization" v-model="user.organization.OrgName" required />
       <br />
 
+      <label>Drag or drop your Organization logo here</label>
+      <drop-zone />
+
       <div class="orgBio">
       <label for="OrgBio">Organization Bio: </label>
       <textarea id="OrgBio" type="text" placeholder="Tell us why you're akting" rows="8" cols="40" v-model="user.organization.OrgBio" required /> <br />
       </div>
-
-      
 
       <label for="OrgCity">City: </label>
       <input id="OrgCity" type="text" placeholder="City" v-model="user.organization.OrgCity" required /> <br />
@@ -87,8 +88,10 @@
 
 <script>
 import authService from "../services/AuthService";
+import DropZone from "./DropZone.vue";
 
 export default {
+  components: { DropZone },
   name: "user-profile",
   props: {},
   data() {
@@ -124,10 +127,13 @@ export default {
         this.registrationErrors = true;
         this.registrationErrorMsg = "Password & Confirm Password do not match.";
       } else {
+        this.user.organization.OrgImage = this.$store.state.userImage;
+
         authService
           .register(this.user)
           .then((response) => {
             if (response.status == 201) {
+              this.$store.state.userImage = "";
               this.$router.push({
                 path: "/login",
                 query: { registration: "success" },

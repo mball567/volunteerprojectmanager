@@ -40,7 +40,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@profState", profile.ProfState);
                     cmd.Parameters.AddWithValue("@profContactEmail", profile.ProfContactEmail);
 
-                    int profileId = Convert.ToInt32(cmd.ExecuteNonQuery());
+                    int profileId = Convert.ToInt32(cmd.ExecuteScalar());
 
                     return causeDAO.AddCausesToRelationalTable(profile.ProfCauses, profileId, "profiles", "profile");
                 }
