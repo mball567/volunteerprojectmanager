@@ -23,7 +23,7 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("{projId}")]
-        public ActionResult<Project> GetTeamInfo(int projId)
+        public ActionResult<Project> GetProjectInfo(int projId)
         {
             Project proj = projectDAO.getProject(projId);
 

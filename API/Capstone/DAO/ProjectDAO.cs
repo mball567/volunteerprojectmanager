@@ -20,12 +20,10 @@ namespace Capstone.DAO
 
         public bool CreateProject(Project project)
         {
-            string sql = @"INSERT into projects (org_id, proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
-                           VALUES (@orgId, @projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);
+            string sql = @"INSERT into projects (user_id, proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
+                           VALUES (@userId, @projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);
                            Select @@IDENTITY";
-            string projectsSql = @"INSERT into projects (proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
-                                     VALUES (@projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);
-                                     Select @@IDENTITY";
+            
             string profProjSql = @"INSERT into profiles_projects(project_id, profile_id)
                                      VALUES(@@IDENTITY, @profileId)";
 
@@ -34,10 +32,10 @@ namespace Capstone.DAO
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    if (project.OrgId > 0)
+                    if (project.ProfId == 0)
                     {
                         SqlCommand cmd = new SqlCommand(sql, conn);
-                        cmd.Parameters.AddWithValue("@orgId", project.OrgId);
+                        cmd.Parameters.AddWithValue("@userId", project.UserId);
                         cmd.Parameters.AddWithValue("@projName", project.ProjName);
                         cmd.Parameters.AddWithValue("@projDesc", project.ProjDesc);
                         cmd.Parameters.AddWithValue("@projImage", project.ProjImage);
@@ -52,9 +50,10 @@ namespace Capstone.DAO
                         return causeDAO.AddCausesToRelationalTable(project.ProjCauses, projId, "projects", "proj");
                     }
 
-                    if (project.OrgId == 0)
+                    if (project.ProfId > 0)
                     {
-                        SqlCommand cmdProjects = new SqlCommand(projectsSql, conn);
+                        SqlCommand cmdProjects = new SqlCommand(sql, conn);
+                        cmdProjects.Parameters.AddWithValue("@userId", project.UserId);
                         cmdProjects.Parameters.AddWithValue("@projName", project.ProjName);
                         cmdProjects.Parameters.AddWithValue("@projDesc", project.ProjDesc);
                         cmdProjects.Parameters.AddWithValue("@projImage", project.ProjImage);
@@ -82,6 +81,41 @@ namespace Capstone.DAO
             }
         }
 
+        public List<string> getAllCauseNames(int projId)
+        {
+            string sql = @"select causes.cause_name from causes
+                            join projects_causes ON projects_causes.cause_id = causes.cause_id
+                            where projects_causes.proj_id = @projId";
+
+            List<string> causes = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@projId", projId);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        string cause = "";
+                        cause = Convert.ToString(rdr["cause_name"]);
+                        causes.Add(cause);
+
+                    }
+                    return causes;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
         public Project getProject(int projId)
         {
             string sql = @"Select * from projects where proj_id = @projId";
@@ -101,7 +135,7 @@ namespace Capstone.DAO
                     while (rdr.Read())
                     {
                         proj.ProjId = Convert.ToInt32(rdr["proj_id"]);
-                        proj.OrgId = Convert.ToInt32(rdr["org_id"]);
+                        proj.UserId = Convert.ToInt32(rdr["user_id"]);
                         proj.ProjName = Convert.ToString(rdr["proj_name"]);
                         proj.ProjDesc = Convert.ToString(rdr["proj_desc"]);
                         proj.ProjImage = Convert.ToString(rdr["proj_image"]);
@@ -111,6 +145,7 @@ namespace Capstone.DAO
                         proj.ProjWorkingHours = Convert.ToInt32(rdr["proj_working_hours"]);
                         proj.ProjContactEmail = Convert.ToString(rdr["proj_contact_email"]);
                     }
+                    proj.ProjCauseNames = getAllCauseNames(proj.ProjId).ToArray();
                     return proj;
                 }
             }

@@ -56,7 +56,7 @@ CREATE TABLE organizations(
 
 CREATE TABLE projects (
 	proj_id int IDENTITY(1,1) NOT NULL,
-	org_id int NULL,
+	user_id int NOT NULL,
 	proj_name varchar(100) NOT NULL,
 	proj_desc varchar(1000) NOT NULL,
 	proj_image varchar (200) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE projects (
 	proj_working_hours int NOT NULL,
 	proj_contact_email varchar (200) NOT NULL,
 	CONSTRAINT PK_projects PRIMARY KEY (proj_id),
-	CONSTRAINT FK_projects_org_id FOREIGN KEY (org_id) REFERENCES organizations (org_id)
+	
 );
 
 CREATE TABLE events (

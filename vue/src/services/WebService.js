@@ -18,7 +18,10 @@ export default {
         let url = `/teams/${teamId}`
         return http.get(url);
     },
-
+    getProjectInfo(projId){
+        let url = `/projects/${projId}`
+        return http.get(url);
+    },
     createProfile(profile){
         let url = '/profiles'
 

@@ -9,6 +9,7 @@ import Profile from '../views/Profile.vue'
 import CreateTeam from '../views/CreateTeam.vue'
 import CreateProject from '../views/CreateProject.vue'
 import Team from '../views/Team.vue'
+import Project from '../views/Project.vue'
 
 Vue.use(Router)
 
@@ -77,6 +78,14 @@ const router = new Router({
       path: "/projects/create",
       name: "createproject",
       component: CreateProject,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/projects/:projId",
+      name: "project",
+      component: Project,
       meta: {
         requiresAuth: false
       }

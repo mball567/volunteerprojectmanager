@@ -31,6 +31,10 @@
       />
       </div>
       <br />
+
+      <label for="projHours">How many hours do estimate this project will take: </label>
+      <input id="projHours" type="number" placeholder="Hours To Complete" v-model="project.projWorkingHours" required />
+      <br />
       
       <label for="projCity">City: </label>
       <input id="projCity" type="text" placeholder="City" v-model="project.ProjCity" required />
@@ -51,7 +55,7 @@
       />
       <br />
 
-      <label for="e-mail">Lead Contact: </label>
+      <label for="e-mail">Lead Contact E-Mail: </label>
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="project.ProjContactEmail" required /> <br />
 
       <div id="causeList"> 
@@ -83,7 +87,7 @@ export default {
     data() {
         return{
             project: {
-                OrgId: 0,
+                UserId: 0,
                 ProfId: 0,
                 ProjName: "",
                 ProjDesc: "",
@@ -100,12 +104,10 @@ export default {
     },
     methods: {
         createProject(){
-          if(this.$store.state.user.organization){
-              this.project.OrgId = this.$store.state.user.organization.orgId;
-          }
-          else{
+          if(this.$store.state.user.profile){
               this.project.ProfId = this.$store.state.user.profile.profileId;
           }
+          this.project.UserId = this.$store.state.user.userId;
           this.project.ProjImage = this.$store.state.userImage;
 
           WebService  
