@@ -16,20 +16,20 @@
           </nav>
 
           <aside>
-            <img id="userImage" :src="team.TeamImage" />
-            <h2>{{ team.TeamName }}</h2>
-            <p>Email: {{ team.TeamContactEmail }}</p>
+            <img id="userImage" :src="team.teamImage" />
+            <h2>{{ team.teamName }}</h2>
+            <p>Email: {{ team.teamContactEmail }}</p>
             <p>
-              Currently akting in: {{ team.TeamCity }},
-              {{ team.TeamState }}
+              Currently akting in: {{ team.teamCity }},
+              {{ team.teamState }}
             </p>
           </aside>
 
-          <p id="bio">{{ team.TeamBio }}</p>
+          <p id="bio">{{ team.teamBio }}</p>
 
           <div id="causes">
             <ul>
-              <li v-for="causeName in team.TeamCauseNames" v-bind:key="causeName">{{causeName}}</li>
+              <li v-for="causeName in team.teamCauseNames" v-bind:key="causeName">{{causeName}}</li>
             </ul>
           </div>
 
@@ -46,15 +46,15 @@ export default {
   data() {
     return {
       team: {
-                TeamName: "",
-                TeamImage: "",
-                TeamBio: "",
-                TeamZip: "",
-                TeamCity: "",
-                TeamState: "",
-                TeamContactEmail: "",
-                TeamMembers: [],
-                TeamCauseNames: [],
+                teamName: "",
+                teamImage: "",
+                teamBio: "",
+                teamZip: "",
+                teamCity: "",
+                teamState: "",
+                teamContactEmail: "",
+                teamMembers: [],
+                teamCauseNames: [],
             },
     };
   },
