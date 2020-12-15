@@ -59,7 +59,7 @@ export default {
     };
   },
   methods: {
-    getProfileInfo(teamId) {
+    getTeamInfo(teamId) {
       WebService.getTeamInfo(teamId).then((response) => {
         this.team = response.data;
       });
