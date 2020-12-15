@@ -16,7 +16,9 @@ namespace Capstone.Models
         public string TeamCity { get; set; }
         public string TeamState { get; set; }
         public string TeamContactEmail { get; set; }
-        public List<Profile> TeamMembers { get; set; }
+        public string[] TeamMembers { get; set; }
         public int[] TeamCauses { get; set; }
+        public string[] TeamCauseNames { get; set; }
+         
     }
 }

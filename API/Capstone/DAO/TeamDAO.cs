@@ -56,7 +56,76 @@ namespace Capstone.DAO
             }
         }
 
-        //TODO: unsure of parameter. might need to pass in something else.
+        public List<string> getAllCauseNames(int teamID)
+        {
+            string sql = @"select causes.cause_name from causes
+                            join teams_causes ON teams_causes.cause_id = causes.cause_id
+                            where teams_causes.team_id = @teamID";
+
+            List<string> causes = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@teamID", teamID);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        string cause = "";
+                        cause = Convert.ToString(rdr["cause_name"]);
+                        causes.Add(cause);
+
+                    }
+                    return causes;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public List<string> getTeamMembers(int teamID)
+        {
+            string sql = @"Select profiles.first_name, profiles.last_name from profiles 
+                            Join profiles_teams on profiles.profile_id = profiles_teams.profile_id
+                                Where team_id = @teamId";
+
+            List<string> teamMembers = new List<string>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@teamID", teamID);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        string firstName = Convert.ToString(rdr["first_name"]);
+                        string lastName = Convert.ToString(rdr["last_name"]);
+                        string teamMember = $"{firstName} {lastName}";
+                        teamMembers.Add(teamMember);
+                    }
+                    return teamMembers;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
         public Team getTeam(int teamID)
         {
             string sql = @"Select * from teams where team_id = @teamID";
@@ -84,6 +153,8 @@ namespace Capstone.DAO
                         team.TeamState = Convert.ToString(rdr["team_state"]);
                         team.TeamContactEmail = Convert.ToString(rdr["team_contact_email"]);
                     }
+                    team.TeamCauseNames = getAllCauseNames(team.TeamId).ToArray();
+                    team.TeamMembers = getTeamMembers(team.TeamId).ToArray();
                     return team;
                 }
             }
