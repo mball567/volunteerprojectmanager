@@ -8,6 +8,9 @@ namespace Capstone.DAO
         bool CreateOrganization(Organization org);
 
         List<string> getAllCauseNames(int orgID);
+
         Organization getOrganizationOnLogin(int userID);
+
+        List<Organization> SearchByName(string orgName);
     }
 }

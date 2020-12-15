@@ -75,7 +75,6 @@ namespace Capstone.DAO
                         string cause = "";
                         cause = Convert.ToString(rdr["cause_name"]);
                         causes.Add(cause);
-                      
                     }
                     return causes;
                 }
@@ -86,11 +85,28 @@ namespace Capstone.DAO
             }
         }
 
+        public Organization RowToObject(SqlDataReader rdr)
+        {
+            Organization org = new Organization();
+
+            org.UserId = Convert.ToInt32(rdr["user_id"]);
+            org.OrgName = Convert.ToString(rdr["org_name"]);
+            org.OrgImage = Convert.ToString(rdr["org_image"]);
+            org.OrgBio = Convert.ToString(rdr["org_bio"]);
+            org.OrgZip = Convert.ToInt32(rdr["org_zipcode"]);
+            org.OrgCity = Convert.ToString(rdr["org_city"]);
+            org.OrgState = Convert.ToString(rdr["org_state"]);
+            org.OrgContactEmail = Convert.ToString(rdr["org_contact_email"]);
+            org.OrgId = Convert.ToInt32(rdr["org_id"]);
+
+            return org;
+        }
+
         public Organization getOrganizationOnLogin(int userID)
         {
             string sql = @"Select * from organizations where user_id = @userID";
-                    
-            Organization org = new Organization();
+
+            Organization org = null;
 
             try
             {
@@ -105,16 +121,7 @@ namespace Capstone.DAO
 
                     while (rdr.Read())
                     {
-                        org.UserId = Convert.ToInt32(rdr["user_id"]);
-                        org.OrgName = Convert.ToString(rdr["org_name"]);
-                        org.OrgImage = Convert.ToString(rdr["org_image"]);
-                        org.OrgBio = Convert.ToString(rdr["org_bio"]);
-                        org.OrgZip = Convert.ToInt32(rdr["org_zipcode"]);
-                        org.OrgCity = Convert.ToString(rdr["org_city"]);
-                        org.OrgState = Convert.ToString(rdr["org_state"]);
-                        org.OrgContactEmail = Convert.ToString(rdr["org_contact_email"]);
-                        org.OrgId = Convert.ToInt32(rdr["org_id"]);
-
+                        org = RowToObject(rdr);
                     }
                     org.OrgCauseNames = getAllCauseNames(org.OrgId).ToArray();
                     return org;
@@ -126,6 +133,34 @@ namespace Capstone.DAO
             }
         }
 
+        public List<Organization> SearchByName(string name)
+        {
+            string sql = @"Select * from organizations where org_name like @name";
 
+            try
+            {
+                List<Organization> organizations = new List<Organization>();
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@name", $"%{name}%");
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        organizations.Add(RowToObject(rdr));
+                    }
+                    return organizations;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
     }
 }

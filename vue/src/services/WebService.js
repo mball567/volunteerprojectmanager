@@ -6,10 +6,7 @@ const http = axios.create({
 
 export default {
     getProfileInfo(userId){
-        // if(user.isOrganization){
-        //     let url = `/organizations/${userId}`
-        // }
-            
+    
         let url = `/profiles/${userId}`
         
         return http.get(url);
@@ -43,5 +40,10 @@ export default {
         let url = '/causes'
 
         return http.get(url);
+    },
+    search(request){
+        let url = '/search'
+
+        return http.post(url, request);
     },
 }

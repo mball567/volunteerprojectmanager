@@ -10,6 +10,7 @@ import CreateTeam from '../views/CreateTeam.vue'
 import CreateProject from '../views/CreateProject.vue'
 import Team from '../views/Team.vue'
 import Project from '../views/Project.vue'
+import Search from '../views/Search.vue'
 
 Vue.use(Router)
 
@@ -94,6 +95,14 @@ const router = new Router({
       path: "/teams/:teamId",
       name: "team",
       component: Team,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/search",
+      name: "search",
+      component: Search,
       meta: {
         requiresAuth: false
       }
