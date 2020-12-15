@@ -5,9 +5,7 @@
         <h1 v-on:click="$router.push({name: 'home'})">akt</h1>
 
     </header>
-    <div id="nav">
-         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-    </div>
+  
     <router-view />
   </div>
 </template> 

@@ -27,9 +27,13 @@
             </p>
           </aside>
 
+          <div id="bioArea">
+          <h2>Bio:</h2>
           <p id="bio">{{ profile.bio }}</p>
+          </div>
 
                 <div id="causes">
+                  <h2>Causes:</h2>
             <ul>
               <li v-for="causeName in profile.profCauseNames" v-bind:key="causeName">{{causeName}}</li>
             </ul>
@@ -48,7 +52,7 @@
               &nbsp;|&nbsp;
               <li><a href="#">Akt with others</a></li>
               &nbsp;|&nbsp;
-              <li><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+              <li id="logout"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
             </ul>
           </nav>
 
@@ -62,9 +66,13 @@
             </p>
           </aside>
 
+          <div id="bioArea">
+          <h2>Bio:</h2>
           <p id="bio">{{ organization.orgBio }}</p>
+          </div>
 
           <div id="causes">
+            <h2>Causes:</h2>
             <ul>
               <li v-for="causeName in organization.orgCauseNames" v-bind:key="causeName">{{causeName}}</li>
             </ul>
@@ -161,9 +169,10 @@ body {
   font-weight: 400;
 }
 
-main p#bio {
+main div#bioArea {
   grid-area: bio;
   color: white;
+
 }
 
 main nav#site-nav {
@@ -175,27 +184,45 @@ main nav#site-nav {
 main nav#site-nav ul {
   display: flex;
   align-items: stretch;
-  justify-content: space-between;
+  /* justify-content: space-evenly;
+  text-align: center;*/
+  background-color: #e5e5e5ff;
+  padding-block: .5em;
 }
 
 aside {
   color: white;
   grid-area: aside;
   height: 100vh;
+  padding-left: 1em;
+  padding-right: 2em;
 }
 
 nav#site-nav li {
   list-style-type: none;
   display: inline;
-}
+  justify-content: space-evenly;
+  text-align: center;
 
+}
+/* 
 nav#site-nav li a {
   list-style-type: none;
   color: #ffb703ff;
   padding: 20px;
   text-decoration: none;
   font-weight: bold;
-}
+  
+} */
+/* nav#site-nav li#logout {
+  list-style-type: none;
+  color: #ffb703ff;
+  padding: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  
+} */
+
 
 nav#site-nav li a:hover {
   color: #219ebcff;
@@ -205,5 +232,16 @@ img#userImage {
   border-radius: 50%;
   width: 200px;
   height: 200px;
+}
+
+div#causes {
+  grid-area: causes;
+  color: white;
+}
+
+div#causes ul {
+  color: white;
+  list-style-type: none;
+  padding: 0;
 }
 </style>
