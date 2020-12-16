@@ -25,6 +25,8 @@
 
           <p id="bio">{{ project.projDesc }}</p>
 
+          <button v-on:click="createEventForProject">Create An Event</button>
+
           <div id="causes">
             <ul>
               <li v-for="causeName in project.projCauseNames" v-bind:key="causeName">{{causeName}}</li>
@@ -64,6 +66,11 @@ export default {
         this.project = response.data;
       });
     },
+    createEventForProject(){
+    if(this.project.userId === this.$store.state.user.userId){
+      this.$router.push({path:`/projects/${this.project.projId}/events`});
+    }
+  },
   },
   created() {
     let projId = this.$route.params.projId;

@@ -86,36 +86,31 @@ export default {
     data() {
         return{
             event: {
-                UserId: 0,
-                EventId: 0,
-                ProjId: 0,
-                EventName: "",
-                EventDesc: "",
-                EventZip: 0,
-                EventCity: "",
-                EventState: "", 
-               // EventTime:  , //add default
-                //EventDate: ,  //add default
-                EventWorkingHours: 0,
-                EventContactEmail: "",
-                EventCauses: [],
+                userId: 0,
+                eventId: 0,
+                projId: 0,
+                eventName: "",
+                eventDesc: "",
+                eventZip: 0,
+                eventCity: "",
+                eventState: "", 
+                eventStartTime: "",
+                eventEndTime: "",
+                eventDate: "",
+                eventWorkingHours: 0,
+                eventContactEmail: "",
             },
-            causes: [],
-
         };
     },
     methods: {
         createEvent(){
-          if(this.$store.state.user.userId){
-              this.event.UserId = this.$store.state.user.UserId;
-          }
-          this.event.UserId = this.$store.state.user.userId;
+          // this.event.UserId = this.$store.state.user.userId;
+          // this.event.projId = this.$route.params.projId;
 
           WebService  
           .createEvent(this.event)
           .then((response) => {
             if (response.status == 201) {
-              this.$store.state.userImage = "";
               this.$router.push({
                 path: "/profiles/my",
               });
@@ -123,8 +118,10 @@ export default {
           })
         }
     },
-    created() {
-      this.causes = this.$store.state.causes;
+    created(){
+          this.event.UserId = this.$store.state.user.userId;
+          let projectId = parseInt(this.$route.params.projId);
+          this.event.projId = projectId;
     },
 }
 </script>

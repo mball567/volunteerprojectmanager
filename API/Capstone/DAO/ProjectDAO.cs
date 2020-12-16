@@ -246,5 +246,82 @@ namespace Capstone.DAO
                 throw;
             }
         }
+
+        public bool CreateEvent(Event myEvent)
+        {
+            string sql = @"Insert into events (user_id, proj_id, event_name, event_desc, event_zipcode, event_city, event_state, event_contact_email, event_starttime, event_endtime, event_working_hours, event_date)
+                           VALUES (@userId, @projId, @eventName, @eventDesc, @eventZipcode, @eventCity, @eventState, @eventContactEmail, @eventStartTime, @eventEndTime, @eventWorkingHours, @eventDate);
+                           Select @@IDENTITY";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@userID", myEvent.UserId);
+                    cmd.Parameters.AddWithValue("@projId", myEvent.ProjId);
+                    cmd.Parameters.AddWithValue("@eventName", myEvent.EventName);
+                    cmd.Parameters.AddWithValue("@eventDesc", myEvent.EventDesc);
+                    cmd.Parameters.AddWithValue("@eventZipcode", myEvent.EventZip);
+                    cmd.Parameters.AddWithValue("@eventCity", myEvent.EventCity);
+                    cmd.Parameters.AddWithValue("@eventState", myEvent.EventState);
+                    cmd.Parameters.AddWithValue("@eventContactEmail", myEvent.EventContactEmail);
+                    cmd.Parameters.AddWithValue("@eventStartTime", myEvent.EventStartTime);
+                    cmd.Parameters.AddWithValue("@eventEndTime", myEvent.EventEndTime);
+                    cmd.Parameters.AddWithValue("@eventWorkingHours", myEvent.EventWorkingHours);
+                    cmd.Parameters.AddWithValue("@eventDate", myEvent.EventDate);
+
+                    int eventId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    EventSignUp(eventId, myEvent.UserId);
+
+                    if (eventId > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public bool EventSignUp(int eventId, int userId)
+        {
+            string sql = @"Insert into events_users (user_id, event_id)
+                           VALUES (@userId, @eventId)";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@userID", userId);
+                    cmd.Parameters.AddWithValue("@eventId", eventId);
+
+                    int rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                    if (rowsAffected == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
     }
 }

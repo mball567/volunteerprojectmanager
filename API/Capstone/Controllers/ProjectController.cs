@@ -36,7 +36,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Project> CreateProfile(Project project)
+        public ActionResult<Project> CreateProject(Project project)
         {
             projectDAO.CreateProject(project);
 
@@ -46,6 +46,19 @@ namespace Capstone.Controllers
             }
 
             return Created($"/projects/{project.ProjId}", project);
+        }
+
+        [HttpPost("{myEvent.ProjId}/events")]
+        public ActionResult<Event> CreateEvent(Event myEvent)
+        {
+            projectDAO.CreateEvent(myEvent);
+
+            if (myEvent == null)
+            {
+                return NotFound();
+            }
+
+            return Created($"/projects/{myEvent.ProjId}/events", myEvent);
         }
 
         [Authorize]

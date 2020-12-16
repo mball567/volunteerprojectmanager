@@ -56,4 +56,9 @@ export default {
 
         return http.post(url, request);
     },
+    createEvent(event){
+        let url =  `/projects/${event.projId}/events`
+
+        return http.post(url, event);
+    },
 }
