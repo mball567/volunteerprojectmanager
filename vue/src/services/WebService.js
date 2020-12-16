@@ -11,6 +11,16 @@ export default {
         
         return http.get(url);
     },
+    getOrgInfo(userId){
+        let url = `/organizations/${userId}`
+        
+        return http.get(url);
+    },
+    getUserInfo(userId){
+        let url = `/users/${userId}`
+        
+        return http.get(url);
+    },
     getTeamInfo(teamId){
         let url = `/teams/${teamId}`
         return http.get(url);

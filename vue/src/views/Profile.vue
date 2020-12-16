@@ -115,19 +115,40 @@ export default {
         orgContactEmail: "",
         orgCauseNames: [],
       },
+      lookupUser: {
+        userId: 0,
+        username: "",
+        passwordHash: "",
+        salt: "",
+        role: "",
+        isOrganization: false,
+      },
       isOrg: false,
     };
   },
   methods: {
-    getProfileInfo(userId) {
-      WebService.getProfileInfo(userId).then((response) => {
-        this.profile = response.data;
-      });
+    getUserInfo(userId) {
+        WebService.getUserInfo(userId).then ((response) => {
+          this.lookupUser = response.data;
+
+          if(this.lookupUser.isOrganization === true){
+          WebService.getOrgInfo(userId).then((response) => {
+          this.organization = response.data;
+          this.isOrg = true;
+          });
+          }
+          else{
+          WebService.getProfileInfo(userId).then((response) => {
+          this.profile = response.data;
+          });
+          }
+          });
     },
   },
   created() {
     // let userId = this.$route.params.userId;
     // this.getProfileInfo(userId);
+
     let userId = this.$route.params.userId;
     if (userId === "my") {
       if (this.$store.state.user.profile) {
@@ -137,7 +158,7 @@ export default {
         this.isOrg = true;
       }
     } else {
-      this.getProfileInfo(userId);
+      this.getUserInfo(userId);
     }
   },
 };
