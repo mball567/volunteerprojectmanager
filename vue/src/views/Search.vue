@@ -31,12 +31,12 @@
 
     <div v-if="searchResult.organizations">
       <h1 v-if="searchResult.organizations.length > 0">Organizations</h1>
-      <p class="link" v-for="org in searchResult.organizations" v-bind:key="org.orgId">{{org.orgName}}</p>
+      <p class="link" v-for="org in searchResult.organizations" v-bind:key="org.orgId" v-on:click="$router.push({path:`/profiles/${org.userId}`})">{{org.orgName}}</p>
     </div>
 
     <div v-if="searchResult.profiles">
       <h1 v-if="searchResult.profiles.length > 0">Profiles</h1>
-      <p class="link" v-for="profile in searchResult.profiles" v-bind:key="profile.profileId">{{profile.firstName}} {{profile.lastName}}</p>
+      <p class="link" v-for="profile in searchResult.profiles" v-bind:key="profile.profileId" v-on:click="$router.push({path:`/profiles/${profile.userId}`})">{{profile.firstName}} {{profile.lastName}}</p>
     </div>
 
     <div v-if="searchResult.teams">
