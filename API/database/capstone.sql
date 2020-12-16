@@ -74,8 +74,13 @@ CREATE TABLE events (
 	proj_id int NOT NULL,
 	event_name varchar(100) NOT NULL,
 	event_desc varchar(1000) NOT NULL,
+	event_zipcode int NOT NULL,
+	event_city varchar (100) NOT NULL,
+	event_state varchar (50) NOT NULL,
+	event_time time NOT NULL,
 	event_date datetime NOT NULL,
 	event_working_hours int NOT NULL,
+	event_contact_email varchar (200) NOT NULL,
 	CONSTRAINT PK_events PRIMARY KEY (event_id),
 	CONSTRAINT FK_events_proj_id FOREIGN KEY (proj_id) REFERENCES projects (proj_id)
 );
