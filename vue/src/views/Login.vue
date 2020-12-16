@@ -12,7 +12,7 @@
         role="alert"
         v-if="this.$route.query.registration"
       >Thank you for registering, please sign in.</div>
-      <label for="username" class="sr-only">Username</label>
+      <label id="forUsername" for="username" class="sr-only">Username: </label>
       <input
         type="text"
         id="username"
@@ -22,7 +22,7 @@
         required
         autofocus
       />
-      <label for="password" class="sr-only">Password</label>
+      <label id="forPassword" for="password" class="sr-only">Password: </label>
       <input
         type="password"
         id="password"
@@ -31,8 +31,8 @@
         v-model="user.password"
         required
       />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
+      <router-link id="needAccount" :to="{ name: 'register' }">Need an account?</router-link>
+      <button id="signIn" type="submit">Sign in</button>
     </form>
   </div>
 </template>
@@ -81,3 +81,47 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+div#login{
+  color: white;
+}
+
+div#login h1{
+  padding-left: 0.65em;
+}
+
+label#forUsername{
+  margin-right: 0.25em;
+  padding-left: 1.3em;
+}
+
+label#forPassword{
+  margin-right: 0.25em;
+}
+
+input#username{
+  margin-right: 2em;
+}
+
+input#password{
+  margin-right: 2em;
+}
+
+#needAccount{
+  color:#ffb703ff;
+  margin-right: 2em;
+}
+
+#needAccount:hover{
+  color: white;
+}
+
+button#signIn{
+  padding-block: 0.125em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+</style>
+

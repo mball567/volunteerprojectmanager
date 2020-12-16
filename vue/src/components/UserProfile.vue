@@ -44,9 +44,8 @@
       <br />
 
       <label>Drag or drop your Profile image here:</label>
-      <drop-zone />
+      <drop-zone id="dropzone"/>
 
-      <br />
       <div class="userBio">
       <label id="bioLabel" for="Bio">User Bio: </label>
       <textarea id="Bio" type="text" placeholder="Tell us why you're akting" rows="8" cols="40" v-model="user.profile.Bio" required /> <br />
@@ -204,6 +203,11 @@ form label {
 
 form input#username {
   margin-top: 2.25em;
+}
+
+#dropzone{
+  margin-left: 1.5em;
+  margin-block: 0.5em;
 }
 
 form input#e-mail {
