@@ -11,6 +11,8 @@ import CreateProject from '../views/CreateProject.vue'
 import Team from '../views/Team.vue'
 import Project from '../views/Project.vue'
 import Search from '../views/Search.vue'
+import CreateEvent from '../views/CreateEvent.vue'
+import Event from '../views/Event.vue'
 
 Vue.use(Router)
 
@@ -107,6 +109,23 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+    path: "/projects/:projId/events",
+    name: "createevent",
+    component: CreateEvent,
+    meta: {
+      requiresAuth: false
+    }
+    },
+
+    {
+      path: "/projects/:projId/events/:eventsId",
+      name: "event",
+      component: Event,
+      meta: {
+        requiresAuth: false
+      }
+      },
   ]
 })
 
