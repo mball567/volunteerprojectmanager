@@ -171,5 +171,50 @@ namespace Capstone.DAO
                 throw;
             }
         }
+
+        public List<Profile> SearchByCause(int[] causeIds)
+        {
+            string sql = @"Select * from profiles
+                           Join profiles_causes ON profiles_causes.profile_id = profiles.profile_id
+                           Join causes ON causes.cause_id = profiles_causes.cause_id
+                           Where causes.cause_id = @causeId";
+
+            try
+            {
+                List<Profile> profiles = new List<Profile>();
+                List<int> profileIds = new List<int>();
+
+                foreach (int causeId in causeIds)
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+
+                        cmd.Parameters.AddWithValue("@causeId", causeId);
+
+                        SqlDataReader rdr = cmd.ExecuteReader();
+
+                        while (rdr.Read())
+                        {
+                            Profile profile = RowToObject(rdr);
+
+                            if (!profileIds.Contains(profile.ProfileId))
+                            {
+                                profileIds.Add(profile.ProfileId);
+                                profiles.Add(profile);
+                            }
+                        }
+                    }
+                }
+
+                return profiles;
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Capstone.DAO
         List<string> getAllCauseNames(int orgID);
 
         Organization getOrganizationOnLogin(int userID);
-
+        List<Organization> SearchByCause(int[] causeIds);
         List<Organization> SearchByName(string orgName);
     }
 }

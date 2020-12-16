@@ -1,18 +1,21 @@
 <template>
   <div id="searchPage">
-      <label id="searchOrgLabel" for="searchOrganization" class="sr-only">Search By Organization Name: </label>
+      <h1>Search</h1>
+
+      <p>Select the following item(s) you would like to search for:</p>
+      <label id="searchOrgLabel" for="searchOrganization" class="sr-only">Search By Organization: </label>
       <input type="checkbox" name="searchOrganization" id="searchOrganization" v-model="request.searchOrganization"> <br/>
 
-      <label id="searchProjectLabel" for="searchProject" class="sr-only">Search By Project Name: </label>
+      <label id="searchProjectLabel" for="searchProject" class="sr-only">Search By Project: </label>
       <input type="checkbox" name="searchProject" id="searchProject" v-model="request.searchProject"><br/>
 
-      <label id="searchTeamLabel" for="searchTeam" class="sr-only">Search By Team Name: </label>
+      <label id="searchTeamLabel" for="searchTeam" class="sr-only">Search By Team: </label>
       <input type="checkbox" name="searchTeam" id="searchTeam" v-model="request.searchTeam"><br/>
 
-      <label id="searchProfileLabel" for="searchProfile" class="sr-only">Search By Profile Name: </label>
+      <label id="searchProfileLabel" for="searchProfile" class="sr-only">Search By Profile: </label>
       <input type="checkbox" name="searchProfile" id="searchProfile" v-model="request.searchProfile"><br/>
 
-      <h1>Search</h1>
+      <p>Input keywords here if you would like to search the selected item(s) by name:</p>
       <form class="search" @submit.prevent="search">
       <label id="nameSearchLabel" for="nameSearch" class="sr-only">Search By Name: </label>
       <input
@@ -22,7 +25,23 @@
         placeholder="Type Search Term Here"
         v-model="request.name"
         autofocus
-      />
+        :disabled="request.searchCause"
+      /> <br/>
+
+      <p>Check this box if you would like to search the selected item(s) by causes instead of name:</p>
+      <label id="searchCauseLabel" for="searchCause" class="sr-only">Search By Causes: </label>
+      <input type="checkbox" name="searchCause" id="searchCause" v-model="request.searchCause" @change="request.name =''"><br/>
+      <div id="causeList" v-if="request.searchCause"> 
+      <p>Select all causes you would like to search by:</p>
+      <tr v-for="cause in causes" v-bind:key="cause.causeId">
+        <td>
+          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="request.causeIds">
+        </td>
+        <td>
+          {{cause.causeName}}
+        </td>
+      </tr>
+      </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Search
@@ -63,9 +82,12 @@ export default {
                 searchProject: false,
                 searchProfile: false,
                 searchTeam: false,
+                searchCause: false,
                 name: "",
+                causeIds: [],
             },
             searchResult: {},
+            causes: [],
         };
     },
     methods: {
@@ -75,7 +97,10 @@ export default {
                 this.searchResult = response.data;
             })
         }
-    }
+    },
+    created(){
+      this.causes = this.$store.state.causes;
+    },
 }
 </script>
 

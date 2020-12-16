@@ -7,6 +7,7 @@ namespace Capstone.DAO
     {
         bool CreateProfile(Profile profile);
         Profile getProfileOnLogin(int userID);
+        List<Profile> SearchByCause(int[] causeIds);
         List<Profile> SearchByName(string name);
     }
 }

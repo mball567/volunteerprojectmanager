@@ -11,6 +11,8 @@ namespace Capstone.Models
         public bool SearchTeam { get; set; }
         public bool SearchProject { get; set; }
         public bool SearchProfile { get; set; }
+        public bool SearchCause { get; set; }
         public string Name { get; set; }
+        public int[] CauseIds { get; set; }
     }
 }

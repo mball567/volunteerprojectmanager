@@ -8,6 +8,7 @@ namespace Capstone.DAO
         bool CreateProject(Project project);
 
         Project getProject(int projId);
+        List<Project> SearchByCause(int[] causeIds);
         List<Project> SearchByName(string name);
     }
 }

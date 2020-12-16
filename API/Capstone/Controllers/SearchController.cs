@@ -34,19 +34,47 @@ namespace Capstone.Controllers
 
             if (request.SearchOrganization)
             {
-                results.Organizations = organizationDAO.SearchByName(request.Name);
+                if (request.Name.Length > 0)
+                {
+                    results.Organizations = organizationDAO.SearchByName(request.Name);
+                }
+                else
+                {
+                    results.Organizations = organizationDAO.SearchByCause(request.CauseIds);
+                }
             }
-            else if (request.SearchProfile)
+            if (request.SearchProfile)
             {
-                results.Profiles = profileDAO.SearchByName(request.Name);
+                if (request.Name.Length > 0)
+                {
+                    results.Profiles = profileDAO.SearchByName(request.Name);
+                }
+                else
+                {
+                    results.Profiles = profileDAO.SearchByCause(request.CauseIds);
+                }
             }
-            else if (request.SearchProject)
+            if (request.SearchProject)
             {
-                results.Projects = projectDAO.SearchByName(request.Name);
+                if (request.Name.Length > 0)
+                {
+                    results.Projects = projectDAO.SearchByName(request.Name);
+                }
+                else
+                {
+                    results.Projects = projectDAO.SearchByCause(request.CauseIds);
+                }
             }
-            else if (request.SearchTeam)
+            if (request.SearchTeam)
             {
-                results.Teams = teamDAO.SearchByName(request.Name);
+                if (request.Name.Length > 0)
+                {
+                    results.Teams = teamDAO.SearchByName(request.Name);
+                }
+                else
+                {
+                    results.Teams = teamDAO.SearchByCause(request.CauseIds);
+                }
             }
 
             return Ok(results);
