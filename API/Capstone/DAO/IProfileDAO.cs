@@ -1,4 +1,5 @@
 ﻿using Capstone.Models;
+using System.Collections.Generic;
 
 namespace Capstone.DAO
 {
@@ -6,5 +7,6 @@ namespace Capstone.DAO
     {
         bool CreateProfile(Profile profile);
         Profile getProfileOnLogin(int userID);
+        List<Profile> SearchByName(string name);
     }
 }

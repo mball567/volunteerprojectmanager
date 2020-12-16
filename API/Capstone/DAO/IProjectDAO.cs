@@ -1,4 +1,5 @@
 ﻿using Capstone.Models;
+using System.Collections.Generic;
 
 namespace Capstone.DAO
 {
@@ -7,5 +8,6 @@ namespace Capstone.DAO
         bool CreateProject(Project project);
 
         Project getProject(int projId);
+        List<Project> SearchByName(string name);
     }
 }

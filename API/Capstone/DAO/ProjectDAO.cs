@@ -23,7 +23,7 @@ namespace Capstone.DAO
             string sql = @"INSERT into projects (user_id, proj_name, proj_desc, proj_image, proj_zipcode, proj_city, proj_state, proj_working_hours, proj_contact_email)
                            VALUES (@userId, @projName, @projDesc, @projImage, @projZipcode, @projCity, @projState, @projWorkingHours, @projContactEmail);
                            Select @@IDENTITY";
-            
+
             string profProjSql = @"INSERT into profiles_projects(project_id, profile_id)
                                      VALUES(@@IDENTITY, @profileId)";
 
@@ -105,7 +105,6 @@ namespace Capstone.DAO
                         string cause = "";
                         cause = Convert.ToString(rdr["cause_name"]);
                         causes.Add(cause);
-
                     }
                     return causes;
                 }
@@ -147,6 +146,54 @@ namespace Capstone.DAO
                     }
                     proj.ProjCauseNames = getAllCauseNames(proj.ProjId).ToArray();
                     return proj;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        private Project RowToObjectCreatedProject(SqlDataReader rdr)
+        {
+            Project proj = new Project();
+
+            proj.ProjId = Convert.ToInt32(rdr["proj_id"]);
+            proj.UserId = Convert.ToInt32(rdr["user_id"]);
+            proj.ProjName = Convert.ToString(rdr["proj_name"]);
+            proj.ProjDesc = Convert.ToString(rdr["proj_desc"]);
+            proj.ProjImage = Convert.ToString(rdr["proj_image"]);
+            proj.ProjZip = Convert.ToInt32(rdr["proj_zipcode"]);
+            proj.ProjCity = Convert.ToString(rdr["proj_city"]);
+            proj.ProjState = Convert.ToString(rdr["proj_state"]);
+            proj.ProjWorkingHours = Convert.ToInt32(rdr["proj_working_hours"]);
+            proj.ProjContactEmail = Convert.ToString(rdr["proj_contact_email"]);
+
+            return proj;
+        }
+
+        public List<Project> SearchByName(string name)
+        {
+            string sql = @"Select * from projects where proj_name like @name";
+
+            try
+            {
+                List<Project> projects = new List<Project>();
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@name", $"%{name}%");
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        projects.Add(RowToObjectCreatedProject(rdr));
+                    }
+                    return projects;
                 }
             }
             catch (SqlException ex)

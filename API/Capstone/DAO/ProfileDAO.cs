@@ -75,7 +75,6 @@ namespace Capstone.DAO
                         string cause = "";
                         cause = Convert.ToString(rdr["cause_name"]);
                         causes.Add(cause);
-
                     }
                     return causes;
                 }
@@ -85,7 +84,6 @@ namespace Capstone.DAO
                 throw;
             }
         }
-
 
         public Profile getProfileOnLogin(int userID)
         {
@@ -118,6 +116,54 @@ namespace Capstone.DAO
                     }
                     profile.ProfCauseNames = getAllCauseNames(profile.ProfileId).ToArray();
                     return profile;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        private Profile RowToObject(SqlDataReader rdr)
+        {
+            Profile profile = new Profile();
+
+            profile.UserId = Convert.ToInt32(rdr["user_id"]);
+            profile.FirstName = Convert.ToString(rdr["first_name"]);
+            profile.LastName = Convert.ToString(rdr["last_name"]);
+            profile.ProfileImage = Convert.ToString(rdr["prof_image"]);
+            profile.Bio = Convert.ToString(rdr["bio"]);
+            profile.ProfZip = Convert.ToInt32(rdr["prof_zipcode"]);
+            profile.ProfCity = Convert.ToString(rdr["prof_city"]);
+            profile.ProfState = Convert.ToString(rdr["prof_state"]);
+            profile.ProfContactEmail = Convert.ToString(rdr["prof_contact_email"]);
+            profile.ProfileId = Convert.ToInt32(rdr["profile_id"]);
+
+            return profile;
+        }
+
+        public List<Profile> SearchByName(string name)
+        {
+            string sql = @"Select * from profiles where first_name like @name or last_name like @name";
+
+            try
+            {
+                List<Profile> profiles = new List<Profile>();
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@name", $"%{name}%");
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        profiles.Add(RowToObject(rdr));
+                    }
+                    return profiles;
                 }
             }
             catch (SqlException ex)

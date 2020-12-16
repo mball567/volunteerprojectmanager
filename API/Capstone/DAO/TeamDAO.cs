@@ -80,7 +80,6 @@ namespace Capstone.DAO
                         string cause = "";
                         cause = Convert.ToString(rdr["cause_name"]);
                         causes.Add(cause);
-
                     }
                     return causes;
                 }
@@ -93,7 +92,7 @@ namespace Capstone.DAO
 
         public List<string> getTeamMembers(int teamID)
         {
-            string sql = @"Select profiles.first_name, profiles.last_name from profiles 
+            string sql = @"Select profiles.first_name, profiles.last_name from profiles
                             Join profiles_teams on profiles.profile_id = profiles_teams.profile_id
                                 Where team_id = @teamId";
 
@@ -156,6 +155,52 @@ namespace Capstone.DAO
                     team.TeamCauseNames = getAllCauseNames(team.TeamId).ToArray();
                     team.TeamMembers = getTeamMembers(team.TeamId).ToArray();
                     return team;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        private Team RowToObject(SqlDataReader rdr)
+        {
+            Team team = new Team();
+
+            team.TeamId = Convert.ToInt32(rdr["team_id"]);
+            team.TeamName = Convert.ToString(rdr["team_name"]);
+            team.TeamImage = Convert.ToString(rdr["team_image"]);
+            team.TeamBio = Convert.ToString(rdr["team_bio"]);
+            team.TeamZip = Convert.ToInt32(rdr["team_zipcode"]);
+            team.TeamCity = Convert.ToString(rdr["team_city"]);
+            team.TeamState = Convert.ToString(rdr["team_state"]);
+            team.TeamContactEmail = Convert.ToString(rdr["team_contact_email"]);
+
+            return team;
+        }
+
+        public List<Team> SearchByName(string name)
+        {
+            string sql = @"Select * from teams where team_name like @name";
+
+            try
+            {
+                List<Team> teams = new List<Team>();
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@name", $"%{name}%");
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        teams.Add(RowToObject(rdr));
+                    }
+                    return teams;
                 }
             }
             catch (SqlException ex)

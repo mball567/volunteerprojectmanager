@@ -1,4 +1,5 @@
 ﻿using Capstone.Models;
+using System.Collections.Generic;
 
 namespace Capstone.DAO
 {
@@ -6,5 +7,6 @@ namespace Capstone.DAO
     {
         bool CreateTeam(Team team);
         Team getTeam(int teamID);
+        List<Team> SearchByName(string name);
     }
 }
