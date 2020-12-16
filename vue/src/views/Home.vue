@@ -18,3 +18,14 @@ export default {
   }
 };
 </script>
+
+<style> 
+h1 {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+</style>
