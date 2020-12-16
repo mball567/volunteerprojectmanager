@@ -15,7 +15,7 @@
       <br />
 
       <label>Drag and drop your Team image here:</label>
-      <drop-zone/>
+      <drop-zone id="dropzone"/>
 
       <div class="teamDescription">
       <label for="bio" class="sr-only">Team Bio: </label><br />
@@ -30,7 +30,7 @@
         required
       />
       </div>
-      <br />
+      
       
       <label for="teamCity">City: </label>
       <input id="teamCity" type="text" placeholder="City" v-model="team.TeamCity" required />
@@ -53,7 +53,7 @@
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="team.TeamContactEmail" required /> <br />
 
       <div id="causeList"> 
-      <p>Select which causes apply to this team:</p>
+      <p id="causeSelect">Select which causes apply to this team:</p>
       <tr v-for="cause in causes" v-bind:key="cause.causeId">
         <td>
           <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="team.TeamCauses">
@@ -147,6 +147,15 @@ form input#teamName {
   margin-top: 2.25em;
 }
 
+#dropzone{
+  margin-left: 1.5em;
+  margin-block: 0.5em;
+}
+
+textarea#team-bio{
+  margin-bottom: 0.5em;
+}
+
 form input#e-mail {
   margin-bottom: 1.25em;
 }
@@ -175,12 +184,17 @@ div#user-profile form #router-link{
 }
 
 div#create-team form button {
-  margin-top: 0.5em;
+  margin-top: 1.5em;
   padding: 0.5em;
   margin-left: 1.5em;
 }
 
+p#causeSelect{
+  padding-left: 0.2em;
+}
+
 form div#causeList {
   color: white;
+  padding-left: 1.25em;
 }
 </style>

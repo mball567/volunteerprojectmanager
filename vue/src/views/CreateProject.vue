@@ -14,9 +14,8 @@
       /> <br/>
 
       <label>Drag and drop your Project image here:</label>
-      <drop-zone />
+      <drop-zone id="dropzone"/>
 
-      <br />
       <div class="projectDescription">
       <label for="projDesc" class="sr-only">Project Description: </label> <br/>
       <textarea
@@ -30,9 +29,9 @@
         required
       />
       </div>
-      <br />
+      
 
-      <label for="projHours">How many hours do estimate this project will take: </label>
+      <label for="projHours">Estimated hours for project completion: </label>
       <input id="projHours" type="number" placeholder="Hours To Complete" v-model="project.projWorkingHours" required />
       <br />
       
@@ -59,7 +58,7 @@
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="project.ProjContactEmail" required /> <br />
 
       <div id="causeList"> 
-      <p>Select which causes apply to this project:</p>
+      <p id="causeSelect">Select which causes apply to this project:</p>
       <tr v-for="cause in causes" v-bind:key="cause.causeId">
         <td>
           <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="project.ProjCauses">
@@ -158,6 +157,15 @@ form input#projName {
   margin-top: 2.25em;
 }
 
+#dropzone{
+  margin-left: 1.5em;
+  margin-block: 0.5em;
+}
+
+textarea#projDesc{
+  margin-bottom: 0.5em;
+}
+
 form input#e-mail {
   margin-bottom: 1.25em;
 }
@@ -186,12 +194,17 @@ div#user-profile form #router-link{
 }
 
 div#create-project form button {
-  margin-top: 0.5em;
+  margin-top: 1.5em;
   padding: 0.5em;
   margin-left: 1.5em;
 }
 
+p#causeSelect{
+  padding-left: 0.2em;
+}
+
 form div#causeList {
   color: white;
+  padding-left: 1.25em;
 }
 </style>
