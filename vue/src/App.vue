@@ -27,7 +27,7 @@ div#app header h1{
 }
 
 div#app header h1:hover{
-  color: #219ebcff;
+  color: white;
   cursor: pointer;
 }
 

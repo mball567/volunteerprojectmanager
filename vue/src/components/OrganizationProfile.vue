@@ -39,7 +39,7 @@
       <br />
 
       <label>Drag or drop your Organization logo here</label>
-      <drop-zone />
+      <drop-zone id="dropzone"/>
 
       <div class="orgBio">
       <label for="OrgBio">Organization Bio: </label>
@@ -183,6 +183,11 @@ form label {
 
 form input#username {
   margin-top: 2.25em;
+}
+
+#dropzone{
+  margin-left: 1.5em;
+  margin-block: 0.5em;
 }
 
 form input#e-mail {
