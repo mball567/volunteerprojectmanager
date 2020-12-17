@@ -11,10 +11,12 @@ namespace Capstone.DAO
 
         bool EventSignUp(int eventId, int userId);
 
+        Event getEvent(int eventId);
+
         Project getProject(int projId);
 
         List<Project> getProjectByUserId(int userId);
-
+        List<Event> getProjectEvents(int projectId);
         List<Project> SearchByCause(int[] causeIds);
 
         List<Project> SearchByName(string name);

@@ -61,52 +61,17 @@ namespace Capstone.Controllers
             return Created($"/projects/{myEvent.ProjId}/events", myEvent);
         }
 
-        [Authorize]
-        [HttpGet("auth")]
-        public ActionResult GetUserInfo()
+        [HttpGet("events/{eventId}")]
+        public ActionResult<Event> GetEvent(int eventId)
         {
-            string result = $"Your user name is {UserName}, user id is {UserId}, and your role is {UserRole}.";
-            return Ok(result);
-        }
+            Event myEvent = projectDAO.getEvent(eventId);
 
-        #region Methods for getting the Logged-in user information
-
-        /**************************************************************************************************
-         *  Methods for getting the Logged-in user information
-         *  1. For these methods to work, they MUST be called from a controller action that had the [Authorize] attribute.
-         *  2. If you need access to this information from MORE THAN ONE controller, consider creating a controller
-         *      base class that contains these methods (protected, not private), and derive each of your controllers
-         *      from that base class.
-         *************************************************************************************************/
-
-        private string UserName
-        {
-            get
+            if (myEvent == null)
             {
-                return User.Identity.Name;
+                return NotFound();
             }
+
+            return Ok(myEvent);
         }
-
-        private int UserId
-        {
-            get
-            {
-                return Convert.ToInt32(User.Claims.FirstOrDefault(cl => cl.Type == "sub").Value);
-            }
-        }
-
-        private string UserRole
-        {
-            get
-            {
-                return User.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Role).Value;
-            }
-        }
-
-        /**************************************************************************************************
-         *  END OF Methods for getting the Logged-in user information
-         *************************************************************************************************/
-
-        #endregion Methods for getting the Logged-in user information
     }
 }

@@ -145,6 +145,7 @@ namespace Capstone.DAO
                         proj.ProjContactEmail = Convert.ToString(rdr["proj_contact_email"]);
                     }
                     proj.ProjCauseNames = getAllCauseNames(proj.ProjId).ToArray();
+                    proj.ProjEvents = getProjectEvents(proj.ProjId);
                     return proj;
                 }
             }
@@ -316,6 +317,91 @@ namespace Capstone.DAO
                     {
                         return false;
                     }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public Event getEvent(int eventId)
+        {
+            string sql = @"Select * from events where event_id = @eventId";
+            Event myEvent = new Event();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@eventId", eventId);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        Project proj = new Project();
+
+                        myEvent.EventName = Convert.ToString(rdr["event_name"]);
+                        myEvent.EventDesc = Convert.ToString(rdr["event_desc"]);
+                        myEvent.EventZip = Convert.ToInt32(rdr["event_zipcode"]);
+                        myEvent.EventCity = Convert.ToString(rdr["event_city"]);
+                        myEvent.EventState = Convert.ToString(rdr["event_state"]);
+                        myEvent.EventWorkingHours = Convert.ToInt32(rdr["event_working_hours"]);
+                        myEvent.EventContactEmail = Convert.ToString(rdr["event_contact_email"]);
+                        myEvent.EventStartTime = Convert.ToString(rdr["event_starttime"]);
+                        myEvent.EventEndTime = Convert.ToString(rdr["event_endtime"]);
+                        myEvent.EventDate = Convert.ToString(rdr["event_date"]);
+                    }
+
+                    return myEvent;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public List<Event> getProjectEvents(int projectId)
+        {
+            string sql = @"Select * from events where proj_id = @projId";
+            List<Event> events = new List<Event>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@projId", projectId);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        Event myEvent = new Event();
+
+                        myEvent.EventId = Convert.ToInt32(rdr["event_id"]);
+                        myEvent.EventName = Convert.ToString(rdr["event_name"]);
+                        myEvent.EventDesc = Convert.ToString(rdr["event_desc"]);
+                        myEvent.EventZip = Convert.ToInt32(rdr["event_zipcode"]);
+                        myEvent.EventCity = Convert.ToString(rdr["event_city"]);
+                        myEvent.EventState = Convert.ToString(rdr["event_state"]);
+                        myEvent.EventWorkingHours = Convert.ToInt32(rdr["event_working_hours"]);
+                        myEvent.EventContactEmail = Convert.ToString(rdr["event_contact_email"]);
+                        myEvent.EventStartTime = Convert.ToString(rdr["event_starttime"]);
+                        myEvent.EventEndTime = Convert.ToString(rdr["event_endtime"]);
+                        myEvent.EventDate = Convert.ToString(rdr["event_date"]);
+
+                        events.Add(myEvent);
+                    }
+
+                    return events;
                 }
             }
             catch (SqlException ex)

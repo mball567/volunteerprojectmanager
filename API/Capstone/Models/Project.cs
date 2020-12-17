@@ -20,5 +20,6 @@ namespace Capstone.Models
         public string ProjContactEmail { get; set; }
         public int[] ProjCauses { get; set; }
         public string[] ProjCauseNames { get; set; }
+        public List<Event> ProjEvents { get; set; }
     }
 }

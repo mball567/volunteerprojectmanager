@@ -99,6 +99,7 @@ export default {
                 eventDate: "",
                 eventWorkingHours: 0,
                 eventContactEmail: "",
+                isOrg: false,
             },
         };
     },
@@ -122,6 +123,13 @@ export default {
           this.event.UserId = this.$store.state.user.userId;
           let projectId = parseInt(this.$route.params.projId);
           this.event.projId = projectId;
+
+          if(this.$store.state.user.organization !== null){
+            this.event.isOrg = true;
+          }
+          else{
+            this.event.isOrg = false;
+          }
     },
 }
 </script>

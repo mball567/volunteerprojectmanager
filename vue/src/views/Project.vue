@@ -23,13 +23,22 @@
             </p>
           </aside>
 
-          <p id="bio">{{ project.projDesc }}</p>
+            <p id="bio">{{ project.projDesc }}</p>
 
           <button v-on:click="createEventForProject">Create An Event</button>
 
+          
           <div id="causes">
             <ul>
+              <h2>Causes</h2>
               <li v-for="causeName in project.projCauseNames" v-bind:key="causeName">{{causeName}}</li>
+            </ul>
+          </div>
+
+          <div id="events">
+            <ul>
+              <h2>Events</h2>
+              <li v-for="event in project.projEvents" v-bind:key="event.eventId">{{event.eventName}}</li>
             </ul>
           </div>
 
@@ -57,6 +66,7 @@ export default {
                 projWorkingHours: 0,
                 projContactEmail: "",
                 projCauseNames: [],
+                projEvents: [],
             },
     };
   },

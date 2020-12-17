@@ -119,7 +119,7 @@ const router = new Router({
     },
 
     {
-      path: "/projects/:projId/events/:eventsId",
+      path: "/projects/:projId/events/:eventId",
       name: "event",
       component: Event,
       meta: {
