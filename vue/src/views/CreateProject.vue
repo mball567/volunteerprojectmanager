@@ -4,7 +4,7 @@
       <h1>Create Project</h1>
         <form class="form-createproject" @submit.prevent="createProject">
         <!-- <label id="projName" for="projName" class="sr-only">Project Name: </label> -->
-        <input type="text" id="projName" class="form-control" placeholder="Project Name" v-model="project.ProjName" required autofocus /> <br/>
+        <input type="text" id="projName" class="form-control" placeholder="Project Name" v-model="project.ProjName" required autofocus /> 
 
         <!-- <label>Drag and drop your Project image here:</label> -->
         <drop-zone id="dropzone"/>
@@ -33,7 +33,7 @@
         <!-- <label for="e-mail">Lead Contact E-Mail: </label> -->
         <input id="e-mail" type="email" placeholder="Lead Contact E-Mail Address" v-model="project.ProjContactEmail" required /> 
 
-        <p id="causeSelect">Select which causes apply to this project:</p>
+        <p id="causeSelect">Select all causes that apply to this project:</p>
         <div id="causeList">         
         <div class="cause" v-for="cause in causes" v-bind:key="cause.causeId">        
           <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="project.ProjCauses"/>
@@ -165,32 +165,20 @@ div.cause{
 
 input,
 textarea,
-select {
+select{
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   color: #4c4c4c;
 }
 
-/* form label {
-  color: white;
-  padding-left: 1.4em;
-  padding-right: 0.5em;
-} */
-
-/* form input#projName {
-  margin-top: 2.25em;
-} */
-
 #dropzone{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    color: #4c4c4c;
-    width: 100%;
-    margin-top: 0.75em;
-    border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #4c4c4c;
+  width: 100%;
+  margin-top: 0.75em;
+  border-radius: 4px;
 }
-
-
 
 textarea#projDesc{
   border-radius: 4px;
@@ -198,33 +186,6 @@ textarea#projDesc{
   margin-top: 0.75em;
   margin-bottom: 0em;
 }
-
-/* form input#e-mail {
-  margin-bottom: 1.25em;
-}
-
-form input {
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
-  margin: 0.25em;
-}
-
-form textarea{
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
-  margin-top: 0.5em;
-  margin-left: 1.75em;
-}
-
-.projectDescription * {
-  vertical-align: top;
-} */
-
-/* div#user-profile form #router-link{
-  color: white;
-  padding-left: 1.4em;
-  padding-top: 5em;
-} */
 
 div#create-project form button {
   margin-top: 1.5em;

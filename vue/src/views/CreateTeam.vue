@@ -4,22 +4,13 @@
     <h1>Create Team</h1>
       <form class="form-createteam" @submit.prevent="createTeam">
       <!-- <label id="teamName" for="teamName" class="sr-only">Team Name: </label> -->
-      <input
-        type="text"
-        id="teamName"
-        class="form-control"
-        placeholder="Team Name"
-        v-model="team.TeamName"
-        required
-        autofocus
-      />
-    
+      <input type="text" id="teamName" class="form-control" placeholder="Team Name" v-model="team.TeamName" required autofocus />     
 
       <!-- <label>Drag and drop your Team image here:</label> -->
       <drop-zone id="dropzone"/>
-<!-- 
-      <div class="teamDescription">
-      <label for="bio" class="sr-only">Team Bio: </label><br /> -->
+
+      <!-- <div class="teamDescription"> -->
+      <!-- <label for="bio" class="sr-only">Team Bio: </label><br />  -->
       <textarea
         type="text"
         id="team-bio"
@@ -28,8 +19,7 @@
         cols="40"
         placeholder="How will your team Akt?"
         v-model="team.TeamBio"
-        required
-      />
+        required/>
       <!-- </div> -->
       
       <!-- <label for="teamCity">City: </label> -->
@@ -52,18 +42,16 @@
       <!-- <label for="e-mail">Lead Contact: </label> -->
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="team.TeamContactEmail" required /> 
 
-      <p id="causeSelect">Select all causes that apply:</p>
+      <p id="causeSelect">Select all causes that apply to this team:</p>
       <div id="causeList"> 
       <div class="cause" v-for="cause in causes" v-bind:key="cause.causeId">
-          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="team.TeamCauses">
+          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="team.TeamCauses"/>
           {{cause.causeName}}
       </div>
       </div>
 
       <div id="buttondiv"> 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Team
-      </button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Create Team</button>
     </div>
     </form>
     </div>
@@ -118,24 +106,22 @@ export default {
 
 <style scoped>
 
-div#create-team.container {
+div#create-team.container{
   display: grid;
   grid-template-columns: 375px 1fr 375px;
   grid-template-areas: 
   ". form .";
 }
 
-@media  screen and (max-width: 1024px) {
-div#create-team.container {
+@media screen and (max-width: 1024px){
+div#create-team.container{
   grid-template-columns: 200px 1fr 200px;
-
 }
 }
 
-@media  screen and (max-width: 768px) {
-div#create-team.container {
+@media screen and (max-width: 768px){
+div#create-team.container{
   grid-template-columns: 100px 1fr 100px;
-
 }
 }
   
@@ -155,23 +141,6 @@ div#create-team{
   text-align: left;
 }
 
-/* form{
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-} */
-
-/* form label {
-  color: white;
-  padding-left: 1.4em;
-  padding-right: 0.5em;
-} */;
-
-/* form input#teamName {
-  margin-top: 2.25em;
-} */
-
 input{
   width: 100%;
   height: 40px;
@@ -180,26 +149,22 @@ input{
   box-shadow: 1px 2px 5px rgba(0,0,0,.5); 
   border: solid 1px #cbc9c9;
   margin-top: 0.75em; 
-  }
+}
 
-    input[type="checkbox"] {
-    box-shadow: none;
-    width: 20px;
-    height: 20px;
-  }
+input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+}
 
-  div#causeList {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+div#causeList{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-  }
-
-  div.cause {
-    width: 225px;
-  }
-
-
+div.cause {
+  width: 225px;
+}
 
 input,
 textarea,
@@ -208,18 +173,15 @@ select {
   font-size: 16px;
   color: #4c4c4c;
 }
+
 #dropzone{
-    font-size: 16px;
-    color: #4c4c4c;
-    width: 100%;
-    margin-top: 0.75em;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 4px;
- 
-
+  font-size: 16px;
+  color: #4c4c4c;
+  width: 100%;
+  margin-top: 0.75em;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 4px;
 }
-
-
 
 textarea#team-bio{
   width: 100%;
@@ -227,48 +189,20 @@ textarea#team-bio{
   margin-top: 0.75em;
   border-radius: 4px; 
   box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
-
-
-
 }
 
-/* form input#e-mail {
-  margin-bottom: 1.25em;
-} */
-
-/* form input {
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
-  margin: 0.25em;
-  font-family: 'Montserrat', sans-serif;
-} */
-
-/* form textarea{
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
-  margin-top: 0.5em;
-} */
-
-div#create-team form button {
+div#create-team form button{
   margin-top: 1.5em;
   padding: 0.5em;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  
 }
 
 #buttondiv {
   width: 100%;
   text-align: center;
 }
-/* div#user-profile form #router-link{
-  color: white;
-  padding-left: 1.4em;
-  padding-top: 5em;
-} */
-
-
 
 p#causeSelect{
   font-size: 1.5em;
@@ -278,10 +212,9 @@ p#causeSelect{
 
 }
 
-form div#causeList {
+form div#causeList{
   color: white;
   padding-left: 1.25em;
-
 }
 
 </style>
