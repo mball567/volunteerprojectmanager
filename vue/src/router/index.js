@@ -13,6 +13,7 @@ import Project from '../views/Project.vue'
 import Search from '../views/Search.vue'
 import CreateEvent from '../views/CreateEvent.vue'
 import Event from '../views/Event.vue'
+import CreateTemplate from '../views/CreateTemplate.vue'
 
 Vue.use(Router)
 
@@ -126,6 +127,15 @@ const router = new Router({
         requiresAuth: false
       }
       },
+
+      {
+        path: "/createtemplate",
+        name: "createtemplate",
+        component: CreateTemplate,
+        meta: {
+          requiresAuth: false
+        }
+        },
   ]
 })
 
