@@ -76,5 +76,6 @@ export default {
     #dropzone{
         text-align: center;
         background-color: #fff; 
+        
     }
 </style>
