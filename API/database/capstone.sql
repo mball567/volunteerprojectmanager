@@ -31,7 +31,7 @@ CREATE TABLE profiles (
 	first_name varchar(100) NOT NULL,
 	last_name varchar(100) NOT NULL,
 	prof_image varchar(200) NULL,
-	bio varchar(1000) NOT NULL,
+	bio varchar(MAX) NOT NULL,
 	prof_zipcode int NOT NULL,
 	prof_city varchar (100) NOT NULL,
 	prof_state varchar (50) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE organizations(
 	user_id int NOT NULL,
 	org_name varchar (100) NOT NULL,
 	org_image varchar (200) NOT NULL,
-	org_bio varchar (1000) NOT NULL,
+	org_bio varchar (MAX) NOT NULL,
 	org_zipcode int NOT NULL,
 	org_city varchar (100) NOT NULL,
 	org_state varchar (50) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE projects (
 	proj_id int IDENTITY(1,1) NOT NULL,
 	user_id int NOT NULL,
 	proj_name varchar(100) NOT NULL,
-	proj_desc varchar(1000) NOT NULL,
+	proj_desc varchar(MAX) NOT NULL,
 	proj_image varchar (200) NOT NULL,
 	proj_zipcode int NOT NULL,
 	proj_city varchar (100) NOT NULL,
@@ -71,14 +71,16 @@ CREATE TABLE projects (
 
 CREATE TABLE events (
 	event_id int IDENTITY(1,1) NOT NULL,
+	user_id int NOT NULL,
 	proj_id int NOT NULL,
 	event_name varchar(100) NOT NULL,
-	event_desc varchar(1000) NOT NULL,
+	event_desc varchar(MAX) NOT NULL,
 	event_zipcode int NOT NULL,
 	event_city varchar (100) NOT NULL,
 	event_state varchar (50) NOT NULL,
-	event_time time NOT NULL,
-	event_date datetime NOT NULL,
+	event_starttime varchar(100) NOT NULL,
+	event_endtime varchar(100) NOT NULL,
+	event_date varchar(100) NOT NULL,
 	event_working_hours int NOT NULL,
 	event_contact_email varchar (200) NOT NULL,
 	CONSTRAINT PK_events PRIMARY KEY (event_id),
@@ -89,7 +91,7 @@ CREATE TABLE events (
 CREATE TABLE teams(
 	team_id int IDENTITY(1,1) NOT NULL,
 	team_name varchar (100) NOT NULL,
-	team_bio varchar (1000) NOT NULL,
+	team_bio varchar (MAX) NOT NULL,
 	team_image varchar (200) NOT NULL,
 	team_zipcode int NOT NULL,
 	team_city varchar (100) NOT NULL,
@@ -151,9 +153,16 @@ CREATE TABLE projects_causes (
 	CONSTRAINT fk_projects_causes_cause_id FOREIGN KEY (cause_id) REFERENCES causes (cause_id)
 )
 
+CREATE TABLE events_users (
+	event_id int NOT NULL,
+	user_id int NOT NULL,
+	CONSTRAINT pk_events_users_events_users PRIMARY KEY (event_id, user_id),
+	CONSTRAINT fk_events_users_event_id FOREIGN KEY (event_id) REFERENCES events (event_id),
+	CONSTRAINT fk_events_users_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
+)
+
 
 --populate default data
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
 INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
 
 INSERT INTO causes (cause_name) VALUES ('Animals');
@@ -177,7 +186,5 @@ INSERT INTO causes (cause_name) VALUES ('Special Needs');
 INSERT INTO causes (cause_name) VALUES ('Sports and Recreation');
 INSERT INTO causes (cause_name) VALUES ('Veterans');
 INSERT INTO causes (cause_name) VALUES ('Women');
-
-INSERT INTO profiles (user_id, first_name, last_name, bio, prof_zipcode, prof_city, prof_state, prof_contact_email) VALUES (1, 'Mike', 'Morel', 'Lorem ipsum ipsofacto wingardium leviosa', 44113, 'Cleveland', 'OH', 'mmorel@gmail.com')
 
 GO

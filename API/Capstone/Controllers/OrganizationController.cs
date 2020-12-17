@@ -16,16 +16,19 @@ namespace Capstone.Controllers
     public class OrganizationController : ControllerBase
     {
         private IOrganizationDAO organizationSqlDAO;
+        private IProjectDAO projectDAO;
 
-        public OrganizationController(IOrganizationDAO organizationSqlDAO)
+        public OrganizationController(IOrganizationDAO organizationSqlDAO, IProjectDAO projectDAO)
         {
             this.organizationSqlDAO = organizationSqlDAO;
+            this.projectDAO = projectDAO;
         }
 
         [HttpGet("{userId}")]
         public ActionResult<Organization> GetOrganizationInfo(int userId)
         {
             Organization org = organizationSqlDAO.getOrganizationOnLogin(userId);
+            org.OrgProjects = projectDAO.getProjectByUserId(userId);
 
             if (org == null)
             {

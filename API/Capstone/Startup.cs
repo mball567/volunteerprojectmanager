@@ -66,7 +66,7 @@ namespace Capstone
 
             services.AddTransient<ICauseDAO>(sp => new CauseDAO(connectionString));
             services.AddTransient<IProfileDAO>(sp => new ProfileDAO(connectionString, sp.GetService<ICauseDAO>()));
-            services.AddTransient<IOrganizationDAO>(sp => new OrganizationDAO(connectionString, sp.GetService<ICauseDAO>()));
+            services.AddTransient<IOrganizationDAO>(sp => new OrganizationDAO(connectionString, sp.GetService<ICauseDAO>(), sp.GetService<IProjectDAO>()));
             services.AddTransient<ITeamDAO>(sp => new TeamDAO(connectionString, sp.GetService<ICauseDAO>()));
             services.AddTransient<IProjectDAO>(sp => new ProjectDAO(connectionString, sp.GetService<ICauseDAO>()));
         }

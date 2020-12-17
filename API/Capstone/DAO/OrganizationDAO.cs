@@ -11,11 +11,13 @@ namespace Capstone.DAO
     {
         private readonly string connectionString;
         private ICauseDAO causeDAO;
+        private IProjectDAO projectDAO;
 
-        public OrganizationDAO(string dbConnectionString, ICauseDAO causeDAO)
+        public OrganizationDAO(string dbConnectionString, ICauseDAO causeDAO, IProjectDAO projectDAO)
         {
             connectionString = dbConnectionString;
             this.causeDAO = causeDAO;
+            this.projectDAO = projectDAO;
         }
 
         public bool CreateOrganization(Organization org)
@@ -124,6 +126,7 @@ namespace Capstone.DAO
                         org = RowToObject(rdr);
                     }
                     org.OrgCauseNames = getAllCauseNames(org.OrgId).ToArray();
+                    org.OrgProjects = projectDAO.getProjectByUserId(userID);
                     return org;
                 }
             }

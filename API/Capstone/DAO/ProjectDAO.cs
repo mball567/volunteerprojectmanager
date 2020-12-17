@@ -323,5 +323,48 @@ namespace Capstone.DAO
                 throw;
             }
         }
+
+        public List<Project> getProjectByUserId(int userId)
+        {
+            string sql = @"Select * from projects where user_id = @userId";
+            List<Project> projects = new List<Project>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        Project proj = new Project();
+
+                        proj.ProjId = Convert.ToInt32(rdr["proj_id"]);
+                        proj.UserId = Convert.ToInt32(rdr["user_id"]);
+                        proj.ProjName = Convert.ToString(rdr["proj_name"]);
+                        proj.ProjDesc = Convert.ToString(rdr["proj_desc"]);
+                        proj.ProjImage = Convert.ToString(rdr["proj_image"]);
+                        proj.ProjZip = Convert.ToInt32(rdr["proj_zipcode"]);
+                        proj.ProjCity = Convert.ToString(rdr["proj_city"]);
+                        proj.ProjState = Convert.ToString(rdr["proj_state"]);
+                        proj.ProjWorkingHours = Convert.ToInt32(rdr["proj_working_hours"]);
+                        proj.ProjContactEmail = Convert.ToString(rdr["proj_contact_email"]);
+
+                        projects.Add(proj);
+                    }
+
+                    return projects;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
     }
 }

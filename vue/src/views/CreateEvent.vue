@@ -8,7 +8,7 @@
         id="eventName"
         class="form-control"
         placeholder="Event Name"
-        v-model="event.EventName"
+        v-model="event.eventName"
         required
         autofocus
       /> <br/>
@@ -25,11 +25,23 @@
         rows="8" 
         cols="40"
         placeholder="How will this event akt?"
-        v-model="event.EventDesc"
+        v-model="event.eventDesc"
         required
       />
       </div>
+
+      <label for="eventDate">Event Date: </label>
+      <input id="eventDate" type="date" v-model="event.eventDate" required />
+      <br />
       
+      <label for="eventStartTime">Event Start Time: </label>
+      <input id="eventStartTime" type="time" v-model="event.eventStartTime" required />
+      <br />
+
+            
+      <label for="eventEndTime">Event End Time: </label>
+      <input id="eventEndTime" type="time" v-model="event.eventEndTime" required />
+      <br />
 
       <label for="eventHours">Estimated hours for event completion: </label>
       <input id="eventHours" type="number" placeholder="Hours To Complete" v-model="event.eventWorkingHours" required />
@@ -56,18 +68,6 @@
 
       <label for="e-mail">Lead Contact E-Mail: </label>
       <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="event.EventContactEmail" required /> <br />
-
-      <div id="causeList"> 
-      <p id="causeSelect">Select which causes apply to this event:</p>
-      <tr v-for="cause in causes" v-bind:key="cause.causeId">
-        <td>
-          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="event.EventCauses">
-        </td>
-        <td>
-          {{cause.causeName}}
-        </td>
-      </tr>
-      </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Event

@@ -114,6 +114,7 @@ export default {
         orgState: "",
         orgContactEmail: "",
         orgCauseNames: [],
+        orgProjects: [],
       },
       lookupUser: {
         userId: 0,

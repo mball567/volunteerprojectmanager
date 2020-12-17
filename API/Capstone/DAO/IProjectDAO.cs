@@ -13,6 +13,8 @@ namespace Capstone.DAO
 
         Project getProject(int projId);
 
+        List<Project> getProjectByUserId(int userId);
+
         List<Project> SearchByCause(int[] causeIds);
 
         List<Project> SearchByName(string name);
