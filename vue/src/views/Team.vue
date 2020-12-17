@@ -128,7 +128,7 @@ nav#site-nav li {
 
 nav#site-nav li a {
   list-style-type: none;
-  color: #ffb703ff;
+  color: #023047ff;
   padding: 20px;
   text-decoration: none;
   font-weight: bold;

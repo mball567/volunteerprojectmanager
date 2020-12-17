@@ -5,15 +5,13 @@
         <main id="main-grid">
           <nav id="site-nav">
             <ul>
-              <li><a href="#">My projects</a></li>
+              <li><router-link v-bind:to="{ name: 'createproject' }">Create A Project</router-link></li>
               &nbsp;|&nbsp;
-              <li><a href="#">My teams</a></li>
+              <li><router-link v-bind:to="{ name: 'createteam' }">Create A Team</router-link></li>
               &nbsp;|&nbsp;
-              <li><a href="#">Akt with others</a></li>
+              <li><router-link v-bind:to="{ name: 'search' }">Search</router-link></li>
               &nbsp;|&nbsp;
-              <li><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
-              
-              
+              <li id="logout"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>     
             </ul>
           </nav>
 
@@ -46,11 +44,9 @@
         <main id="main-grid">
           <nav id="site-nav">
             <ul>
-              <li><a href="#">My projects</a></li>
+              <li><router-link v-bind:to="{ name: 'createproject' }">Create A Project</router-link></li>
               &nbsp;|&nbsp;
-              <li><a href="#">My teams</a></li>
-              &nbsp;|&nbsp;
-              <li><a href="#">Akt with others</a></li>
+              <li><router-link v-bind:to="{ name: 'search' }">Search</router-link></li>
               &nbsp;|&nbsp;
               <li id="logout"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
             </ul>
@@ -208,7 +204,7 @@ main nav#site-nav ul {
   align-items: stretch;
   /* justify-content: space-evenly;
   text-align: center;*/
-  background-color: #e5e5e5ff;
+  background-color: white;
   padding-block: .5em;
 }
 
@@ -220,22 +216,14 @@ aside {
   padding-right: 2em;
 }
 
-nav#site-nav li {
+nav#site-nav ul li {
   list-style-type: none;
   display: inline;
   justify-content: space-evenly;
   text-align: center;
-
+  color: #023047ff;
 }
-/* 
-nav#site-nav li a {
-  list-style-type: none;
-  color: #ffb703ff;
-  padding: 20px;
-  text-decoration: none;
-  font-weight: bold;
-  
-} */
+
 /* nav#site-nav li#logout {
   list-style-type: none;
   color: #ffb703ff;
