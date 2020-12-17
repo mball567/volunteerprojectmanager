@@ -1,78 +1,50 @@
 <template>
-  <div id="create-project">
-    <h1>Create Project</h1>
-      <form class="form-createproject" @submit.prevent="createProject">
-      <label id="projName" for="projName" class="sr-only">Project Name: </label>
-      <input
-        type="text"
-        id="projName"
-        class="form-control"
-        placeholder="Project Name"
-        v-model="project.ProjName"
-        required
-        autofocus
-      /> <br/>
+  <div id="create-project" class="container">
+    <div id="createForm">
+      <h1>Create Project</h1>
+        <form class="form-createproject" @submit.prevent="createProject">
+        <!-- <label id="projName" for="projName" class="sr-only">Project Name: </label> -->
+        <input type="text" id="projName" class="form-control" placeholder="Project Name" v-model="project.ProjName" required autofocus /> <br/>
 
-      <label>Drag and drop your Project image here:</label>
-      <drop-zone id="dropzone"/>
+        <!-- <label>Drag and drop your Project image here:</label> -->
+        <drop-zone id="dropzone"/>
 
-      <div class="projectDescription">
-      <label for="projDesc" class="sr-only">Project Description: </label> <br/>
-      <textarea
-        type="text"
-        id="projDesc"
-        class="form-control"
-        rows="8" 
-        cols="40"
-        placeholder="How will this project akt?"
-        v-model="project.ProjDesc"
-        required
-      />
-      </div>
+        <!-- <div class="projectDescription"> -->
+        <!-- <label for="projDesc" class="sr-only">Project Description: </label> <br/> -->
+        <textarea type="text" id="projDesc" class="form-control" rows="8" cols="40" placeholder="Project Description" v-model="project.ProjDesc" required/>
+        <!-- </div> -->
+      
+        <!-- <label for="projHours">Estimated hours for project completion: </label> -->
+        <input id="projHours" type="number" placeholder="Estimated Hours To Complete Project" v-model="project.projWorkingHours" required />
+      
+      
+        <!-- <label for="projCity">City: </label> -->
+        <input id="projCity" type="text" placeholder="City" v-model="project.ProjCity" required />
       
 
-      <label for="projHours">Estimated hours for project completion: </label>
-      <input id="projHours" type="number" placeholder="Hours To Complete" v-model="project.projWorkingHours" required />
-      <br />
+        <!-- <label for="projState">State: </label> -->
+        <input id="projState" type="text" placeholder="State" v-model="project.ProjState" required />
       
-      <label for="projCity">City: </label>
-      <input id="projCity" type="text" placeholder="City" v-model="project.ProjCity" required />
-      <br />
 
-      <label for="projState">State: </label>
-      <input id="projState" type="text" placeholder="State" v-model="project.ProjState" required />
-      <br />
+        <!-- <label for="projZip" class="sr-only">Zip Code: </label> -->
+        <input type="text" id="projZip" class="form-control" placeholder="Zip Code" v-model="project.ProjZip" required />
+      
 
-      <label for="projZip" class="sr-only">Zip Code: </label>
-      <input
-        type="text"
-        id="projZip"
-        class="form-control"
-        placeholder="Zip Code"
-        v-model="project.ProjZip"
-        required
-      />
-      <br />
+        <!-- <label for="e-mail">Lead Contact E-Mail: </label> -->
+        <input id="e-mail" type="email" placeholder="Lead Contact E-Mail Address" v-model="project.ProjContactEmail" required /> 
 
-      <label for="e-mail">Lead Contact E-Mail: </label>
-      <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="project.ProjContactEmail" required /> <br />
-
-      <div id="causeList"> 
-      <p id="causeSelect">Select which causes apply to this project:</p>
-      <tr v-for="cause in causes" v-bind:key="cause.causeId">
-        <td>
-          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="project.ProjCauses">
-        </td>
-        <td>
+        <p id="causeSelect">Select which causes apply to this project:</p>
+        <div id="causeList">         
+        <div class="cause" v-for="cause in causes" v-bind:key="cause.causeId">        
+          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="project.ProjCauses"/>
           {{cause.causeName}}
-        </td>
-      </tr>
-      </div>
-
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Project
-      </button>
-    </form>
+        </div>
+        </div>
+        <div id="buttonDiv">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Create Project</button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -129,10 +101,34 @@ export default {
 
 <style scoped>
 
+div#create-project.container{
+  display: grid;
+  grid-template-columns: 375px 1fr 375px;
+  grid-template-areas: 
+  ". form .";
+}
+
+@media screen and (max-width: 1024px){
+div#create-project.container{
+  grid-template-columns: 200px 1fr 200px;
+}
+}
+
+@media screen and (max-width: 768px){
+div#create-project.container{
+  grid-template-columns: 100px 1fr 100px;
+}
+}
+
+div#createForm{
+  grid-area: form;
+}
+
 div#create-project h1{
   color: white;
   margin-block: 0.5em;
   padding-left: 0.75em;
+  text-align: center;
 }
 
 div#create-project{
@@ -140,33 +136,70 @@ div#create-project{
   text-align: left;
 }
 
-form{
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
+
+input{
+  width: 100%;
+  height: 40px;
+  border-radius: 4px; 
+  background-color: #fff; 
+  box-shadow: 1px 2px 5px rgba(0,0,0,.5); 
+  border: solid 1px #cbc9c9;
+  margin-top: 0.75em; 
 }
 
-form label {
+input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+}
+
+div#causeList{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  
+}
+
+div.cause{
+  width: 225px;
+}
+
+input,
+textarea,
+select {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #4c4c4c;
+}
+
+/* form label {
   color: white;
   padding-left: 1.4em;
   padding-right: 0.5em;
-}
+} */
 
-form input#projName {
+/* form input#projName {
   margin-top: 2.25em;
-}
+} */
 
 #dropzone{
-  margin-left: 1.5em;
-  margin-block: 0.5em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #4c4c4c;
+    width: 100%;
+    margin-top: 0.75em;
+    border-radius: 4px;
 }
+
+
 
 textarea#projDesc{
-  margin-bottom: 0.5em;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 0.75em;
+  margin-bottom: 0em;
 }
 
-form input#e-mail {
+/* form input#e-mail {
   margin-bottom: 1.25em;
 }
 
@@ -185,26 +218,37 @@ form textarea{
 
 .projectDescription * {
   vertical-align: top;
-}
+} */
 
-div#user-profile form #router-link{
+/* div#user-profile form #router-link{
   color: white;
   padding-left: 1.4em;
   padding-top: 5em;
-}
+} */
 
 div#create-project form button {
   margin-top: 1.5em;
   padding: 0.5em;
-  margin-left: 1.5em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#buttonDiv{
+  width: 100%;
+  text-align: center;
 }
 
 p#causeSelect{
+  font-size: 1.5em;
   padding-left: 0.2em;
+  font-weight: bold;
+  width: 100%;
 }
 
 form div#causeList {
   color: white;
   padding-left: 1.25em;
+  
 }
 </style>
