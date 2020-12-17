@@ -185,11 +185,11 @@ export default {
     "aside causes causes";
 }
 
-body {
+/* body {
   background-color: #023047ff;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-}
+} */
 
 main div#bioArea {
   grid-area: bio;

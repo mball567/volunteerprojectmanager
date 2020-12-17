@@ -38,7 +38,7 @@ export default {
                 acceptedFiles: ".jpg, .jpeg, .png, .gif",
                 uploadMultiple: false,
                 addRemoveLinks: true,
-                dictDefaultMessage: 'Drop files here to upload. </br> Alternatively, click to select a file for upload.',                
+                dictDefaultMessage: 'Drop files here to upload, </br> or click here to select a file. </br> Max File Size: 2.0 MB',                
             },      
         }
     },
@@ -71,3 +71,10 @@ export default {
     }
 }
 </script>
+
+<style>
+    #dropzone{
+        text-align: center;
+        background-color: #fff; 
+    }
+</style>

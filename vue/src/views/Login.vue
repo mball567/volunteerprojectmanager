@@ -24,6 +24,23 @@
       <p id="aktDef">To work together for a common cause and complete transformational projects by</p>
       <p id="aktMission"> acting kindly together</p>
     </div>
+
+    <div id="loginTable">
+      <tr>
+        <td>Username: </td>
+        <td><input type="text" id="username" class="form-control" placeholder="Username" v-model="user.username" required autofocus/></td>
+      </tr>
+      <tr>
+        <td>Password: </td>
+        <td><input type="password" id="password" class="form-control" placeholder="Password" v-model="user.password" required /></td>
+      </tr>
+      <tr>
+        <td>Need an Account</td>
+        <td>Login</td>
+      </tr>
+    </div>
+
+
   </div>
 </template>
 
@@ -80,9 +97,24 @@ div#login{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-areas: 
-  "aside imageOne akt ."
+  "aside imageOne akt login"
   ". . . .";
   height: 100vh;
+}
+
+div#loginTable{
+  grid-area: login;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div#loginTable input#username{
+  width: 100%;
+}
+
+div#loginTable input#password{
+  width: 100%;
 }
 
 div#aside{
