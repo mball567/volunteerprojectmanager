@@ -12,7 +12,7 @@ namespace Capstone.DAO
         bool EventSignUp(int eventId, int userId);
 
         Event getEvent(int eventId);
-
+        List<Profile> getEventProfiles(int eventId);
         Project getProject(int projId);
 
         List<Project> getProjectByUserId(int userId);

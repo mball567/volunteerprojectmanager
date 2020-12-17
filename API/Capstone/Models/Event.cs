@@ -21,5 +21,6 @@ namespace Capstone.Models
         public int EventWorkingHours { get; set; }
         public string EventContactEmail { get; set; }
         public string isOrg { get; set; }
+        public List<Profile> EventProfiles { get; set; }
     }
 }

@@ -37,6 +37,15 @@
             </div>
           </div>
 
+          <div id="eventProfiles">
+            <ul>
+              <h2>People Attending This Event:</h2>
+              <li v-for="profile in event.eventProfiles" v-bind:key="profile.userId" v-on:click="$router.push({path:`/profiles/${profile.userId}`})">{{profile.firstName}} {{profile.lastName}}</li>
+            </ul>
+          </div>
+
+          <button v-on:click="eventSignUp">Sign Up</button>
+
         </main>
       </div>
     </body>
@@ -50,6 +59,9 @@ export default {
     data () {
         return {
             event: {
+                userId: 0,
+                projId: 0,
+                eventId: 0,
                 eventName: "",
                 eventDesc: "",
                 eventZip: 0,
@@ -61,6 +73,7 @@ export default {
                 eventWorkingHours: 0,
                 eventContactEmail: "",
                 isOrg: false,
+                eventProfiles : [],
             },
         }
     },
@@ -69,11 +82,16 @@ export default {
             WebService.getEvent(eventId)
             .then( (response) => {
                 this.event = response.data;
+                this.event.userId = this.$store.state.user.userId;
             });
         },
+        eventSignUp(){
+          WebService.eventSignUp(this.event);
+          this.$router.push({path:`/projects/${this.event.projId}`})
+        }
     },
     created() {
-        let eventId = this.$route.params.projId;
+        let eventId = this.$route.params.eventId;
         this.getEvent(eventId);
     },
 }

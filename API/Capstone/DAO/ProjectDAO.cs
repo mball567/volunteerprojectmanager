@@ -345,6 +345,8 @@ namespace Capstone.DAO
                     {
                         Project proj = new Project();
 
+                        myEvent.EventId = Convert.ToInt32(rdr["event_id"]);
+                        myEvent.ProjId = Convert.ToInt32(rdr["proj_id"]);
                         myEvent.EventName = Convert.ToString(rdr["event_name"]);
                         myEvent.EventDesc = Convert.ToString(rdr["event_desc"]);
                         myEvent.EventZip = Convert.ToInt32(rdr["event_zipcode"]);
@@ -356,6 +358,7 @@ namespace Capstone.DAO
                         myEvent.EventEndTime = Convert.ToString(rdr["event_endtime"]);
                         myEvent.EventDate = Convert.ToString(rdr["event_date"]);
                     }
+                    myEvent.EventProfiles = getEventProfiles(myEvent.EventId);
 
                     return myEvent;
                 }
@@ -402,6 +405,46 @@ namespace Capstone.DAO
                     }
 
                     return events;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public List<Profile> getEventProfiles(int eventId)
+        {
+            string sql = @"Select * from profiles
+                           Join users on users.user_id = profiles.user_id
+                           Join events_users on events_users.user_id = users.user_id
+                           Where events_users.event_id = @eventId";
+
+            List<Profile> profiles = new List<Profile>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@eventId", eventId);
+
+                    SqlDataReader rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        Profile profile = new Profile();
+
+                        profile.UserId = Convert.ToInt32(rdr["user_id"]);
+                        profile.FirstName = Convert.ToString(rdr["first_name"]);
+                        profile.LastName = Convert.ToString(rdr["last_name"]);
+
+                        profiles.Add(profile);
+                    }
+
+                    return profiles;
                 }
             }
             catch (SqlException ex)

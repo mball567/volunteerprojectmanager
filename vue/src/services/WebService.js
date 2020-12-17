@@ -66,4 +66,9 @@ export default {
 
         return http.get(url);
     },
+    eventSignUp(event){
+        let url = '/projects/events'
+
+        return http.post(url, event);
+    },
 }

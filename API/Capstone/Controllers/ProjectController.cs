@@ -61,6 +61,19 @@ namespace Capstone.Controllers
             return Created($"/projects/{myEvent.ProjId}/events", myEvent);
         }
 
+        [HttpPost("events")]
+        public ActionResult<Event> SignUpForEvent(Event myEvent)
+        {
+            projectDAO.EventSignUp(myEvent.EventId, myEvent.UserId);
+
+            if (myEvent == null)
+            {
+                return NotFound();
+            }
+
+            return Created($"/events", myEvent);
+        }
+
         [HttpGet("events/{eventId}")]
         public ActionResult<Event> GetEvent(int eventId)
         {

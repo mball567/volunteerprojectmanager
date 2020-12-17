@@ -38,7 +38,7 @@
           <div id="events">
             <ul>
               <h2>Events</h2>
-              <li v-for="event in project.projEvents" v-bind:key="event.eventId">{{event.eventName}}</li>
+              <li v-for="event in project.projEvents" v-bind:key="event.eventId" v-on:click="$router.push({path:`/projects/${project.projId}/events/${event.eventId}`})">{{event.eventName}}</li>
             </ul>
           </div>
 
@@ -57,6 +57,7 @@ export default {
       project: {
                 userId: 0,
                 profId: 0,
+                projId: 0,
                 projName: "",
                 projDesc: "",
                 projImage: "",
