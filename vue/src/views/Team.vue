@@ -1,17 +1,15 @@
 <template>
   <div class="container">
     <body>
-      <div id="team-view">
+      <div>
         <main id="main-grid">
           <nav id="site-nav">
-            <ul>
-              <li><a href="#">My Profile</a></li>
+              <ul>
+              <li><router-link v-bind:to="{ name: 'createproject' }">Create A Project</router-link></li>
               &nbsp;|&nbsp;
-              <li><a href="#">Team Projects</a></li>
+              <li><router-link v-bind:to="{ name: 'search' }">Search</router-link></li>
               &nbsp;|&nbsp;
-              <li><a href="#">Akt with others</a></li>
-              &nbsp;|&nbsp;
-              <li><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+              <li id="logout"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>     
             </ul>
           </nav>
 
@@ -25,7 +23,10 @@
             </p>
           </aside>
 
+          <div id="bioArea">
+          <h2>Team Description:</h2>
           <p id="bio">{{ team.teamBio }}</p>
+          </div>
 
           <div id="causes">
             <ul>
@@ -72,7 +73,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* color
 --light-cornflower-blue: #8ecae6ff;
 --blue-green: #219ebcff;
@@ -92,15 +93,16 @@ export default {
     "aside causes causes";
 }
 
-body {
+/* body {
   background-color: #023047ff;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-}
+} */
 
-main p#bio {
+main div#bioArea {
   grid-area: bio;
   color: white;
+
 }
 
 main nav#site-nav {
@@ -112,13 +114,23 @@ main nav#site-nav {
 main nav#site-nav ul {
   display: flex;
   align-items: stretch;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 aside {
   color: white;
   grid-area: aside;
   height: 100vh;
+  padding-left: 1em;
+  padding-right: 2em;
+}
+
+
+nav#site-nav{
+  list-style-type: none;
+  display: inline;
+  background: white;
+  margin-bottom: 65px;
 }
 
 nav#site-nav li {
@@ -129,7 +141,6 @@ nav#site-nav li {
 nav#site-nav li a {
   list-style-type: none;
   color: #023047ff;
-  padding: 20px;
   text-decoration: none;
   font-weight: bold;
 }
@@ -144,4 +155,14 @@ img#userImage {
   height: 200px;
 }
 
+div#causes {
+  grid-area: causes;
+  color: white;
+}
+
+div#causes ul {
+  color: white;
+  list-style-type: none;
+  padding: 0;
+}
 </style>

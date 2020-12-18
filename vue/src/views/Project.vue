@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <body>
-      <div id="project-view">
+      <div>
         <main id="main-grid">
           <nav id="site-nav">
             <ul>
-              <li><a href="#">My Profile</a></li>
+              <li><router-link v-bind:to="{ name: 'createproject' }">Create A Project</router-link></li>
               &nbsp;|&nbsp;
-              <li><a href="#">Akt with others</a></li>
+              <li><router-link v-bind:to="{ name: 'search' }">Search</router-link></li>
               &nbsp;|&nbsp;
-              <li><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
-            </ul>
+              <li id="logout"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+              </ul>
           </nav>
 
           <aside>
@@ -21,23 +21,30 @@
               Currently akting in: {{ project.projCity }},
               {{ project.projState }}
             </p>
+            <div id="button">
+            <button v-on:click="createEventForProject">Create An Event</button>
+            </div>
           </aside>
 
-            <p id="bio">{{ project.projDesc }}</p>
+          <div id="bioArea">
+          <h2>Team Description:</h2>
+          <p id="bio">{{ project.projDesc }}</p>
+          </div>
 
-          <button v-on:click="createEventForProject">Create An Event</button>
+
+
 
           
           <div id="causes">
             <ul>
-              <h2>Causes</h2>
+              <h2>Causes:</h2>
               <li v-for="causeName in project.projCauseNames" v-bind:key="causeName">{{causeName}}</li>
             </ul>
           </div>
 
           <div id="events">
             <ul>
-              <h2>Events</h2>
+              <h2>Events:</h2>
               <li v-for="event in project.projEvents" v-bind:key="event.eventId" v-on:click="$router.push({path:`/projects/${project.projId}/events/${event.eventId}`})">{{event.eventName}}</li>
             </ul>
           </div>
@@ -90,7 +97,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* color
 --light-cornflower-blue: #8ecae6ff;
 --blue-green: #219ebcff;
@@ -106,19 +113,20 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
     "nav nav nav"
-    "aside bio bio"
-    "aside causes causes";
+    "aside bio causes"
+    "aside events .";
 }
 
-body {
+/* body {
   background-color: #023047ff;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-}
+} */
 
-main p#bio {
+main div#bioArea {
   grid-area: bio;
   color: white;
+
 }
 
 main nav#site-nav {
@@ -130,13 +138,23 @@ main nav#site-nav {
 main nav#site-nav ul {
   display: flex;
   align-items: stretch;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 aside {
   color: white;
   grid-area: aside;
   height: 100vh;
+  padding-left: 1em;
+  padding-right: 2em;
+}
+
+
+nav#site-nav{
+  list-style-type: none;
+  display: inline;
+  background: white;
+  margin-bottom: 65px;
 }
 
 nav#site-nav li {
@@ -147,9 +165,9 @@ nav#site-nav li {
 nav#site-nav li a {
   list-style-type: none;
   color: #023047ff;
-  padding: 20px;
   text-decoration: none;
   font-weight: bold;
+  
 }
 
 nav#site-nav li a:hover {
@@ -160,5 +178,38 @@ img#userImage {
   border-radius: 50%;
   width: 200px;
   height: 200px;
+}
+
+div#causes {
+  grid-area: causes;
+  color: white;
+}
+
+div#causes ul {
+  color: white;
+  list-style-type: none;
+  padding: 0;
+}
+
+div#events {
+  grid-area: events;
+  color: white;
+}
+
+div#events ul {
+  color: white;
+  list-style-type: none;
+  padding: 0;
+}
+div#button button{
+  font-size: 16px;
+  width: 50%;
+}
+
+div#events ul li:hover {
+color: #ffb703ff;
+cursor: pointer;
+font-weight: bold;
+text-decoration: underline;
 }
 </style>

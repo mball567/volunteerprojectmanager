@@ -117,7 +117,7 @@ export default {
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
-                path: "/profiles/my",
+                path: `/projects/${this.event.projId}`,
               });
             }
           })

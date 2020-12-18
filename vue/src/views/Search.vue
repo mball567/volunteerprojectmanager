@@ -1,5 +1,17 @@
 <template>
-  <div id="searchPage">
+  <div id="searchPage" class="container">
+    <main id="main-grid">
+          <nav id="site-nav">
+            <ul>
+              <li><router-link v-bind:to="{ name: 'createproject' }">Create A Project</router-link></li>
+              &nbsp;|&nbsp;
+              <li><router-link v-bind:to="{ name: 'search' }">Search</router-link></li>
+              &nbsp;|&nbsp;
+              <li id="logout"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+              </ul>
+          </nav>
+
+      <div id="search">
       <h1>Search</h1>
 
       <p>Select the following item(s) you would like to search for:</p>
@@ -67,6 +79,8 @@
       <h1 v-if="searchResult.projects.length > 0">Projects</h1>
       <p class="link" v-for="proj in searchResult.projects" v-bind:key="proj.projId" v-on:click="$router.push({path:`/projects/${proj.projId}`})">{{proj.projName}}</p>
     </div>
+    </div>
+    </main>
   </div>
 </template>
 
@@ -104,7 +118,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "nav nav nav"
+    ". search .";
+}
+
 #searchPage {
   color: white;
 }
@@ -113,5 +135,45 @@ color: #ffb703ff;
 cursor: pointer;
 font-weight: bold;
 text-decoration: underline;
+}
+
+main nav#site-nav {
+  grid-area: nav;
+  width: 100%;
+  text-align: right;
+  background: white;
+}
+
+main nav#site-nav ul {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+
+nav#site-nav{
+  list-style-type: none;
+  display: inline;
+  background: white;
+  margin-bottom: 65px;
+}
+
+nav#site-nav li {
+  list-style-type: none;
+  display: inline;
+}
+
+nav#site-nav li a {
+  list-style-type: none;
+  color: #023047ff;
+  text-decoration: none;
+  font-weight: bold; 
+}
+
+nav#site-nav li a:hover {
+  color: #219ebcff;
+}
+
+div#search{
+  grid-area: search;
 }
 </style>

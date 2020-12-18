@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <h1 v-on:click="$router.push({name: 'home'})">akt</h1>
+      <h1 v-on:click="$router.push({path: '/profiles/my'})">akt</h1>
     </header>
     
     <router-view />

@@ -161,7 +161,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* color
 --light-cornflower-blue: #8ecae6ff;
 --blue-green: #219ebcff;
@@ -202,10 +202,7 @@ main nav#site-nav {
 main nav#site-nav ul {
   display: flex;
   align-items: stretch;
-  /* justify-content: space-evenly;
-  text-align: center;*/
-  background-color: white;
-  padding-block: .5em;
+  justify-content: space-evenly;
 }
 
 aside {
@@ -216,23 +213,25 @@ aside {
   padding-right: 2em;
 }
 
-nav#site-nav ul li {
+
+nav#site-nav{
   list-style-type: none;
   display: inline;
-  justify-content: space-evenly;
-  text-align: center;
-  color: #023047ff;
+  background: white;
+  margin-bottom: 65px;
 }
 
-/* nav#site-nav li#logout {
+nav#site-nav li {
   list-style-type: none;
-  color: #ffb703ff;
-  padding: 20px;
+  display: inline;
+}
+
+nav#site-nav li a {
+  list-style-type: none;
+  color: #023047ff;
   text-decoration: none;
   font-weight: bold;
-  
-} */
-
+}
 
 nav#site-nav li a:hover {
   color: #219ebcff;
