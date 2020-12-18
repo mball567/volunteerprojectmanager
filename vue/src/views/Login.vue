@@ -18,29 +18,33 @@
       <img src="https://images.unsplash.com/photo-1560252811-2ab1e44ce202?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80" alt="Volunteers akting together">
     </div>
 
+    <div id="imageTwo"><img src="https://images.unsplash.com/photo-1603855795444-174913c12916?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=2000&q=80" alt="Volunteers also akting together"></div>
+
+    <div id="imageThree">
+      <img src="https://images.unsplash.com/photo-1607227063002-677dc5fdf96f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1934&q=80" alt="Volunteers also akting together also">
+    </div>
+
+    <div id="imageFour">
+      <img src="https://images.unsplash.com/photo-1589138348980-f4efa5ff18dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80" alt="Also volunteers also akting together too">
+    </div>
+
     <div id="aktDescription">
       <p id="aktName">akt /akt/</p>
       <p id="aktVerb">verb</p>
-      <p id="aktDef">To work together for a common cause and complete transformational projects by</p>
-      <p id="aktMission"> acting kindly together</p>
+      <p id="aktDef">To work together for a common cause and complete transformational projects by <b>acting kindly together</b></p>
     </div>
 
-    <div id="loginTable">
-      <tr>
-        <td>Username: </td>
-        <td><input type="text" id="username" class="form-control" placeholder="Username" v-model="user.username" required autofocus/></td>
-      </tr>
-      <tr>
-        <td>Password: </td>
-        <td><input type="password" id="password" class="form-control" placeholder="Password" v-model="user.password" required /></td>
-      </tr>
-      <tr>
-        <td>Need an Account</td>
-        <td>Login</td>
-      </tr>
+    <div id="aktMissionStatementOne">
+      <p> We're on a mission to mobilize the world's talent for good.</p>
+      <p>Akt is an online platform that matches professionals who want to donate their time with nonprofits who need their skills.</p>
     </div>
 
+    <div id="aktMissionStatementTwo">
+      <p>Search for ongoing <b>projects</b> or one-off <b>events</b>. Or join up with other like-minded individuals to form a <b>team</b>.</p>
+      <p>From walking rescue dogs to teaching girls to code, our mission-driven <b>organizations</b> have collectively worked with hundreds of Akt volunteers.</p>
+    </div>
 
+    
   </div>
 </template>
 
@@ -93,28 +97,14 @@ export default {
 div#login{
   color: white;
 }
+
 .container{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-areas: 
-  "aside imageOne akt login"
-  ". . . .";
+  "aside imageOne akt imageTwo"
+  "imageThree missionOne imageFour missionTwo";
   height: 100vh;
-}
-
-div#loginTable{
-  grid-area: login;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-div#loginTable input#username{
-  width: 100%;
-}
-
-div#loginTable input#password{
-  width: 100%;
 }
 
 div#aside{
@@ -131,7 +121,6 @@ div#aside h1{
 }
 
 label#forUsername{
-  
   margin-right: 0.25em;
   padding-left: 1.3em;
 }
@@ -168,42 +157,78 @@ button#signIn{
   padding-right: 0.5em;
 }
 
-div#imageOne{
+div#imageOne img{
   grid-area: imageOne;
+  border-radius: 8px;
+  width: 100%;
+  height: 400px;
+}
+
+div#imageTwo img{
+  grid-area: imageTwo;
+  border-radius: 8px;
+  width: 100%;
+  height: 400px;
+}
+
+div#imageThree img{
+  grid-area: imageThree;
+  border-radius: 8px;
+  width: 100%;
+  height: 400px;
+  
+}
+
+div#imageFour img{
+  grid-area: imageFour;
+  border-radius: 8px;
+  width: 100%;
+  height: 400px;
 }
 
 div#aktDescription{
   grid-area: akt;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
 }
 
 p#aktName{
   font-size: 2em;
   font-weight: bold;
   margin-top: 0em;
-  margin-left: 0.25em;
+  margin-left: 0.5em;
   margin-bottom: 0.25em;
 }
 
 p#aktVerb{
   font-size: 1.5em;
   font-style: italic;
-  margin-left: 0.25em;
+  margin-left: 0.6em;
   margin-block: 0.25em;
 }
 
 p#aktDef{
   font-size: 1.25em;
-  margin-left: 0.5em;
+  margin-left: 0.8em;
+  margin-right: 0.5em;
   margin-bottom: 0em;
-  
 }
 
-p#aktMission{
+div#aktMissionStatementOne{
+  grid-area: missionOne;
   font-size: 1.25em;
-  font-style: italic;
-  font-weight: bold;
-  margin-left: 0.5em;
-  margin-top: 0.125em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+div#aktMissionStatementTwo{
+  grid-area: missionTwo;
+  font-size: 1.25em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 </style>
