@@ -1,69 +1,51 @@
 <template>
-  <div id="org-profile">
-    <form class="form-register" @submit.prevent="register">
-      <div class="alert alert-danger" role="alert" v-if="registrationErrors">
-        {{ registrationErrorMsg }}
-      </div>
-      <label id="username" for="username" class="sr-only">Username: </label>
-      <input type="text" id="username" class="form-control" placeholder="Username" v-model="user.username" required autofocus/>
-      <br />
-      <label for="password" class="sr-only">Password: </label>
-      <input type="password" id="password" class="form-control" placeholder="Password" v-model="user.password" required /><br />
-      <label for="confirmPassword" class="sr-only">Confirm Password: </label>
-      <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" v-model="user.confirmPassword" required/>
-      <br />
-      <label for="OrgName">Organization Name: </label>
-      <input id="OrgName" type="text" placeholder="Organization" v-model="user.organization.OrgName" required />
-      <br />
-
-      <label>Drag or drop your Organization logo here</label>
-      <drop-zone id="dropzone"/>
-
-      <div class="orgBio">
-      <label for="OrgBio">Organization Bio: </label>
-      <textarea id="OrgBio" type="text" placeholder="Tell us why you're akting" rows="8" cols="40" v-model="user.organization.OrgBio" required /> <br />
-      </div>
-
-      <label for="OrgCity">City: </label>
-      <input id="OrgCity" type="text" placeholder="City" v-model="user.organization.OrgCity" required /> <br />
-
-      <label for="OrgState">State: </label>
-      <input id="OrgState" type="text" placeholder="State" v-model="user.organization.OrgState" required />
-      <br />
-
-      <label for="orgZipCode">ZIP Code: </label>
-      <input
-        type="text"
-        id="orgZipCode"
-        placeholder="00000"
-        pattern="[0-9]{5}"
-        title="Five digit zip code"
-        v-model="user.organization.OrgZip"
-        required
-      />
-      <br />
-
-      <label for="OrgContactEmail">E-Mail Address: </label>
-      <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="user.organization.OrgContactEmail" required /> <br />
-
-      <div id="causeList"> 
-      <p>Select all causes in which you are interested:</p>
-      <tr v-for="cause in causes" v-bind:key="cause.causeId">
-        <td>
-          <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="user.organization.OrgCauses">
-        </td>
-        <td>
-          {{cause.causeName}}
-        </td>
-      </tr>
-      </div>
+  <div id="create-org" class="container">
+    <div id="createForm">
+      <form class="form-register" @submit.prevent="register">
+        <div class="alert alert-danger" role="alert" v-if="registrationErrors">{{ registrationErrorMsg }}</div>
+          <!-- <label id="username" for="username" class="sr-only">Username: </label> -->
+          <input type="text" id="username" class="form-control" placeholder="Username" v-model="user.username" required autofocus/>
+          <!-- <label for="password" class="sr-only">Password: </label> -->
+          <input type="password" id="password" class="form-control" placeholder="Password" v-model="user.password" required />
+          <!-- <label for="confirmPassword" class="sr-only">Confirm Password: </label> -->
+          <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" v-model="user.confirmPassword" required/>
+          <!-- <label for="OrgName">Organization Name: </label> -->
+          <input id="OrgName" type="text" placeholder="Organization Name" v-model="user.organization.OrgName" required />
+          <!-- <label>Drag or drop your Organization logo here</label> -->
       
-      <router-link id="router-link" :to="{ name: 'login' }">Have an account?</router-link><br />
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Account
-      </button>
-    </form>
-  </div>
+          <drop-zone id="dropzone"/>
+      
+          <!-- <div class="orgBio"> -->
+          <!-- <label for="OrgBio">Organization Bio: </label> -->
+          <textarea id="OrgBio" type="text" placeholder="Tell us why your organization is akting" rows="8" cols="40" v-model="user.organization.OrgBio" required />
+          <!-- </div> -->
+          <!-- <label for="OrgCity">City: </label> -->
+          <input id="OrgCity" type="text" placeholder="City" v-model="user.organization.OrgCity" required />
+          <!-- <label for="OrgState">State: </label> -->
+          <input id="OrgState" type="text" placeholder="State" v-model="user.organization.OrgState" required />
+          <!-- <label for="orgZipCode">ZIP Code: </label> -->
+          <input type="text" id="orgZipCode" placeholder="Zip Code" pattern="[0-9]{5}" title="Five digit zip code" v-model="user.organization.OrgZip" required />
+          <!-- <label for="OrgContactEmail">E-Mail Address: </label> -->
+          <input id="e-mail" type="email" placeholder="E-Mail Address" v-model="user.organization.OrgContactEmail" required /> 
+      
+
+          <p id="causeSelect">Select all causes that apply to this Organization:</p>
+          <div id="causeList">         
+          <div class="cause" v-for="cause in causes" v-bind:key="cause.causeId">        
+            <input type="checkbox" v-bind:id="cause.causeId" v-bind:value="cause.causeId" v-model="user.organization.OrgCauses"/>
+              {{cause.causeName}}
+          </div>
+          </div>
+      
+         
+
+          <div id="buttonDiv">
+             <router-link id="haveAccount" :to="{ name: 'login' }">Have an account?</router-link><br/>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+          </div>
+        </form>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -141,66 +123,124 @@ export default {
 </script>
 
 <style scoped>
-div#org-profile{
+div#create-org.container{
+  display: grid;
+  grid-template-columns: 375px 1fr 375px;
+  grid-template-areas: 
+  ". form .";
+}
+
+@media screen and (max-width: 1024px){
+div#create-org.container{
+  grid-template-columns: 200px 1fr 200px;
+}
+}
+
+@media screen and (max-width: 768px){
+div#create-org.container{
+  grid-template-columns: 100px 1fr 100px;
+}
+}
+
+div#createForm{
+  grid-area: form;
+}
+
+div#create-project h1{
+  color: white;
+  margin-block: 0.5em;
+  padding-left: 0.75em;
+  text-align: center;
+}
+
+div#create-project{
   display: block;
   text-align: left;
 }
 
-form{
-  display: inline-block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
+input{
+  width: 100%;
+  height: 40px;
+  border-radius: 4px; 
+  background-color: #fff; 
+  box-shadow: 1px 2px 5px rgba(0,0,0,.5); 
+  border: solid 1px #cbc9c9;
+  margin-top: 0.75em; 
 }
 
-form label {
-  color: white;
-  padding-left: 1.4em;
-  padding-right: 0.5em;
+input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
 }
 
-form input#username {
-  margin-top: 2.25em;
+div#causeList{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-bottom: 1.5em;
+}
+
+div.cause{
+  width: 225px;
+}
+
+input,
+textarea,
+select{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #4c4c4c;
 }
 
 #dropzone{
-  margin-left: 1.5em;
-  margin-block: 0.5em;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #4c4c4c;
+  width: 100%;
+  margin-top: 0.75em;
+  border-radius: 4px;
 }
 
-form input#e-mail {
-  margin-bottom: 1.25em;
+textarea#OrgBio{
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 0.75em;
+  margin-bottom: 0em;
 }
 
-form input {
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
-  margin: 0.25em;
-}
-
-form textarea{
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
-  margin: 0.25em;
-}
-
-.orgBio * {
-  vertical-align: top;
-}
-
-div#org-profile form #router-link{
-  color: white;
-  padding-left: 1.4em;
-  padding-top: 0em;
-}
-
-div#org-profile form button {
-  margin-top: 1.75em;
+div#create-org form button {
+  margin-top: 1.5em;
   padding: 0.5em;
-  margin-left: 1.5em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#haveAccount{
+  color:#ffb703ff;
+  text-align: center;
+}
+
+#haveAccount:hover{
+  color: white;
+}
+
+#buttonDiv{
+  width: 100%;
+  text-align: center;
+}
+
+p#causeSelect{
+  font-size: 1.5em;
+  padding-left: 0.2em;
+  font-weight: bold;
+  width: 100%;
 }
 
 form div#causeList {
   color: white;
+  padding-left: 1.25em;
+  
 }
+
 </style>

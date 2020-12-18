@@ -38,8 +38,8 @@ export default {
                 acceptedFiles: ".jpg, .jpeg, .png, .gif",
                 uploadMultiple: false,
                 addRemoveLinks: true,
-                dictDefaultMessage: 'Drop files here to upload, </br> or click here to select a file. </br> Max File Size: 2.0 MB',                
-            },      
+                dictDefaultMessage: 'Drop image files here to upload a profile picture, </br> or click here to select your image file. </br> Max File Size: 2.0 MB',
+            },  
         }
     },
 

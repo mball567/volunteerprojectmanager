@@ -1,15 +1,10 @@
 <template>
   <div id="register" class="text-center">
     <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
+    <div id="isOrgButton">
     <label id="isOrg" for="isOrganization">Are you registering as an Organization?</label>
-    <input
-      type="checkbox"
-      id="isOrganization"
-      class="form-control"
-      placeholder="isOrganization"
-      v-model="checked"
-      autofocus
-    />
+    <input type="checkbox" id="isOrganization" class="form-control" placeholder="isOrganization" v-model="checked" autofocus />
+    </div>
     <br />
     <user-profile v-show="checked === false"/>
     <organization-profile v-show="checked === true"/>
@@ -80,6 +75,11 @@ div#register h1{
   color: white;
   margin-block: 0.5em;
   padding-left: 0.75em;
+  text-align: center;
+}
+
+div#isOrgButton{
+  text-align: center;
 }
 
 div#register label#isOrg {
